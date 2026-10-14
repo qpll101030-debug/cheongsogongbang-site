@@ -1,0 +1,16 @@
+[build]
+  command = "node build.mjs"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/_tpl.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/ba-preview.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"

@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>관리자 | 청소공방 아카데미</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1657c7;--blue-dk:#0f43a0;--blue-soft:#e8f0fd;--ink:#0b2447;--text:#24344d;--muted:#5d6b80;
+  --line:#dfe5ee;--bg:#f4f7fb;--paper:#fff;--mint:#14b09a;--mint-dk:#0b7f6f;--mint-soft:#e3f6f2;
+  --warn:#fff6d6;--warn-ink:#7a5a00;--red:#c73a3a;--red-soft:#fdeaea;
+  --display:"Noto Sans KR",system-ui,sans-serif;--body:"IBM Plex Sans KR",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 var(--body)}
+a{color:var(--blue)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--display);color:var(--ink);margin:0;letter-spacing:-.02em}
+[hidden]{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:9px;border:1px solid transparent;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:disabled{opacity:.55;cursor:default}
+.b-blue{background:var(--blue);color:#fff}.b-blue:hover{background:var(--blue-dk)}
+.b-line{background:#fff;border-color:var(--line);color:var(--ink)}.b-line:hover{border-color:var(--blue);color:var(--blue)}
+.b-mint{background:var(--mint);color:#fff}
+.b-red{background:#fff;border-color:#f0caca;color:var(--red)}.b-red:hover{background:var(--red-soft)}
+.b-sm{min-height:34px;padding:0 12px;font-size:13px}
+.inp,select.inp,textarea.inp{width:100%;background:#fff;border:1px solid #cdd6e3;border-radius:8px;padding:10px 12px;font-size:15px}
+.inp:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+textarea.inp{min-height:110px;resize:vertical}
+label.l{display:grid;gap:5px;font-weight:600;font-size:13.5px;color:var(--ink)}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--blue)}
+
+/* 로그인 */
+.login{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+.lbox{width:100%;max-width:400px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px 26px;display:grid;gap:16px;box-shadow:0 20px 50px rgba(11,36,71,.08)}
+.logo{display:flex;align-items:center;gap:10px}
+.logo i{width:38px;height:38px;border-radius:10px;background:var(--blue);display:grid;place-items:center;color:#fff;font-style:normal;font-weight:900;font-family:var(--display)}
+.logo b{font-family:var(--display);font-size:18px;color:var(--ink);line-height:1.2}
+.logo small{display:block;font-size:11px;letter-spacing:.14em;color:var(--mint-dk);font-weight:700}
+.note{font-size:13.5px;border-radius:9px;padding:11px 13px;background:var(--warn);color:var(--warn-ink)}
+.note.ok{background:var(--mint-soft);color:var(--mint-dk)}
+.note.err{background:var(--red-soft);color:var(--red)}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);font-size:13.5px;text-decoration:underline;cursor:pointer;justify-self:start}
+
+/* 앱 */
+.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.top .who{margin-left:auto;font-size:13px;color:var(--muted);max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs{max-width:1180px;margin:0 auto;padding:0 10px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{border:0;background:none;padding:12px 12px 11px;font-weight:600;font-size:14.5px;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;display:flex;gap:6px;align-items:center}
+.tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+.cnt{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--red);color:#fff;font-size:11.5px;display:inline-grid;place-items:center}
+.demo{background:var(--warn);color:var(--warn-ink);font-size:13px;text-align:center;padding:7px 12px}
+main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+.vh{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.vh h2{font-size:22px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 13px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chips small{opacity:.75;margin-left:3px}
+.search{flex:1;min-width:180px;max-width:300px}
+
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:4px;cursor:pointer;text-align:left}
+.stat:hover{border-color:var(--blue)}
+.stat span{font-size:13.5px;color:var(--muted);font-weight:600}
+.stat b{font-family:var(--display);font-size:32px;color:var(--ink);line-height:1.2}
+.stat.hot b{color:var(--red)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.two>*,.split>*,.box,.form{min-width:0}
+.mini li{min-width:0}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
+.box h3{font-size:16px;margin-bottom:10px}
+.mini{list-style:none;margin:0;padding:0}
+.mini li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.mini li:first-child{border-top:0}
+.mini li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini time{color:var(--muted);font-size:13px;white-space:nowrap}
+.empty{padding:36px 16px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #c8d2df;border-radius:12px}
+
+.list{display:grid;gap:12px}
+.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:10px}
+.item.new{border-left:4px solid var(--red)}
+.ih{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.ih b{font-size:17px;color:var(--ink)}
+.ih a.tel{font-weight:600;text-decoration:none}
+.ih time{margin-left:auto;color:var(--muted);font-size:13px}
+.st{font-size:12px;font-weight:700;border-radius:99px;padding:3px 9px;background:var(--bg);color:var(--muted)}
+.st.s-신규,.st.s-대기{background:var(--red-soft);color:var(--red)}
+.st.s-연락{background:var(--blue-soft);color:var(--blue)}
+.st.s-등록,.st.s-공개{background:var(--mint-soft);color:var(--mint-dk)}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px 18px;margin:0}
+.dl div{min-width:0}
+.dl dt{font-size:12px;color:var(--muted)}
+.dl dd{margin:0;font-weight:600;color:var(--ink);font-size:14px;overflow-wrap:anywhere}
+.memo{background:var(--bg);border-radius:9px;padding:10px 12px;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.acts .inp{flex:1;min-width:160px}
+.acts select.inp{flex:0 0 auto;width:auto}
+.stars{color:#f5b301;letter-spacing:2px}
+
+.split{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:18px;align-items:start}
+.form{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+.form h3{font-size:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.prow .t{min-width:0}
+.prow .t b{display:block;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow .t small{color:var(--muted)}
+.tag{font-size:12px;font-weight:700;border-radius:99px;padding:3px 9px;background:var(--blue-soft);color:var(--blue);white-space:nowrap}
+.tag.m{background:var(--mint-soft);color:var(--mint-dk)}
+.tag.g{background:var(--bg);color:var(--muted)}
+
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.gcard{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid}
+.gcard.off{opacity:.55}
+.gcard img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--bg)}
+.gb{padding:10px 12px;display:grid;gap:8px}
+.gb b{color:var(--ink);font-size:14.5px}
+.gb .tg{display:flex;flex-wrap:wrap;gap:4px}
+.gb .acts{gap:6px}
+.drop{display:block;border:2px dashed #b9c6d8;border-radius:12px;padding:18px;text-align:center;color:var(--muted);font-size:14px;background:var(--bg);cursor:pointer}
+.drop.on{border-color:var(--blue);background:var(--blue-soft)}
+.prev{display:flex;flex-wrap:wrap;gap:6px}
+.prev img{width:64px;height:48px;object-fit:cover;border-radius:6px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:calc(100% - 32px)}
+.toast.err{background:var(--red)}
+
+@media (max-width:860px){
+  .split,.two{grid-template-columns:1fr}
+  .cards3{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .stat{padding:12px}.stat b{font-size:24px}.stat span{font-size:12px}
+  .ih time{margin-left:0;width:100%}
+}
+@media (max-width:480px){.row2{grid-template-columns:1fr}.top .who{display:none}.top .logo b{font-size:15px;white-space:nowrap}.top .logo small{display:none}.top .logo i{width:32px;height:32px}.top-in{gap:8px}}
+</style>
+</head>
+<body>
+
+<!-- 로그인 -->
+<section class="login" id="vLogin" hidden>
+  <form class="lbox" id="loginForm" novalidate>
+    <div class="logo"><i>청</i><b>청소공방 관리자<small>ACADEMY ADMIN</small></b></div>
+    <div class="note" id="cfgNote" hidden>아직 데이터 연결 전입니다. <b>data.js</b>에 주소와 키를 넣으면 로그인할 수 있습니다.</div>
+    <label class="l">이메일<input class="inp" id="lEmail" type="email" autocomplete="username" required></label>
+    <label class="l">비밀번호<input class="inp" id="lPw" type="password" autocomplete="current-password" required></label>
+    <div class="note err" id="lErr" hidden></div>
+    <div class="note ok" id="lOk" hidden></div>
+    <button class="btn b-blue" type="submit" id="lBtn" style="min-height:48px">로그인</button>
+    <button class="linkbtn" type="button" id="forgot">비밀번호를 잊으셨나요?</button>
+    <button class="btn b-line" type="button" id="demoBtn" hidden>예시 데이터로 둘러보기</button>
+  </form>
+  <form class="lbox" id="pwForm" hidden novalidate>
+    <div class="logo"><i>청</i><b>새 비밀번호 설정<small>ACADEMY ADMIN</small></b></div>
+    <label class="l">새 비밀번호 (8자 이상)<input class="inp" id="nPw" type="password" autocomplete="new-password"></label>
+    <div class="note err" id="nErr" hidden></div>
+    <button class="btn b-blue" type="submit" style="min-height:48px">비밀번호 변경</button>
+  </form>
+</section>
+
+<!-- 관리자 앱 -->
+<div id="vApp" hidden>
+  <div class="demo" id="demoBar" hidden>예시 데이터로 보는 화면입니다. 여기서 바꾼 내용은 저장되지 않습니다.</div>
+  <header class="top">
+    <div class="top-in">
+      <div class="logo"><i>청</i><b>청소공방 관리자<small>ACADEMY ADMIN</small></b></div>
+      <span class="who" id="who"></span>
+      <a class="btn b-line b-sm" href="./" target="_blank" rel="noopener">홈페이지</a>
+      <button class="btn b-line b-sm" id="logout" type="button">로그아웃</button>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs">
+      <button role="tab" data-v="home" aria-selected="true">요약</button>
+      <button role="tab" data-v="inq">상담 신청 <span class="cnt" id="cInq" hidden></span></button>
+      <button role="tab" data-v="rev">수료 후기 <span class="cnt" id="cRev" hidden></span></button>
+      <button role="tab" data-v="post">공지·일정</button>
+      <button role="tab" data-v="case">사례 글</button>
+      <button role="tab" data-v="gal">현장 갤러리</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 요약 -->
+    <section data-view="home">
+      <div class="vh"><h2>오늘의 요약</h2><button class="btn b-line b-sm" type="button" data-refresh>새로고침</button></div>
+      <div class="cards3">
+        <button class="stat" type="button" data-go="inq" id="sInq"><span>새 상담 신청</span><b>0</b></button>
+        <button class="stat" type="button" data-go="rev" id="sRev"><span>승인 대기 후기</span><b>0</b></button>
+        <button class="stat" type="button" data-go="post" id="sPost"><span>다가오는 교육일정</span><b>0</b></button>
+      </div>
+      <div class="two">
+        <div class="box"><h3>최근 상담 신청</h3><ul class="mini" id="hInq"></ul></div>
+        <div class="box"><h3>다가오는 교육일정</h3><ul class="mini" id="hPost"></ul></div>
+      </div>
+    </section>
+
+    <!-- 상담 신청 -->
+    <section data-view="inq" hidden>
+      <div class="vh"><h2>상담 신청</h2>
+        <div class="acts"><button class="btn b-line b-sm" type="button" data-refresh>새로고침</button><button class="btn b-line b-sm" type="button" id="csv">엑셀로 내려받기</button></div></div>
+      <div class="bar"><div class="chips" id="inqF"></div><input class="inp search" id="inqQ" type="search" placeholder="이름·연락처 검색"></div>
+      <div class="list" id="inqList"></div>
+    </section>
+
+    <!-- 수료 후기 -->
+    <section data-view="rev" hidden>
+      <div class="vh"><h2>수료 후기</h2><button class="btn b-line b-sm" type="button" data-refresh>새로고침</button></div>
+      <div class="bar"><div class="chips" id="revF"></div></div>
+      <p style="margin:-4px 0 14px;font-size:13.5px;color:var(--muted)">공개하면 수료 후기 페이지와 메인에 바로 나옵니다. 이름은 성만(김○○), 연락처는 보이지 않습니다.</p>
+      <div class="list" id="revList"></div>
+    </section>
+
+    <!-- 공지·일정 -->
+    <section data-view="post" hidden>
+      <div class="vh"><h2>공지·일정</h2></div>
+      <div class="split">
+        <form class="form" id="postForm" novalidate>
+          <h3 id="pfTitle">새 글 쓰기</h3>
+          <div class="row2">
+            <label class="l">분류<select class="inp" id="pCat"><option>교육일정</option><option>공지</option></select></label>
+            <label class="l">날짜<input class="inp" id="pDate" type="date"></label>
+          </div>
+          <label class="l">관련 과정<select class="inp" id="pCourse"></select></label>
+          <label class="l">제목<input class="inp" id="pTitle" maxlength="120" placeholder="예: [정기교육] 11월 분해세척 정기교육 개강 안내"></label>
+          <label class="l">내용<textarea class="inp" id="pBody" placeholder="교육 기간, 인원, 신청 방법 등"></textarea></label>
+          <div class="acts"><label class="chk"><input type="checkbox" id="pPin">맨 위에 고정</label><label class="chk"><input type="checkbox" id="pPub" checked>홈페이지에 공개</label></div>
+          <p style="margin:0;font-size:12.5px;color:var(--muted)">교육일정에 과정을 고르면 그 과정 상세페이지의 "다음 개강 일정"에도 나옵니다.</p>
+          <div class="acts"><button class="btn b-blue" type="submit" id="pSave" style="flex:1">저장</button><button class="btn b-line" type="button" id="pCancel" hidden>취소</button></div>
+        </form>
+        <div class="list" id="postList"></div>
+      </div>
+    </section>
+
+    <!-- 사례 글 -->
+    <section data-view="case" hidden>
+      <div class="vh"><h2>사례 글</h2><a class="btn b-line b-sm" href="cases/" target="_blank" rel="noopener">홈페이지에서 보기</a></div>
+      <div class="split" style="grid-template-columns:minmax(0,520px) minmax(0,1fr)">
+        <form class="form" id="caseForm" novalidate>
+          <h3 id="cfTitle">새 사례 쓰기</h3>
+          <div class="row2">
+            <label class="l">분류<select class="inp" id="cCat"><option>작업 사례</option><option>교육 사례</option></select></label>
+            <label class="l">대상 <small style="font-weight:400;color:var(--muted)">예: 가죽 소파 3인용</small><input class="inp" id="cTarget" maxlength="60"></label>
+          </div>
+          <label class="l">제목 <small style="font-weight:400;color:var(--muted)">검색에 가장 중요합니다. 제품·상태·결과를 넣어 주세요</small><input class="inp" id="cTitle" maxlength="100" placeholder="예: 구리 가죽 소파 오염 제거 사례 · 3인용 패브릭 얼룩 클리닝"></label>
+          <label class="l">한 줄 요약 <small style="font-weight:400;color:var(--muted)">검색결과 설명문으로 쓰입니다 (120자 안팎)</small><textarea class="inp" id="cSummary" maxlength="200" style="min-height:70px" placeholder="예: 오래 사용해 변색된 가죽 소파를 전체 클리닝하고 코팅까지 마무리한 사례입니다."></textarea></label>
+          <div class="row2">
+            <label class="l">태그 <small style="font-weight:400;color:var(--muted)">쉼표로 구분</small><input class="inp" id="cTags" placeholder="소파, 가죽, 구리"></label>
+            <label class="l">적용 작업 <small style="font-weight:400;color:var(--muted)">쉼표로 구분</small><input class="inp" id="cWorks" placeholder="클리닝, 코팅"></label>
+          </div>
+          <label class="l">손상·오염 상태 <small style="font-weight:400;color:var(--muted)">쉼표로 구분</small><input class="inp" id="cProblems" placeholder="변색, 오염, 눌림"></label>
+
+          <div class="row2">
+            <div class="l">작업 전 사진
+              <label class="drop" style="padding:12px"><input type="file" id="cBeforeF" accept="image/*" hidden><span id="cBeforeT">눌러서 선택</span></label>
+              <img id="cBeforeP" alt="" hidden style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px">
+            </div>
+            <div class="l">작업 후 사진
+              <label class="drop" style="padding:12px"><input type="file" id="cAfterF" accept="image/*" hidden><span id="cAfterT">눌러서 선택</span></label>
+              <img id="cAfterP" alt="" hidden style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px">
+            </div>
+          </div>
+          <p style="margin:-4px 0 0;font-size:12.5px;color:var(--muted)">전·후 사진을 둘 다 올리면 글에 <b>드래그 비교 슬라이더</b>가 자동으로 들어갑니다. 같은 각도로 찍은 사진일수록 잘 맞습니다.</p>
+
+          <label class="l">문제 상황<textarea class="inp" id="cProblem" placeholder="고객님이 어떤 상태로 맡기셨는지 적어 주세요. 빈 줄을 넣으면 문단이 나뉩니다."></textarea></label>
+          <label class="l">작업 순서 <small style="font-weight:400;color:var(--muted)">한 줄에 한 단계</small><textarea class="inp" id="cSteps" placeholder="전체 먼지 제거 및 상태 확인&#10;가죽 전용 클리너로 오염 제거&#10;보습·코팅 마감"></textarea></label>
+          <label class="l">작업 후 변화<textarea class="inp" id="cResult" placeholder="작업이 끝난 뒤 어떻게 달라졌는지 적어 주세요."></textarea></label>
+          <label class="l">관리 시 주의사항 <small style="font-weight:400;color:var(--muted)">선택</small><textarea class="inp" id="cCaution" style="min-height:80px"></textarea></label>
+          <label class="l">자주 묻는 질문 <small style="font-weight:400;color:var(--muted)">선택 · Q: 질문 / A: 답변 형식으로 쌍마다 두 줄씩</small><textarea class="inp" id="cFaq" placeholder="Q: 작업은 얼마나 걸리나요?&#10;A: 상태에 따라 다르며 보통 2~3시간입니다."></textarea></label>
+
+          <div class="l">추가 사진 <small style="font-weight:400;color:var(--muted)">선택 · 여러 장 가능</small>
+            <label class="drop" style="padding:12px"><input type="file" id="cExtraF" accept="image/*" multiple hidden>눌러서 선택</label>
+            <div class="prev" id="cExtraP" style="margin-top:6px"></div>
+          </div>
+          <label class="l">네이버 블로그 주소 <small style="font-weight:400;color:var(--muted)">선택</small><input class="inp" id="cBlog" type="url" placeholder="https://blog.naver.com/..."></label>
+          <label class="l">글 주소 이름 <small style="font-weight:400;color:var(--muted)">선택 · 영문 소문자·숫자·하이픈. 비워 두면 자동</small><input class="inp" id="cSlug" maxlength="60" placeholder="예: leather-sofa-cleaning-guri"></label>
+          <label class="chk"><input type="checkbox" id="cPub" checked>홈페이지에 공개</label>
+          <div class="note err" id="cErr" hidden></div>
+          <div class="acts"><button class="btn b-blue" type="submit" id="cSave" style="flex:1">저장</button><button class="btn b-line" type="button" id="cCancel" hidden>취소</button></div>
+        </form>
+        <div class="list" id="caseList"></div>
+      </div>
+    </section>
+
+    <!-- 현장 갤러리 -->
+    <section data-view="gal" hidden>
+      <div class="vh"><h2>현장 갤러리</h2></div>
+      <div class="split">
+        <form class="form" id="galForm" novalidate>
+          <h3 id="gfTitle">사진 올리기</h3>
+          <div id="gUpWrap">
+            <label class="drop" id="drop"><input type="file" id="gFile" accept="image/*" multiple hidden>사진을 끌어다 놓거나 <b style="color:var(--blue)">눌러서 선택</b><br><small>여러 장 한 번에 가능 · 자동으로 용량을 줄여 올립니다</small></label>
+            <div class="prev" id="gPrev" style="margin-top:8px"></div>
+          </div>
+          <img id="gEditImg" alt="" hidden style="width:100%;border-radius:10px;aspect-ratio:4/3;object-fit:cover">
+          <div class="row2">
+            <label class="l">분류<select class="inp" id="gCat"><option>교육</option><option>교육장</option><option>장비</option><option>현장</option><option>가구 케어</option></select></label>
+            <label class="chk" style="align-self:end;min-height:44px"><input type="checkbox" id="gMain">메인에도 표시</label>
+          </div>
+          <label class="l">제목<input class="inp" id="gTitle" maxlength="60" placeholder="예: 천장형 4way 분해 실습"></label>
+          <label class="l">작은 태그 <small style="font-weight:400;color:var(--muted)">쉼표로 구분, 2개 정도</small><input class="inp" id="gPills" placeholder="예: 분해·조립 실습, 1:1 맞춤 지도"></label>
+          <div class="note err" id="gErr" hidden></div>
+          <div class="acts"><button class="btn b-blue" type="submit" id="gSave" style="flex:1">올리기</button><button class="btn b-line" type="button" id="gCancel" hidden>취소</button></div>
+        </form>
+        <div>
+          <div class="bar"><div class="chips" id="galF"></div></div>
+          <div class="ggrid" id="galList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script>
+const COURSE_TITLES = ["에어컨 분해세척 정기교육", "에어컨 1:1 종합실무과정", "에어컨 수리 단과과정", "매트리스·소파 청소교육"];
+(function(){
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const C = window.SITE_CFG || {}, configured = !!(C.url && C.key) && !!window.supabase;
+const fmt = t => { const d = new Date(t); if (isNaN(d)) return ''; const p = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; };
+const today = () => { const d = new Date(), p = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+function toast(m, bad){ const t = $('#toast'); t.textContent = m; t.className = 'toast' + (bad?' err':''); t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => t.hidden = true, 2600); }
+
+/* ---------- 데이터 연결: Supabase / 예시 ---------- */
+let sb = null, api = null;
+const BUCKET = 'gallery';
+function sbApi(){
+  const chk = ({ data, error, count }) => { if (error) throw error; return count ?? data; };
+  return {
+    list: async (t, o = {}) => { let q = sb.from(t).select('*'); for (const [k,v] of Object.entries(o.eq||{})) q = q.eq(k, v); for (const [k,asc] of (o.order||[])) q = q.order(k, { ascending: asc }); if (o.limit) q = q.limit(o.limit); return chk(await q); },
+    count: async (t, eq = {}, gte) => { let q = sb.from(t).select('id', { count: 'exact', head: true }); for (const [k,v] of Object.entries(eq)) q = q.eq(k, v); if (gte) q = q.gte(gte[0], gte[1]); return chk(await q) || 0; },
+    insert: async (t, row) => chk(await sb.from(t).insert(row)),
+    update: async (t, id, patch) => chk(await sb.from(t).update(patch).eq('id', id)),
+    remove: async (t, id) => chk(await sb.from(t).delete().eq('id', id)),
+    upload: async blob => { const path = `${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`; const { error } = await sb.storage.from(BUCKET).upload(path, blob, { contentType: 'image/jpeg', cacheControl: '31536000' }); if (error) throw error; return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl; },
+    unlink: async url => { const m = String(url).split(`/storage/v1/object/public/${BUCKET}/`)[1]; if (m) await sb.storage.from(BUCKET).remove([decodeURIComponent(m)]); }
+  };
+}
+function memApi(){
+  const now = Date.now(), ago = h => new Date(now - h*3600e3).toISOString();
+  const D = {
+    inquiries: [
+      {id:4,created_at:ago(1),course:'에어컨 분해세척 정기교육',name:'김민수',phone:'010-1234-5678',region:'경기 남양주',job:'처음 시작',wish:'다음 달',memo:'직장 다니면서 주말 교육 가능한지 궁금합니다.',source:'상담 신청 페이지',status:'신규',note:null},
+      {id:3,created_at:ago(5),course:'에어컨 수리 단과과정',name:'이정호',phone:'010-2222-3333',region:'서울 노원',job:'청소업 경력',wish:'이번 달',memo:null,source:'에어컨 수리 단과과정',status:'신규',note:null},
+      {id:2,created_at:ago(30),course:'에어컨 1:1 종합실무과정',name:'박서연',phone:'010-4444-5555',region:null,job:'기타',wish:'미정',memo:'2:1로 친구와 같이 듣고 싶어요',source:'메인',status:'연락 완료',note:'11/3 방문 상담 예정'},
+      {id:1,created_at:ago(80),course:'매트리스·소파 청소교육',name:'최영훈',phone:'010-6666-7777',region:'경기 구리',job:'청소업 경력',wish:'미정',memo:null,source:'메인',status:'등록',note:'1:1 과정 등록'}
+    ],
+    reviews: [
+      {id:2,created_at:ago(3),course:'에어컨 분해세척 정기교육',name:'정우성',phone:'010-1111-2222',stars:5,body:'천장형까지 직접 분해해 보니 현장 나가서도 겁이 안 납니다. 수료 후에도 질문하면 바로 답해 주셔서 좋았습니다.',status:'대기'},
+      {id:1,created_at:ago(200),course:'에어컨 1:1 종합실무과정',name:'한지민',phone:'010-3333-4444',stars:5,body:'1:1이라 모르는 부분을 끝까지 다시 해 볼 수 있었어요. 수리까지 배워서 든든합니다.',status:'공개'}
+    ],
+    posts: [
+      {id:3,created_at:ago(2),cat:'교육일정',course:'에어컨 분해세척 정기교육',title:'[정기교육] 11월 에어컨 분해세척 정기교육 개강 안내',body:'· 교육 기간: 5일 (10:00 ~ 18:00)\n· 인원: 4인 1조',date:new Date(now+14*864e5).toISOString().slice(0,10),pin:true,published:true},
+      {id:2,created_at:ago(50),cat:'교육일정',course:'에어컨 1:1 종합실무과정',title:'[1:1 종합] 11월 개별교육 일정 상담 접수 중',body:'상담 후 원하시는 날짜로 일정을 잡아 드립니다.',date:new Date(now+7*864e5).toISOString().slice(0,10),pin:false,published:true},
+      {id:1,created_at:ago(300),cat:'공지',course:null,title:'[공지] 교육장 주차 안내',body:'주차 안내',date:today(),pin:false,published:false}
+    ],
+    gallery: [['교육','천장형 4way 분해 실습','img/g_ceiling.jpg',true],['교육장','실습 기종이 설치된 교육장','img/hall.jpg',true],['장비','고압세척기·블로워 세팅','img/g_equip.jpg',false],['현장','가정 현장 벽걸이 분해세척','img/f_home.jpg',true],['가구 케어','패브릭 소파 추출 세척','img/k_sofa.jpg',true],['현장','오염된 송풍팬 분해','img/g_fan.jpg',false]]
+      .map(([cat,title,src,on_main],i)=>({id:i+1,created_at:ago(400),cat,title,pills:['예시 태그'],src,sort:(i+1)*10,on_main,visible:true}))
+  };
+  D.cases = []; let seq = 100; const tbl = t => D[t];
+  return {
+    list: async (t, o = {}) => { let r = tbl(t).filter(x => Object.entries(o.eq||{}).every(([k,v]) => x[k]===v)); for (const [k,asc] of [...(o.order||[])].reverse()) r = [...r].sort((a,b) => (a[k]>b[k]?1:a[k]<b[k]?-1:0) * (asc?1:-1)); return JSON.parse(JSON.stringify(o.limit ? r.slice(0,o.limit) : r)); },
+    count: async (t, eq = {}, gte) => tbl(t).filter(x => Object.entries(eq).every(([k,v]) => x[k]===v) && (!gte || x[gte[0]] >= gte[1])).length,
+    insert: async (t, row) => { tbl(t).push({ id: ++seq, created_at: new Date().toISOString(), ...row }); },
+    update: async (t, id, p) => { Object.assign(tbl(t).find(x => x.id===id), p); },
+    remove: async (t, id) => { D[t] = tbl(t).filter(x => x.id!==id); },
+    upload: async blob => URL.createObjectURL(blob),
+    unlink: async () => {}
+  };
+}
+
+/* ---------- 로그인 ---------- */
+function showLogin(){ $('#vApp').hidden = true; $('#vLogin').hidden = false; $('#loginForm').hidden = false; $('#pwForm').hidden = true; }
+async function enter(email, demo){
+  $('#vLogin').hidden = true; $('#vApp').hidden = false;
+  $('#who').textContent = email; $('#demoBar').hidden = !demo;
+  go('home');
+}
+const lErr = m => { $('#lErr').textContent = m; $('#lErr').hidden = !m; };
+if (!configured) { $('#cfgNote').hidden = false; $('#lBtn').disabled = true; $('#forgot').hidden = true; }
+$('#demoBtn').hidden = configured && !/[?&]demo\b/.test(location.search);
+$('#demoBtn').onclick = () => { api = memApi(); enter('예시 관리자', true); };
+
+if (configured) {
+  sb = window.supabase.createClient(C.url, C.key, { auth: { persistSession: true, detectSessionInUrl: true } });
+  api = sbApi();
+  sb.auth.onAuthStateChange((ev) => { if (ev === 'PASSWORD_RECOVERY') { $('#vApp').hidden = true; $('#vLogin').hidden = false; $('#loginForm').hidden = true; $('#pwForm').hidden = false; } });
+  (async () => {
+    const { data } = await sb.auth.getSession();
+    if (data.session && !/type=recovery/.test(location.hash)) await afterLogin(data.session.user.email); else if (!/type=recovery/.test(location.hash)) showLogin();
+  })();
+} else showLogin();
+
+async function afterLogin(email){
+  const { data: ok, error } = await sb.rpc('is_admin');
+  if (error || !ok) { await sb.auth.signOut(); showLogin(); lErr('관리자로 등록된 계정이 아닙니다. 대표님께 문의해 주세요.'); return; }
+  enter(email, false);
+}
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault(); lErr(''); $('#lOk').hidden = true;
+  const email = $('#lEmail').value.trim(), password = $('#lPw').value;
+  if (!email || !password) return lErr('이메일과 비밀번호를 입력해 주세요.');
+  $('#lBtn').disabled = true; $('#lBtn').textContent = '확인 중…';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  $('#lBtn').disabled = false; $('#lBtn').textContent = '로그인';
+  if (error) return lErr(/invalid/i.test(error.message) ? '이메일 또는 비밀번호가 맞지 않습니다.' : '로그인에 실패했습니다: ' + error.message);
+  afterLogin(data.user.email);
+});
+$('#forgot').onclick = async () => {
+  lErr(''); const email = $('#lEmail').value.trim();
+  if (!email) return lErr('위에 이메일을 먼저 입력한 뒤 눌러 주세요.');
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href.split('#')[0] });
+  if (error) return lErr('메일을 보내지 못했습니다: ' + error.message);
+  $('#lOk').textContent = '비밀번호 변경 메일을 보냈습니다. 메일의 링크를 눌러 주세요.'; $('#lOk').hidden = false;
+};
+$('#pwForm').addEventListener('submit', async e => {
+  e.preventDefault(); const pw = $('#nPw').value;
+  if (pw.length < 8) { $('#nErr').textContent = '8자 이상으로 정해 주세요.'; $('#nErr').hidden = false; return; }
+  const { data, error } = await sb.auth.updateUser({ password: pw });
+  if (error) { $('#nErr').textContent = '변경 실패: ' + error.message; $('#nErr').hidden = false; return; }
+  history.replaceState(null, '', location.pathname); toast('비밀번호를 바꿨습니다.'); afterLogin(data.user.email);
+});
+$('#logout').onclick = async () => { if (sb && $('#demoBar').hidden) await sb.auth.signOut(); location.reload(); };
+
+/* ---------- 화면 전환 ---------- */
+let cur = 'home';
+function go(v){
+  cur = v;
+  $$('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.v === v));
+  $$('[data-view]').forEach(s => s.hidden = s.dataset.view !== v);
+  window.scrollTo(0, 0);
+  load(v);
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) go(b.dataset.v); });
+document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) go(g.dataset.go); if (e.target.closest('[data-refresh]')) load(cur); });
+const fail = e => { console.error(e); toast('처리하지 못했습니다. 다시 시도해 주세요.' + (e && e.message ? ` (${e.message})` : ''), true); };
+async function badges(){
+  try {
+    const [a, b] = await Promise.all([api.count('inquiries', { status: '신규' }), api.count('reviews', { status: '대기' })]);
+    $('#cInq').textContent = a; $('#cInq').hidden = !a; $('#cRev').textContent = b; $('#cRev').hidden = !b;
+    return [a, b];
+  } catch (e) { fail(e); return [0, 0]; }
+}
+function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal })[v]().catch(fail); }
+
+/* ---------- 요약 ---------- */
+async function loadHome(){
+  const [[a, b], up, recent, sched] = await Promise.all([
+    badges(), api.count('posts', { cat: '교육일정', published: true }, ['date', today()]),
+    api.list('inquiries', { order: [['created_at', false]], limit: 5 }),
+    api.list('posts', { eq: { cat: '교육일정', published: true }, order: [['date', true]] })
+  ]);
+  $('#sInq b').textContent = a; $('#sInq').classList.toggle('hot', a > 0);
+  $('#sRev b').textContent = b; $('#sRev').classList.toggle('hot', b > 0);
+  $('#sPost b').textContent = up;
+  $('#hInq').innerHTML = recent.length ? recent.map(r => `<li><span><span class="st s-${esc(r.status.split(' ')[0])}">${esc(r.status)}</span> <b>${esc(r.name)}</b> · ${esc(r.course||'')}</span><time>${fmt(r.created_at).slice(5)}</time></li>`).join('') : '<li><span style="color:var(--muted)">아직 신청이 없습니다.</span></li>';
+  const s = sched.filter(p => p.date >= today()).slice(0, 5);
+  $('#hPost').innerHTML = s.length ? s.map(p => `<li><span>${esc(p.title)}</span><time>${esc(p.date)}</time></li>`).join('') : '<li><span style="color:var(--muted)">예정된 일정 글이 없습니다.</span></li>';
+}
+
+/* ---------- 상담 신청 ---------- */
+const INQ_ST = ['신규', '연락 완료', '등록', '보류'];
+let inqAll = [], inqF = '신규';
+async function loadInq(){ inqAll = await api.list('inquiries', { order: [['created_at', false]] }); renderInq(); }
+function renderInq(){
+  const cnt = s => inqAll.filter(r => s === '전체' || r.status === s).length;
+  $('#inqF').innerHTML = ['신규', '연락 완료', '등록', '보류', '전체'].map(s => `<button type="button" data-f="${s}" aria-pressed="${s===inqF}">${s}<small>${cnt(s)}</small></button>`).join('');
+  const q = $('#inqQ').value.trim().replace(/-/g, '');
+  const list = inqAll.filter(r => (inqF === '전체' || r.status === inqF) && (!q || r.name.includes(q) || r.phone.replace(/-/g, '').includes(q)));
+  $('#inqList').innerHTML = list.length ? list.map(r => `
+    <article class="item ${r.status==='신규'?'new':''}" data-id="${r.id}">
+      <div class="ih"><b>${esc(r.name)}</b><a class="tel" href="tel:${esc(r.phone.replace(/[^0-9]/g,''))}">📞 ${esc(r.phone)}</a><span class="st s-${esc(r.status.split(' ')[0])}">${esc(r.status)}</span><time>${fmt(r.created_at)}</time></div>
+      <dl class="dl">
+        <div><dt>관심 과정</dt><dd>${esc(r.course||'-')}</dd></div>
+        <div><dt>지역</dt><dd>${esc(r.region||'-')}</dd></div>
+        <div><dt>현재 하는 일</dt><dd>${esc(r.job||'-')}</dd></div>
+        <div><dt>희망 시기</dt><dd>${esc(r.wish||'-')}</dd></div>
+        <div><dt>신청한 곳</dt><dd>${esc(r.source||'-')}</dd></div>
+      </dl>
+      ${r.memo ? `<div class="memo">${esc(r.memo)}</div>` : ''}
+      <div class="acts">
+        <select class="inp" data-act="status" aria-label="상태">${INQ_ST.map(s => `<option ${s===r.status?'selected':''}>${s}</option>`).join('')}</select>
+        <input class="inp" data-act="note" value="${esc(r.note||'')}" placeholder="관리자 메모 (예: 11/3 방문 상담)" maxlength="300">
+        <button class="btn b-line b-sm" type="button" data-act="saveNote">메모 저장</button>
+        <button class="btn b-red b-sm" type="button" data-act="del">삭제</button>
+      </div>
+    </article>`).join('') : `<div class="empty">${inqF==='신규'?'새로 들어온 상담 신청이 없습니다.':'해당하는 신청이 없습니다.'}</div>`;
+}
+$('#inqF').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { inqF = b.dataset.f; renderInq(); } });
+$('#inqQ').addEventListener('input', renderInq);
+$('#inqList').addEventListener('change', async e => {
+  if (e.target.dataset.act !== 'status') return;
+  const id = +e.target.closest('[data-id]').dataset.id;
+  try { await api.update('inquiries', id, { status: e.target.value }); inqAll.find(r => r.id===id).status = e.target.value; toast(`상태를 '${e.target.value}'(으)로 바꿨습니다.`); renderInq(); badges(); } catch (er) { fail(er); }
+});
+$('#inqList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b || b.tagName !== 'BUTTON') return;
+  const card = b.closest('[data-id]'), id = +card.dataset.id;
+  try {
+    if (b.dataset.act === 'saveNote') { const note = card.querySelector('[data-act=note]').value.trim() || null; await api.update('inquiries', id, { note }); inqAll.find(r => r.id===id).note = note; toast('메모를 저장했습니다.'); }
+    if (b.dataset.act === 'del') { if (!confirm('이 상담 신청을 삭제할까요? 되돌릴 수 없습니다.')) return; await api.remove('inquiries', id); inqAll = inqAll.filter(r => r.id!==id); renderInq(); badges(); toast('삭제했습니다.'); }
+  } catch (er) { fail(er); }
+});
+$('#csv').onclick = () => {
+  const head = ['신청 일시','이름','연락처','관심 과정','지역','현재 하는 일','희망 시기','남긴 말','신청한 곳','상태','관리자 메모'];
+  const rows = inqAll.filter(r => inqF === '전체' || r.status === inqF).map(r => [fmt(r.created_at), r.name, r.phone, r.course, r.region, r.job, r.wish, r.memo, r.source, r.status, r.note]);
+  const cell = v => `"${String(v == null ? '' : v).replace(/"/g, '""')}"`;
+  const csv = '﻿' + [head, ...rows].map(r => r.map(cell).join(',')).join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  a.download = `상담신청_${inqF}_${today()}.csv`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+/* ---------- 수료 후기 ---------- */
+let revAll = [], revF = '대기';
+async function loadRev(){ revAll = await api.list('reviews', { order: [['created_at', false]] }); renderRev(); }
+function renderRev(){
+  const cnt = s => revAll.filter(r => s === '전체' || r.status === s).length;
+  $('#revF').innerHTML = ['대기', '공개', '숨김', '전체'].map(s => `<button type="button" data-f="${s}" aria-pressed="${s===revF}">${s==='대기'?'승인 대기':s}<small>${cnt(s)}</small></button>`).join('');
+  const list = revAll.filter(r => revF === '전체' || r.status === revF);
+  $('#revList').innerHTML = list.length ? list.map(r => `
+    <article class="item ${r.status==='대기'?'new':''}" data-id="${r.id}">
+      <div class="ih"><b>${esc(r.name)}</b><span style="color:var(--muted);font-size:13.5px">홈페이지 표시: ${esc(r.name.slice(0,1))}○○</span><span class="st s-${esc(r.status)}">${r.status==='대기'?'승인 대기':esc(r.status)}</span><time>${fmt(r.created_at)}</time></div>
+      <div class="ih" style="gap:6px 14px"><span class="stars">${'★'.repeat(r.stars)}<span style="color:#d5dce6">${'★'.repeat(5-r.stars)}</span></span><span class="tag">${esc(r.course||'')}</span><a class="tel" href="tel:${esc(r.phone.replace(/[^0-9]/g,''))}" style="font-size:13.5px">${esc(r.phone)}</a></div>
+      <div class="memo">${esc(r.body)}</div>
+      <div class="acts">
+        ${r.status!=='공개' ? '<button class="btn b-mint b-sm" type="button" data-act="공개">공개하기</button>' : ''}
+        ${r.status!=='숨김' ? '<button class="btn b-line b-sm" type="button" data-act="숨김">숨기기</button>' : ''}
+        <button class="btn b-red b-sm" type="button" data-act="del">삭제</button>
+      </div>
+    </article>`).join('') : `<div class="empty">${revF==='대기'?'승인을 기다리는 후기가 없습니다.':'해당하는 후기가 없습니다.'}</div>`;
+}
+$('#revF').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { revF = b.dataset.f; renderRev(); } });
+$('#revList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.closest('[data-id]').dataset.id, act = b.dataset.act;
+  try {
+    if (act === 'del') { if (!confirm('이 후기를 삭제할까요? 되돌릴 수 없습니다.')) return; await api.remove('reviews', id); revAll = revAll.filter(r => r.id!==id); toast('삭제했습니다.'); }
+    else { await api.update('reviews', id, { status: act }); revAll.find(r => r.id===id).status = act; toast(act === '공개' ? '공개했습니다. 홈페이지에 바로 나옵니다.' : '숨겼습니다.'); }
+    renderRev(); badges();
+  } catch (er) { fail(er); }
+});
+
+/* ---------- 공지·일정 ---------- */
+let postAll = [], editPost = null;
+$('#pCourse').innerHTML = '<option value="">선택 안 함</option>' + COURSE_TITLES.map(t => `<option>${esc(t)}</option>`).join('');
+function resetPost(){ editPost = null; $('#postForm').reset(); $('#pDate').value = today(); $('#pPub').checked = true; $('#pfTitle').textContent = '새 글 쓰기'; $('#pSave').textContent = '저장'; $('#pCancel').hidden = true; }
+resetPost();
+async function loadPosts(){ postAll = await api.list('posts', { order: [['pin', false], ['date', false]] }); renderPosts(); }
+function renderPosts(){
+  $('#postList').innerHTML = postAll.length ? postAll.map(p => `
+    <div class="prow" data-id="${p.id}">
+      <span class="tag ${p.cat==='교육일정'?'m':''}">${esc(p.cat)}</span>
+      <div class="t"><b>${p.pin?'📌 ':''}${esc(p.title)}</b><small>${esc(p.date)}${p.course?' · '+esc(p.course):''}${p.published?'':' · <span class="tag g">비공개</span>'}</small></div>
+      <div class="acts" style="gap:6px"><button class="btn b-line b-sm" type="button" data-act="edit">수정</button><button class="btn b-red b-sm" type="button" data-act="del">삭제</button></div>
+    </div>`).join('') : '<div class="empty">아직 쓴 글이 없습니다. 왼쪽에서 첫 글을 써 보세요.</div>';
+}
+$('#postList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.closest('[data-id]').dataset.id, p = postAll.find(x => x.id===id);
+  if (b.dataset.act === 'edit') {
+    editPost = id; $('#pCat').value = p.cat; $('#pDate').value = p.date; $('#pCourse').value = p.course || ''; $('#pTitle').value = p.title; $('#pBody').value = p.body || ''; $('#pPin').checked = p.pin; $('#pPub').checked = p.published;
+    $('#pfTitle').textContent = '글 수정'; $('#pSave').textContent = '수정 저장'; $('#pCancel').hidden = false; $('#postForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    if (!confirm('이 글을 삭제할까요?')) return;
+    try { await api.remove('posts', id); toast('삭제했습니다.'); if (editPost === id) resetPost(); loadPosts(); } catch (er) { fail(er); }
+  }
+});
+$('#pCancel').onclick = resetPost;
+$('#postForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const row = { cat: $('#pCat').value, date: $('#pDate').value || today(), course: $('#pCourse').value || null, title: $('#pTitle').value.trim(), body: $('#pBody').value.trim() || null, pin: $('#pPin').checked, published: $('#pPub').checked };
+  if (!row.title) return toast('제목을 입력해 주세요.', true);
+  $('#pSave').disabled = true;
+  try { editPost ? await api.update('posts', editPost, row) : await api.insert('posts', row); toast(editPost ? '수정했습니다.' : '글을 올렸습니다.'); resetPost(); loadPosts(); }
+  catch (er) { fail(er); } finally { $('#pSave').disabled = false; }
+});
+
+/* ---------- 현장 갤러리 ---------- */
+let galAll = [], galF = '전체', files = [], editGal = null;
+async function loadGal(){ galAll = await api.list('gallery', { order: [['sort', true], ['id', false]] }); renderGal(); }
+function renderGal(){
+  const cats = ['전체', ...new Set(galAll.map(g => g.cat))];
+  $('#galF').innerHTML = cats.map(c => `<button type="button" data-f="${esc(c)}" aria-pressed="${c===galF}">${esc(c)}<small>${galAll.filter(g => c==='전체'||g.cat===c).length}</small></button>`).join('');
+  const list = galAll.filter(g => galF === '전체' || g.cat === galF);
+  $('#galList').innerHTML = list.length ? list.map(g => `
+    <div class="gcard ${g.visible?'':'off'}" data-id="${g.id}">
+      <img src="${esc(g.src)}" alt="${esc(g.title)}" loading="lazy">
+      <div class="gb">
+        <b>${esc(g.title)}</b>
+        <div class="tg"><span class="tag">${esc(g.cat)}</span>${g.on_main?'<span class="tag m">메인</span>':''}${g.visible?'':'<span class="tag g">숨김</span>'}</div>
+        <div class="acts">
+          <button class="btn b-line b-sm" type="button" data-act="up" title="앞으로" aria-label="앞으로">◀</button>
+          <button class="btn b-line b-sm" type="button" data-act="down" title="뒤로" aria-label="뒤로">▶</button>
+          <button class="btn b-line b-sm" type="button" data-act="main">${g.on_main?'메인 빼기':'메인 표시'}</button>
+          <button class="btn b-line b-sm" type="button" data-act="vis">${g.visible?'숨기기':'보이기'}</button>
+          <button class="btn b-line b-sm" type="button" data-act="edit">수정</button>
+          <button class="btn b-red b-sm" type="button" data-act="del">삭제</button>
+        </div>
+      </div>
+    </div>`).join('') : '<div class="empty">사진이 없습니다.</div>';
+}
+$('#galF').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { galF = b.dataset.f; renderGal(); } });
+function resetGal(){ editGal = null; files = []; $('#galForm').reset(); $('#gPrev').innerHTML = ''; $('#gErr').hidden = true; $('#gUpWrap').hidden = false; $('#gEditImg').hidden = true; $('#gfTitle').textContent = '사진 올리기'; $('#gSave').textContent = '올리기'; $('#gCancel').hidden = true; }
+$('#gCancel').onclick = resetGal;
+function pickFiles(list){ files = [...list].filter(f => f.type.startsWith('image/')); $('#gPrev').innerHTML = files.map(f => `<img src="${URL.createObjectURL(f)}" alt="">`).join('') + (files.length ? `<span style="font-size:13px;color:var(--muted);align-self:center">${files.length}장 선택</span>` : ''); }
+$('#gFile').addEventListener('change', e => pickFiles(e.target.files));
+const drop = $('#drop');
+['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('on'); }));
+['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('on'); }));
+drop.addEventListener('drop', e => pickFiles(e.dataTransfer.files));
+async function shrink(file, max = 1600, q = .82){
+  let src; try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch { src = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = URL.createObjectURL(file); }); }
+  const w = src.width, h = src.height, k = Math.min(1, max / Math.max(w, h));
+  const c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+  return new Promise(ok => c.toBlob(ok, 'image/jpeg', q));
+}
+$('#galForm').addEventListener('submit', async e => {
+  e.preventDefault(); $('#gErr').hidden = true;
+  const base = { cat: $('#gCat').value, title: $('#gTitle').value.trim(), pills: $('#gPills').value.split(',').map(s => s.trim()).filter(Boolean).slice(0, 3), on_main: $('#gMain').checked };
+  const err = m => { $('#gErr').textContent = m; $('#gErr').hidden = false; };
+  if (!base.title) return err('제목을 입력해 주세요.');
+  const btn = $('#gSave'); btn.disabled = true;
+  try {
+    if (editGal) { await api.update('gallery', editGal, base); toast('수정했습니다.'); }
+    else {
+      if (!files.length) { btn.disabled = false; return err('올릴 사진을 골라 주세요.'); }
+      let top = Math.min(0, ...galAll.map(g => g.sort));
+      for (let i = 0; i < files.length; i++) {
+        btn.textContent = `올리는 중… (${i + 1}/${files.length})`;
+        const url = await api.upload(await shrink(files[i]));
+        await api.insert('gallery', { ...base, src: url, sort: top - 10 * (files.length - i), visible: true });
+      }
+      toast(`${files.length}장을 올렸습니다.`);
+    }
+    resetGal(); loadGal();
+  } catch (er) { fail(er); } finally { btn.disabled = false; btn.textContent = editGal ? '수정 저장' : '올리기'; }
+});
+$('#galList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.closest('[data-id]').dataset.id, g = galAll.find(x => x.id===id), act = b.dataset.act;
+  try {
+    if (act === 'edit') {
+      editGal = id; $('#gUpWrap').hidden = true; $('#gEditImg').src = g.src; $('#gEditImg').hidden = false;
+      $('#gCat').value = g.cat; $('#gTitle').value = g.title; $('#gPills').value = (g.pills||[]).join(', '); $('#gMain').checked = g.on_main;
+      $('#gfTitle').textContent = '사진 정보 수정'; $('#gSave').textContent = '수정 저장'; $('#gCancel').hidden = false; $('#galForm').scrollIntoView({ behavior: 'smooth', block: 'start' }); return;
+    }
+    if (act === 'main') { await api.update('gallery', id, { on_main: !g.on_main }); toast(g.on_main ? '메인에서 뺐습니다.' : '메인에도 표시합니다.'); }
+    if (act === 'vis') { await api.update('gallery', id, { visible: !g.visible }); toast(g.visible ? '홈페이지에서 숨겼습니다.' : '다시 보이게 했습니다.'); }
+    if (act === 'del') { if (!confirm('이 사진을 삭제할까요?')) return; await api.remove('gallery', id); await api.unlink(g.src); toast('삭제했습니다.'); }
+    if (act === 'up' || act === 'down') {
+      const vis = galAll.filter(x => galF === '전체' || x.cat === galF), k = vis.findIndex(x => x.id===id), n = vis[act === 'up' ? k - 1 : k + 1];
+      if (!n) return;
+      // 화면에서 옆 사진과 자리만 바꾸고, 전체 순서값을 다시 매깁니다
+      const arr = galAll, order = arr.map(x => x.id), i = order.indexOf(id), j = order.indexOf(n.id);
+      [order[i], order[j]] = [order[j], order[i]];
+      const changes = order.map((gid, k) => ({ gid, s: (k + 1) * 10 })).filter(({ gid, s }) => arr.find(x => x.id===gid).sort !== s);
+      await Promise.all(changes.map(({ gid, s }) => api.update('gallery', gid, { sort: s })));
+    }
+    loadGal();
+  } catch (er) { fail(er); }
+});
+
+/* ---------- 사례 글 ---------- */
+let caseAll = [], editCase = null, cImg = { before: null, after: null, extra: [] }, cNew = { before: null, after: null, extra: [] };
+const csv = v => String(v || '').split(',').map(x => x.trim()).filter(Boolean);
+const lines = v => String(v || '').split('\n').map(x => x.trim()).filter(Boolean);
+function parseFaq(v){ const out = []; let q = null; for (const l of lines(v)) { if (/^q\s*[:：]/i.test(l)) q = l.replace(/^q\s*[:：]\s*/i, ''); else if (/^a\s*[:：]/i.test(l) && q) { out.push({ q, a: l.replace(/^a\s*[:：]\s*/i, '') }); q = null; } } return out; }
+const faqText = f => (Array.isArray(f) ? f : []).map(x => `Q: ${x.q}\nA: ${x.a}`).join('\n');
+function makeSlug(title){
+  const d = new Date(), p = n => String(n).padStart(2, '0');
+  return `case-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${Math.random().toString(36).slice(2, 6)}`;
+}
+function paintCaseImgs(){
+  for (const k of ['before', 'after']) {
+    const src = cNew[k] ? URL.createObjectURL(cNew[k]) : cImg[k];
+    const im = $('#c' + (k === 'before' ? 'Before' : 'After') + 'P'); im.hidden = !src; if (src) im.src = src;
+    $('#c' + (k === 'before' ? 'Before' : 'After') + 'T').textContent = src ? '다시 선택하려면 누르세요' : '눌러서 선택';
+  }
+  $('#cExtraP').innerHTML = cImg.extra.map((u, i) => `<span style="position:relative"><img src="${esc(u)}" alt=""><button type="button" data-rm="${i}" aria-label="사진 빼기" style="position:absolute;right:-4px;top:-4px;width:20px;height:20px;border-radius:50%;border:0;background:#c0392b;color:#fff;cursor:pointer;font-size:12px;line-height:1">✕</button></span>`).join('')
+    + cNew.extra.map(f => `<img src="${URL.createObjectURL(f)}" alt="" style="outline:2px solid var(--mint)">`).join('');
+}
+function resetCase(){
+  editCase = null; cImg = { before: null, after: null, extra: [] }; cNew = { before: null, after: null, extra: [] };
+  $('#caseForm').reset(); $('#cPub').checked = true; $('#cErr').hidden = true;
+  $('#cfTitle').textContent = '새 사례 쓰기'; $('#cSave').textContent = '저장'; $('#cCancel').hidden = true; $('#cSlug').disabled = false; paintCaseImgs();
+}
+$('#cBeforeF').onchange = e => { cNew.before = e.target.files[0] || null; paintCaseImgs(); };
+$('#cAfterF').onchange = e => { cNew.after = e.target.files[0] || null; paintCaseImgs(); };
+$('#cExtraF').onchange = e => { cNew.extra.push(...e.target.files); e.target.value = ''; paintCaseImgs(); };
+$('#cExtraP').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { cImg.extra.splice(+b.dataset.rm, 1); paintCaseImgs(); } });
+async function loadCases(){ caseAll = await api.list('cases', { order: [['created_at', false]] }); renderCases(); }
+function renderCases(){
+  $('#caseList').innerHTML = caseAll.length ? caseAll.map(c => `
+    <div class="prow" data-id="${c.id}">
+      <span class="tag ${c.category==='교육 사례'?'m':''}">${esc(c.category)}</span>
+      <div class="t"><b>${esc(c.title)}</b><small>${esc(fmt(c.created_at).slice(0,10))} · 조회 ${c.views||0}${c.published?'':' · <span class="tag g">비공개</span>'}${c.before_url&&c.after_url?' · 전후 비교':''}</small></div>
+      <div class="acts" style="gap:6px"><a class="btn b-line b-sm" href="cases/${encodeURIComponent(c.slug)}" target="_blank" rel="noopener">보기</a><button class="btn b-line b-sm" type="button" data-act="edit">수정</button><button class="btn b-red b-sm" type="button" data-act="del">삭제</button></div>
+    </div>`).join('') : '<div class="empty">아직 쓴 사례가 없습니다. 왼쪽에서 첫 사례를 써 보세요.</div>';
+}
+$('#caseList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.closest('[data-id]').dataset.id, c = caseAll.find(x => x.id === id);
+  if (b.dataset.act === 'edit') {
+    resetCase(); editCase = id;
+    $('#cCat').value = c.category; $('#cTarget').value = c.target || ''; $('#cTitle').value = c.title; $('#cSummary').value = c.summary || '';
+    $('#cTags').value = (c.tags || []).join(', '); $('#cWorks').value = (c.works || []).join(', '); $('#cProblems').value = (c.problems || []).join(', ');
+    $('#cProblem').value = c.problem || ''; $('#cSteps').value = (c.steps || []).join('\n'); $('#cResult').value = c.result || ''; $('#cCaution').value = c.caution || '';
+    $('#cFaq').value = faqText(c.faq); $('#cBlog').value = c.blog_url || ''; $('#cSlug').value = c.slug; $('#cSlug').disabled = true; $('#cPub').checked = c.published;
+    cImg = { before: c.before_url || null, after: c.after_url || null, extra: [...(c.extra_urls || [])] }; paintCaseImgs();
+    $('#cfTitle').textContent = '사례 수정'; $('#cSave').textContent = '수정 저장'; $('#cCancel').hidden = false; $('#caseForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    if (!confirm('이 사례를 삭제할까요? 사진도 함께 지워지며 되돌릴 수 없습니다.')) return;
+    try { await api.remove('cases', id); for (const u of [c.before_url, c.after_url, ...(c.extra_urls || [])]) if (u) await api.unlink(u).catch(() => {}); toast('삭제했습니다.'); if (editCase === id) resetCase(); loadCases(); } catch (er) { fail(er); }
+  }
+});
+$('#cCancel').onclick = resetCase;
+$('#caseForm').addEventListener('submit', async e => {
+  e.preventDefault(); $('#cErr').hidden = true;
+  const err = m => { $('#cErr').textContent = m; $('#cErr').hidden = false; $('#cErr').scrollIntoView({ block: 'center', behavior: 'smooth' }); };
+  const title = $('#cTitle').value.trim(); if (!title) return err('제목을 입력해 주세요.');
+  let slug = $('#cSlug').value.trim().toLowerCase();
+  if (slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) return err('글 주소 이름은 영문 소문자, 숫자, 하이픈(-)만 쓸 수 있습니다.');
+  if (!editCase && !slug) slug = makeSlug(title);
+  const hasB = cImg.before || cNew.before, hasA = cImg.after || cNew.after;
+  if (!!hasB !== !!hasA) return err('전·후 비교를 쓰려면 작업 전 사진과 작업 후 사진을 둘 다 올려 주세요.');
+  const btn = $('#cSave'); btn.disabled = true; btn.textContent = '저장 중…';
+  try {
+    const old = editCase ? caseAll.find(x => x.id === editCase) : null, trash = [];
+    let before_url = cImg.before, after_url = cImg.after;
+    if (cNew.before) { if (old && old.before_url) trash.push(old.before_url); before_url = await api.upload(await shrink(cNew.before, 1800)); }
+    if (cNew.after) { if (old && old.after_url) trash.push(old.after_url); after_url = await api.upload(await shrink(cNew.after, 1800)); }
+    const extra = [...cImg.extra]; for (const f of cNew.extra) extra.push(await api.upload(await shrink(f)));
+    if (old) for (const u of (old.extra_urls || [])) if (!cImg.extra.includes(u)) trash.push(u);
+    const row = { category: $('#cCat').value, title, summary: $('#cSummary').value.trim() || null, target: $('#cTarget').value.trim() || null,
+      tags: csv($('#cTags').value), works: csv($('#cWorks').value), problems: csv($('#cProblems').value),
+      before_url: before_url || null, after_url: after_url || null, extra_urls: extra,
+      problem: $('#cProblem').value.trim() || null, steps: lines($('#cSteps').value), result: $('#cResult').value.trim() || null, caution: $('#cCaution').value.trim() || null,
+      faq: parseFaq($('#cFaq').value), blog_url: $('#cBlog').value.trim() || null, published: $('#cPub').checked };
+    if (editCase) await api.update('cases', editCase, row); else await api.insert('cases', { ...row, slug });
+    for (const u of trash) await api.unlink(u).catch(() => {});
+    toast(editCase ? '수정했습니다.' : '사례를 올렸습니다.'); resetCase(); loadCases();
+  } catch (er) {
+    if (er && /duplicate|unique/i.test(er.message || '')) err('이미 같은 글 주소 이름이 있습니다. 다른 이름을 써 주세요.'); else fail(er);
+  } finally { btn.disabled = false; btn.textContent = editCase ? '수정 저장' : '저장'; }
+});
+})();
+</script>
+</body>
+</html>
