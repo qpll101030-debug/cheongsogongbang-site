@@ -56,7 +56,7 @@ for (const [cat, list] of groups) {
 }
 
 // 3) 사이트맵, robots.txt
-const stat = ['/', '/about.html', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
+const stat = ['/', '/about.html', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/course-mattress.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
 const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...listUrls.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`)];
