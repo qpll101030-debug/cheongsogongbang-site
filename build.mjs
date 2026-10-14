@@ -49,6 +49,8 @@ for (const [cat, list] of groups) {
     const slice = list.slice((p - 1) * R.PER_PAGE, p * R.PER_PAGE);
     const rel = R.listPath(cat, p).replace(/^\//, '') + 'index.html';
     write(rel, R.fill(tpl, R.listMeta({ cat, page: p }, ORIGIN), R.listHTML(slice, { cat, page: p, total: list.length })));
+    // 주소 /cases/ 가 예전 cases.html 보다 뒤로 밀리지 않도록 같은 내용을 cases.html 에도 저장
+    if (rel === 'cases/index.html') write('cases.html', R.fill(tpl, R.listMeta({ cat, page: p }, ORIGIN), R.listHTML(slice, { cat, page: p, total: list.length })));
     listUrls.push(R.listPath(cat, p));
   }
 }
