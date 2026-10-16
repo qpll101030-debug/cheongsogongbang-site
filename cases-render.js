@@ -7,9 +7,9 @@
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.CASES = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
-  const SITE = '청소공방 아카데미';
+  const SITE = '청소공방';
   const PER_PAGE = 12;
-  const CATS = ['작업 사례', '교육 사례'];
+  const CATS = ['매트리스·소파', '에어컨', '교육'];
   const TALK = 'https://talk.naver.com/profile/wenjgv6';
   const TEL = '010-8833-0999';
 
@@ -20,12 +20,14 @@
   const kst = d => new Date(new Date(d).getTime() + 9 * 3600e3);
   const fmtDate = d => { if (!d) return ''; const k = kst(d); return `${k.getUTCFullYear()}.${String(k.getUTCMonth() + 1).padStart(2, '0')}.${String(k.getUTCDate()).padStart(2, '0')}`; };
   const isoDate = d => d ? new Date(d).toISOString() : '';
-  const CAT_KEY = { '작업 사례': 'work', '교육 사례': 'edu' };
-  const RESERVED = ['work', 'edu', 'p', 'page', 'index'];
+  const CAT_KEY = { '매트리스·소파': 'sofa', '에어컨': 'aircon', '교육': 'edu' };
+  const RESERVED = ['sofa', 'aircon', 'edu', 'work', 'p', 'page', 'index'];
+  // 예전 분류 이름(작업 사례/교육 사례)으로 저장된 글도 새 분류로 보여 줌
+  const normCat = c => ({ '작업 사례': '매트리스·소파', '교육 사례': '교육' })[c] || (CATS.includes(c) ? c : '매트리스·소파');
   const path = slug => '/cases/' + encodeURIComponent(slug) + '/';
   const listPath = (cat, page) => '/cases/' + (CAT_KEY[cat] ? CAT_KEY[cat] + '/' : '') + (page > 1 ? 'p/' + page + '/' : '');
   const parseListPath = p => {
-    const m = String(p || '').match(/^\/cases\/?(?:(work|edu)\/?)?(?:p\/(\d+)\/?)?$/);
+    const m = String(p || '').match(/^\/cases\/?(?:(sofa|aircon|edu)\/?)?(?:p\/(\d+)\/?)?$/);
     if (!m) return null;
     const cat = m[1] ? Object.keys(CAT_KEY).find(k => CAT_KEY[k] === m[1]) : '';
     return { cat, page: Math.max(1, parseInt(m[2], 10) || 1) };
@@ -139,7 +141,7 @@
     return `<article class="cx-wrap" itemscope itemtype="https://schema.org/Article">
 <nav class="cx-crumb" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/cases/">사례</a><span>›</span><a href="${listPath(r.category, 1)}">${esc(r.category)}</a></nav>
 <header class="cx-head">
-  <div class="cx-meta"><span class="cx-chip ${r.category === '교육 사례' ? 'm' : ''}">${esc(r.category)}</span>${chips(r.tags)}</div>
+  <div class="cx-meta"><span class="cx-chip ${r.category === '교육' ? 'm' : ''}">${esc(r.category)}</span>${chips(r.tags)}</div>
   <h1 itemprop="headline">${esc(r.title)}</h1>
   <div class="cx-meta"><time datetime="${esc(isoDate(r.created_at))}" itemprop="datePublished">${esc(fmtDate(r.created_at))}</time></div>
 </header>
@@ -153,8 +155,8 @@ ${extra.length ? `<section class="cx-sec"><h2>추가 사진</h2><div class="cx-g
 ${r.caution ? `<section class="cx-sec"><h2>관리 시 주의사항</h2><div class="cx-warn">${paras(r.caution)}</div></section>` : ''}
 ${faq.length ? `<section class="cx-sec cx-faq"><h2>자주 묻는 질문</h2>${faq.map(f => `<details><summary>Q. ${esc(f.q)}</summary><p>A. ${esc(f.a)}</p></details>`).join('')}</section>` : ''}
 ${url(r.blog_url) ? `<p style="margin-top:28px"><a class="btn btn-line" href="${url(r.blog_url)}" target="_blank" rel="noopener">네이버 블로그 작업 기록·추가 사진 보기</a></p>` : ''}
-<section class="cx-cta"><h2>${r.category === '교육 사례' ? '직접 배워서 시작해 보세요' : '비슷한 고민이 있으신가요?'}</h2><p>${r.category === '교육 사례' ? '최대 4인 소수정예, 현장 장비 전부로 직접 실습합니다.' : '사진만 보내 주시면 상태를 보고 안내해 드립니다.'}</p>
-<div class="acts"><a class="btn btn-mint" href="/consult.html">무료 상담 신청</a><a class="btn btn-line" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡</a><a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
+<section class="cx-cta"><h2>${r.category === '교육' ? '직접 배워서 시작해 보세요' : '비슷한 고민이 있으신가요?'}</h2><p>${r.category === '교육' ? '최대 4인 소수정예, 현장 장비 전부로 직접 실습합니다.' : '사진만 보내 주시면 상태를 보고 안내해 드립니다.'}</p>
+<div class="acts">${r.category === '교육' ? `<a class="btn btn-mint" href="/consult.html">교육 상담 신청</a><a class="btn btn-line" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡</a>` : `<a class="btn btn-mint" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡으로 청소 예약</a>`}<a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
 ${rel.length ? `<section class="cx-rel"><h2>관련 사례</h2><div class="cx-grid">${rel.map(card).join('')}</div></section>` : ''}
 </article>`;
   }
@@ -163,7 +165,7 @@ ${rel.length ? `<section class="cx-rel"><h2>관련 사례</h2><div class="cx-gri
 
   function card(r) {
     const im = url(r.after_url) || url(r.before_url) || arr(r.extra_urls).map(url).find(Boolean) || '';
-    return `<a class="cx-card" href="${path(r.slug)}"><div class="im">${im ? `<img src="${im}" alt="${esc(r.title)}" loading="lazy" decoding="async">` : ''}<span class="cx-chip ${r.category === '교육 사례' ? 'm' : ''}">${esc(r.category)}</span></div>
+    return `<a class="cx-card" href="${path(r.slug)}"><div class="im">${im ? `<img src="${im}" alt="${esc(r.title)}" loading="lazy" decoding="async">` : ''}<span class="cx-chip ${r.category === '교육' ? 'm' : ''}">${esc(r.category)}</span></div>
 <div class="bd"><h3>${esc(r.title)}</h3><div class="tg">${chips(r.tags)}</div><time datetime="${esc(isoDate(r.created_at))}">${esc(fmtDate(r.created_at))}</time></div></a>`;
   }
 
@@ -182,7 +184,7 @@ ${rel.length ? `<section class="cx-rel"><h2>관련 사례</h2><div class="cx-gri
     }
     return `<section class="cx-wrap wide">
 <nav class="cx-crumb" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span>사례</span>${cat ? `<span>›</span><span>${esc(cat)}</span>` : ''}</nav>
-<header class="cx-head" style="max-width:720px"><span class="cx-chip" style="justify-self:start">CASES</span><h1>${cat ? esc(cat) : '교육·작업 사례'}</h1>
+<header class="cx-head" style="max-width:720px"><span class="cx-chip" style="justify-self:start">CASES</span><h1>${cat ? esc(cat) + ' 사례' : '청소공방 사례'}</h1>
 <p style="color:var(--muted);font-size:17px;margin:0">청소공방의 실제 작업과 교육 현장을 사진으로 기록합니다. 작업 전·후 사진은 화면을 좌우로 끌어서 직접 비교해 보세요.</p></header>
 <div class="cx-filter" role="group" aria-label="사례 분류">${filter}</div>
 ${rows.length ? `<div class="cx-grid">${rows.map(card).join('')}</div>` : '<div class="cx-empty">아직 등록된 사례가 없습니다.</div>'}
@@ -209,7 +211,7 @@ ${pg}
     return { title: `${r.title} | ${SITE}`, desc, canonical: u, image: img[0] || '', ld: ld.map(ldJson).join('') };
   }
   function listMeta(o, origin) {
-    const name = o.cat || '교육·작업 사례';
+    const name = o.cat ? o.cat + ' 사례' : '청소공방 사례';
     return { title: `${name}${o.page > 1 ? ' ' + o.page + '페이지' : ''} | ${SITE}`, desc: '청소공방의 에어컨·매트리스·소파 청소 작업 사례와 교육 현장 기록. 작업 전·후 사진을 직접 비교해 보세요.', canonical: origin + listPath(o.cat || '', o.page || 1), image: '', ld: '' };
   }
 
@@ -224,5 +226,5 @@ if(window.SITE_CFG)fetch(SITE_CFG.url+'/rest/v1/rpc/inc_case_view',{method:'POST
     return tpl.replace('{{TITLE}}', esc(meta.title)).replace('{{DESC}}', esc(meta.desc)).replace('{{HEAD}}', () => head).replace('{{MAIN}}', () => main).replace('{{SCRIPTS}}', () => meta.scripts || '');
   }
 
-  return { CAT_KEY, RESERVED, listPath, parseListPath, viewScript, pickRelated, esc, CSS, PER_PAGE, CATS, path, postHTML, listHTML, card, postMeta, listMeta, fill, fmtDate };
+  return { normCat, CAT_KEY, RESERVED, listPath, parseListPath, viewScript, pickRelated, esc, CSS, PER_PAGE, CATS, path, postHTML, listHTML, card, postMeta, listMeta, fill, fmtDate };
 });

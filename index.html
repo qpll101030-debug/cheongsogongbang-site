@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="청소공방 아카데미 · 에어컨 분해세척·수리, 매트리스·소파 케어 기술교육. 소수정예 맞춤교육으로 현장 노하우를 전수합니다.">
-<title>청소공방 아카데미</title>
+<title>청소공방 | 매트리스·소파·카페트·에어컨 전문 청소 브랜드</title>
+<meta name="description" content="현장 9년의 경험, 화학적 원리와 체계적인 작동구조 이론으로 만든 청소 기준. 매트리스·소파·카페트 청소, 에어컨 분해세척, 청소공방 아카데미. 서울·경기 전지역.">
+<link rel="canonical" href="/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="청소공방"><meta property="og:title" content="청소공방 | 종목별 전문 청소 브랜드"><meta property="og:description" content="현장 9년의 경험, 화학적 원리와 체계적인 작동구조 이론이 만나 청소의 기준을 만듭니다."><meta property="og:image" content="img/sofa_fabric.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+KR:wght@700;800;900&display=swap">
 <style>
-/* Layout: 교육 이념 → 브랜드 → 4원칙 → 수리 → 과정 → 실습환경 → 사후관리 → 갤러리 → 소식 → 상담. 신뢰의 블루 + 산뜻한 민트 포인트, 밝은 바탕 */
+/* Layout: 브랜드 → 숫자 → 이야기 → 근거 → 신뢰 → 패밀리 → 사례 → 아카데미 → 갤러리 → 지역 → 상담. 기존 사이트 색(블루·민트)을 유지하고, 매트리스·소파를 항상 먼저 */
 :root{
   --ink:#0d2340; --text:#1d2b3d; --muted:#5b6b80; --line:#dde4ee; --bg:#f5f8fc; --paper:#ffffff;
   --blue:#1657c7; --blue-dk:#0f449c; --blue-soft:#e8f0fd; --navy:#0b2447;
@@ -25,556 +27,455 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--text);font:16px/1.7 var(--body);-webkit-font-smoothing:antialiased;word-break:keep-all}
 img{max-width:100%;display:block}
 a{color:inherit}
-.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--display);color:var(--ink);line-height:1.32;text-wrap:balance;margin:0}
 h2{font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:-.025em}
 h3{font-size:18px;font-weight:800}
 p{margin:0}
 section{padding-block:88px}
-.tag{justify-self:start;width:max-content;max-width:100%;display:inline-flex;align-items:center;gap:6px;font:600 13px/1 var(--body);color:var(--blue);background:var(--blue-soft);padding:7px 12px;border-radius:99px;letter-spacing:.02em}
+.tag{display:inline-flex;align-items:center;width:max-content;max-width:100%;font:600 13px/1 var(--body);color:var(--blue);background:var(--blue-soft);padding:7px 12px;border-radius:99px;letter-spacing:.02em}
 .tag.mint{color:var(--mint-dk);background:var(--mint-soft)}
 .head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
-.head.center{margin-inline:auto;text-align:center;justify-items:center}
-.head.center .tag{justify-self:center}
 .head p{color:var(--muted);font-size:17px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:8px;font:600 16px var(--body);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .15s,border-color .15s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:8px;font:600 16px var(--body);text-decoration:none;border:1.5px solid transparent;cursor:pointer}
 .btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:var(--blue-dk)}
 .btn-line{border-color:var(--line);color:var(--ink);background:var(--paper)}.btn-line:hover{border-color:var(--blue);color:var(--blue)}
-.btn-mint{background:var(--mint);color:#fff}.btn-mint:hover{background:var(--mint-dk)}
+.btn-white{background:#fff;color:var(--ink)}
 :focus-visible{outline:3px solid var(--mint);outline-offset:2px}
-.todo{background:var(--warn);color:var(--warn-ink);font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle}
+.todo{display:inline-block;background:var(--warn);color:var(--warn-ink);font:600 11px/1.5 var(--body);padding:1px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle;letter-spacing:0}
 .ico{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);flex:none}
-.ico.mint{background:var(--mint-soft);color:var(--mint-dk)}
 .ico svg{width:22px;height:22px}
 
-/* header */
+
+/* 상단 메뉴 */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
-.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.top .row{display:flex;align-items:center;gap:24px;height:72px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
 .mark{width:38px;height:38px;border-radius:9px;background:var(--blue);display:grid;place-items:center;color:#fff}
-.brand b{display:block;font:900 19px/1.1 var(--display);color:var(--ink);letter-spacing:-.02em}
-.brand small{display:block;font:600 10.5px/1.2 var(--body);color:var(--mint-dk);letter-spacing:.14em}
+.brand b{font:900 21px/1 var(--display);color:var(--ink);letter-spacing:-.02em}
 .nav{display:flex;margin:0 0 0 auto;padding:0;list-style:none}
 .nav>li{position:relative}
 .nav>li>a{display:flex;align-items:center;gap:4px;padding:10px 14px;font:600 15px var(--body);text-decoration:none;color:var(--ink);border-radius:6px;white-space:nowrap}
 .nav>li>a:hover{color:var(--blue)}
-.nav .caret{width:12px;height:12px;opacity:.6}
+.caret{width:12px;height:12px;opacity:.6}
 .drop{position:absolute;top:calc(100% + 6px);left:0;min-width:240px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px;box-shadow:0 16px 40px rgba(13,35,64,.12);display:none}
 .nav li:hover .drop,.nav li:focus-within .drop{display:grid}
 .drop::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px}
 .drop a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;font-size:14.5px;text-decoration:none;color:var(--text)}
 .drop a:hover{background:var(--bg);color:var(--blue)}
-.drop .grp{font-size:12px;color:var(--muted);padding:8px 12px 2px;letter-spacing:.04em}
 .drop small{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 7px;border-radius:99px}
 .top .btn{min-height:42px;padding:0 18px;font-size:14px}
-.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:1px solid var(--line);background:var(--paper);border-radius:8px;cursor:pointer;place-items:center}
-.mnav{border-top:1px solid var(--line);background:var(--paper);max-height:calc(100vh - 72px);overflow:auto}
-.mnav .wrap{display:grid;padding-block:8px 20px}
-.mnav a{display:block;padding:13px 4px;border-bottom:1px solid var(--line);text-decoration:none;font-weight:600}
-.mnav .sub a{padding-left:18px;font-weight:500;font-size:15px;color:var(--muted)}
+/* 모바일: 로고 아래 가로 메뉴 줄 */
+.mrow{display:none;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.mrow::-webkit-scrollbar{display:none}
+.mrow button,.mrow a{flex:none;font:600 14.5px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:8px 14px;text-decoration:none;cursor:pointer}
+.mrow [aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mrow .cta{background:var(--blue);color:#fff;border-color:var(--blue)}
+.msub{display:none;padding-bottom:10px;gap:6px;flex-wrap:wrap}
+.msub.on{display:flex}
+.msub a{font-size:14px;text-decoration:none;color:var(--text);padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
 
-/* hero */
-.hero{background:linear-gradient(180deg,var(--bg) 0%,#fff 100%);padding-block:64px 72px;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center}
-.hero h1{font-size:clamp(30px,4.3vw,48px);font-weight:900;letter-spacing:-.035em;line-height:1.28;margin-top:18px}
+/* ① 첫 화면 */
+.hero{background:linear-gradient(180deg,var(--bg) 0%,#fff 100%);padding-block:56px 64px}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(30px,3.5vw,44px);font-weight:900;letter-spacing:-.035em;line-height:1.25}
 .hero h1 em{font-style:normal;color:var(--blue)}
-.hero h1 .u{background:linear-gradient(transparent 62%,var(--mint-soft) 62%)}
-.hero .lead{color:var(--muted);font-size:17px;margin-top:18px;max-width:34em}
-.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-.hero-figure{position:relative;margin:0}
-.slides{position:relative;aspect-ratio:4/3.4;border-radius:18px;overflow:hidden;background:var(--bg)}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
-.slide.on{opacity:1}
-.slide img{width:100%;height:100%;object-fit:cover}
-.slide .cap{position:absolute;left:16px;top:16px;font-size:13px;font-weight:600;color:#fff;background:rgba(11,36,71,.78);padding:6px 12px;border-radius:99px}
-.dots{display:flex;gap:8px;justify-content:center;margin-top:14px}
-.dots button{width:9px;height:9px;border-radius:99px;border:0;padding:0;background:#c7d3e3;cursor:pointer;transition:width .25s,background .25s}
-.dots button[aria-pressed="true"]{width:26px;background:var(--blue)}
-@media (prefers-reduced-motion:reduce){.slide{transition:none}}
-.float{position:absolute;background:var(--paper);border-radius:12px;box-shadow:0 18px 40px rgba(13,35,64,.16);padding:14px 16px;display:flex;gap:12px;align-items:center}
-.float b{display:block;font:800 17px/1.2 var(--display);color:var(--ink)}
-.float span{font-size:13px;color:var(--muted)}
-.float.f1{left:-22px;bottom:64px}
-.float.f2{right:14px;top:22px}
-@media (max-width:560px){.float.f2{display:none}}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.chips span{font-size:14px;font-weight:600;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:7px 14px}
+.hero .lead{margin-top:16px;font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:30em}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero figure{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.hero figure div{position:relative;border-radius:16px;overflow:hidden}
+.hero figure div:last-child{margin-top:40px}
+.hero figure img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.hero figure span{position:absolute;left:12px;bottom:12px;background:rgba(11,36,71,.82);color:#fff;font-size:13px;font-weight:600;padding:5px 10px;border-radius:6px}
 
-/* brand */
-.brand-sec{background:var(--navy);color:#fff}
-.brand-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
-.brand-sec h2{color:#fff}
-.brand-sec .tag{background:rgba(255,255,255,.1);color:#8fe7d8}
-.brand-sec p.body{color:rgba(255,255,255,.8);font-size:17px;margin-top:18px}
-.creds{display:grid;gap:12px}
-.cred{display:flex;gap:16px;align-items:center;padding:18px 20px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.04)}
-.cred .ico{background:rgba(20,176,154,.16);color:#8fe7d8}
-.cred b{display:block;font:800 17px var(--display);color:#fff}
-.cred span{font-size:14px;color:rgba(255,255,255,.66)}
-.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:40px;padding-top:32px;border-top:1px solid rgba(255,255,255,.14)}
-.num b{display:block;font:900 34px/1.1 var(--display);color:#fff;font-variant-numeric:tabular-nums}
-.num span{font-size:14px;color:rgba(255,255,255,.66)}
-.num b.tbd{color:rgba(255,255,255,.35)}
-.numnote{margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.5)}
+/* ② 숫자 띠 */
+.stats{background:var(--navy);color:#fff;padding-block:34px}
+.stats .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.stat b{display:block;font-variant-numeric:tabular-nums;font:900 clamp(26px,3vw,34px)/1.1 var(--display);letter-spacing:-.02em}
+.stat .plus{display:inline-block;transform-origin:30% 80%}
+.stat .plus.pop{animation:plusPop 1.05s cubic-bezier(.3,1.6,.5,1)}
+@keyframes plusPop{0%{transform:scale(1)}45%{transform:scale(1.6)}100%{transform:scale(1)}}
+.stat>span{display:block;margin-top:6px;font-size:14px;color:rgba(255,255,255,.72)}
 
-.bphotos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:44px}
-.bphotos figure{margin:0;position:relative;border-radius:12px;overflow:hidden}
-.bphotos img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.bphotos figcaption{position:absolute;left:12px;bottom:12px;font-size:13px;font-weight:600;color:#fff;background:rgba(11,36,71,.82);padding:5px 11px;border-radius:6px}
-/* principles */
-.pr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.pr{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 22px;display:flex;flex-direction:column;gap:14px}
-.pr p{color:var(--muted);font-size:15px}
-.pr.hl{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
-.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
-.way{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--bg);border-radius:12px;padding:18px 22px}
-.way b{font:800 18px var(--display);color:var(--ink)}
-.way span{font-size:14px;color:var(--muted)}
-.waynote{margin-top:12px;font-size:13.5px;color:var(--muted)}
-.way em{font-style:normal;font:900 22px var(--display);color:var(--blue);white-space:nowrap}
+/* ③ 이야기 */
+.story .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+.steps li{position:relative;padding:0 0 26px 56px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font:800 15px var(--display)}
+.steps li::after{content:"";position:absolute;left:17px;top:40px;bottom:4px;width:2px;background:var(--line)}
+.steps li:last-child::after{display:none}
+.steps b{display:block;font:800 18px/1.4 var(--display);color:var(--ink)}
+.steps p{color:var(--muted);margin-top:4px}
+.story figure{margin:0;border-radius:14px;overflow:hidden}
+.story figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
 
-/* repair */
-.repair{background:var(--bg)}
-.rp-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:48px;align-items:center}
-.rp-figure{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.rp-figure img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px}
-.rp-figure img:last-child{margin-top:40px}
-.rp-list{display:grid;gap:12px;margin-top:28px}
-.rp{display:flex;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.rp p{color:var(--muted);font-size:15px;margin-top:2px}
-.rp-close{margin-top:22px;font:700 17px/1.6 var(--display);color:var(--ink);padding-left:16px;border-left:3px solid var(--mint)}
-.rp-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+/* ④ 가진 것 */
+.have{background:var(--bg)}
+.cards4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 22px;display:grid;gap:12px;align-content:start}
+.card p{color:var(--muted);font-size:15px}
 
-/* courses */
-.cs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.cs{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;transition:border-color .15s,transform .15s}
-.cs:hover{border-color:var(--blue);transform:translateY(-2px)}
-.cs-img{aspect-ratio:16/10;background:var(--bg) center/cover}
-.cs-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
-.cs .k{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.cs .cat{font-size:13px;font-weight:600;color:var(--blue)}
-.badge{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--mint-soft);color:var(--mint-dk);white-space:nowrap}
-.badge.soon{background:var(--bg);color:var(--muted)}
-.cs p{color:var(--muted);font-size:14.5px;flex:1}
-.cs .meta{display:flex;flex-wrap:wrap;gap:6px}
-.cs .meta span{font-size:12.5px;font-weight:600;color:var(--ink);background:var(--bg);padding:4px 9px;border-radius:5px}
-.cs .more{margin-top:6px;font-weight:600;font-size:14.5px;color:var(--blue);display:flex;align-items:center;gap:6px}
-.cs.soon .cs-img{display:grid;place-items:center;color:var(--muted);font-size:14px;background:repeating-linear-gradient(-45deg,var(--bg) 0 12px,#eef2f8 12px 24px)}
-.cs.soon .more{color:var(--muted)}
-.later{margin-top:18px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.later span{border:1px dashed #c4cfdd;border-radius:99px;padding:4px 12px}
+/* ⑤ 신뢰 */
+.trust{background:var(--navy);color:#fff}
+.trust .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center}
+.trust figure{margin:0;border-radius:14px;overflow:hidden}
+.trust figure img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.trust h2{color:#fff}
+.trust .tag{background:rgba(255,255,255,.12);color:#fff}
+.trust p{color:rgba(255,255,255,.78);margin-top:16px;font-size:17px}
+.trust ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px}
+.trust li{display:flex;gap:10px;align-items:flex-start;font-weight:600}
+.trust li svg{flex:none;margin-top:5px;color:var(--mint)}
 
-.cs-wrap{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:24px}
-.cs-group{min-width:0}
-.cs-gh{display:flex;flex-wrap:wrap;align-items:baseline;min-height:50px;align-content:flex-end;gap:6px 14px;padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--ink)}
-.cs-gh h3{font-size:21px}
-.cs-gh span{color:var(--muted);font-size:15px}
-.cs-group .cs-grid{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
-/* lab */
-.lab{background:var(--navy);color:#fff}
-.lab h2{color:#fff}
-.lab .head p{color:rgba(255,255,255,.72)}
-.lab .tag{background:rgba(255,255,255,.1);color:#8fe7d8}
-.lab-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:16px}
-.lab-main{margin:0;border-radius:14px;overflow:hidden;position:relative}
-.lab-main img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
-.lab-side{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.lab-side figure{margin:0;border-radius:14px;overflow:hidden;position:relative;background:#fff}
-.lab-side img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3.3}
-.lab figcaption{position:absolute;left:12px;bottom:12px;font-size:13px;font-weight:600;color:#fff;background:rgba(11,36,71,.82);padding:5px 11px;border-radius:6px}
-.lab-note{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;margin-top:24px;padding:20px 24px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
-.lab-note p{color:rgba(255,255,255,.84)}
-.lab-note b{color:#8fe7d8}
+/* ⑥ 패밀리 */
+.fam{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;gap:16px}
+.fcard{position:relative;border-radius:16px;overflow:hidden;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.fcard .ph{aspect-ratio:16/10;overflow:hidden}
+.fcard .ph img{width:100%;height:100%;object-fit:cover}
+.fcard .bd{padding:20px 22px 22px;display:grid;gap:8px;flex:1;align-content:start}
+.fcard .k{font-size:13px;font-weight:600;color:var(--mint-dk)}
+.fcard p{color:var(--muted);font-size:15px}
+.fcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.fcard .acts .btn{min-height:42px;padding:0 16px;font-size:14.5px}
+.fcard.main{}
 
-/* aftercare */
-.ac-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-.ac{border:1px solid var(--line);border-radius:14px;padding:24px 20px;display:flex;flex-direction:column;gap:12px;background:var(--paper)}
-.ac h3{font-size:17px}
-.ac p{color:var(--muted);font-size:14.5px}
-.ac.chat{background:var(--mint-soft);border-color:transparent}
 
-/* gallery (branded overlay) */
-.gal-sec{background:var(--bg)}
-.gal-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:28px}
-.gtabs{display:flex;flex-wrap:wrap;max-width:100%;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:99px;padding:4px}
-.gtabs button{border:0;background:none;padding:9px 16px;border-radius:99px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
-.gtabs button[aria-pressed="true"]{background:var(--blue);color:#fff}
-.gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.gi{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:#cfd8e4}
-.gi img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.gi:hover img{transform:scale(1.04)}
-.gi::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(11,36,71,.55) 0%,rgba(11,36,71,0) 42%,rgba(11,36,71,0) 55%,rgba(11,36,71,.72) 100%)}
-.gi .lg{position:absolute;z-index:1;left:14px;top:12px;display:flex;align-items:center;gap:7px;color:#fff;font:900 14px var(--display)}
-.gi .lg i{width:22px;height:22px;border-radius:5px;background:var(--blue);display:grid;place-items:center;font-style:normal}
-.gi .lg small{font:600 9px var(--body);letter-spacing:.14em;color:#8fe7d8;display:block;margin-top:-2px}
-.gi .cp{position:absolute;z-index:1;left:16px;right:16px;bottom:14px;color:#fff}
-.gi .cp b{display:block;font:800 18px/1.35 var(--display)}
-.gi .cp span{font-size:12px;font-weight:600;color:#8fe7d8}
-.gi .pills{position:absolute;z-index:1;right:12px;top:12px;display:grid;gap:5px;justify-items:end}
-.gi .pills span{font-size:11px;font-weight:600;background:rgba(255,255,255,.92);color:var(--ink);padding:3px 8px;border-radius:5px}
+.fcard.soon{background:#fff;border-style:dashed}
+.fcard.soon .ph{display:grid;place-items:center;background:repeating-linear-gradient(135deg,var(--bg) 0 12px,#fff 12px 24px);color:var(--muted);font-weight:600;aspect-ratio:auto;height:96px}
+.fam-sub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
 
-/* news */
-.news-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
-.news-grid>*{min-width:0}
-.box-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.box-h h3{font-size:22px}
-.box-h a{font-size:14px;font-weight:600;color:var(--blue);text-decoration:none}
-.list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-.list li{display:flex;justify-content:space-between;gap:12px;padding:16px 2px;border-bottom:1px solid var(--line);font-size:15px}
-.list li>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.list time{color:var(--muted);font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.list .c{color:var(--blue);font-weight:600;margin-right:6px}
-.empty{border:1px dashed #c4cfdd;border-radius:12px;padding:30px 24px;display:grid;gap:8px;color:var(--muted);font-size:15px;min-height:100%;align-content:center}
-.empty b{color:var(--ink);font-size:16px}
+/* ⑦ 사례 */
+.cases{background:var(--bg)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.tabs button{font:600 14.5px var(--body);padding:9px 16px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--text);cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.case{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;display:grid}
+.case .ph{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg)}
+.case .ph img{width:100%;height:100%;object-fit:cover}
+.case .ba{position:absolute;left:10px;top:10px;background:rgba(11,36,71,.85);color:#fff;font-size:12px;font-weight:600;padding:4px 9px;border-radius:6px}
+.case .bd{padding:16px 18px 18px;display:grid;gap:6px}
+.case .bd span{font-size:13px;color:var(--mint-dk);font-weight:600}
+.case .bd b{font:800 16.5px/1.45 var(--display);color:var(--ink)}
+.more{display:flex;justify-content:center;margin-top:26px}
+.cempty{grid-column:1/-1;color:var(--muted);text-align:center;padding:40px 0}
 
-/* care strip */
-.care{padding-block:0}
-.care .in{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
-.care p{color:var(--muted)}
-.care b{color:var(--ink)}
-.care a{font-weight:600;color:var(--blue);text-decoration:none;white-space:nowrap}
+/* ⑧ 아카데미 */
+.acad .box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:18px;overflow:hidden;background:var(--mint-soft)}
+.acad figure{margin:0}
+.acad figure img{width:100%;height:100%;object-fit:cover;min-height:320px}
+.acad .in{padding:48px 44px;display:grid;gap:16px;align-content:center}
+.acad ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px}
+.acad li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.acad li i{width:28px;height:28px;border-radius:50%;background:var(--mint);color:#fff;display:grid;place-items:center;font:normal 800 13px var(--display)}
+.acad li b{display:block;color:var(--ink)}
+.acad li div>span{display:block;color:var(--muted);font-size:14.5px}
+.acad .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
 
-/* contact */
-.contact{background:linear-gradient(135deg,var(--blue-dk),var(--navy));color:#fff}
-.ct-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:start}
+/* ⑨ 갤러리 */
+.ggrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ggrid figure{margin:0;position:relative;border-radius:12px;overflow:hidden}
+.ggrid img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ggrid figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 14px 12px;color:#fff;font-size:14px;font-weight:600;background:linear-gradient(transparent,rgba(11,36,71,.82))}
+
+/* ⑩ 지역 */
+.area{background:var(--bg)}
+.area .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.area .card h3{font-size:20px}
+.area .addr{font-size:17px;color:var(--ink);font-weight:600}
+.area .acts{display:flex;gap:8px;flex-wrap:wrap}
+.area .acts .btn{min-height:44px;font-size:14.5px;padding:0 16px}
+
+/* ⑪ 상담 */
+.contact{background:linear-gradient(160deg,var(--navy),#123a75);color:#fff}
+.contact .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
 .contact h2{color:#fff}
-.contact .tag{background:rgba(255,255,255,.12);color:#8fe7d8}
-.contact .lead{color:rgba(255,255,255,.8);margin-top:14px;font-size:17px}
-.reach{display:grid;gap:10px;margin-top:28px}
-.reach a,.reach div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border:1px solid rgba(255,255,255,.18);border-radius:10px;text-decoration:none;background:rgba(255,255,255,.04)}
-.reach b{font-weight:600}
-.reach span{font-size:14px;color:rgba(255,255,255,.72);text-align:right}
-.form{background:var(--paper);color:var(--text);border-radius:16px;padding:28px;display:grid;gap:16px;box-shadow:0 24px 60px rgba(0,0,0,.2)}
-.form h3{font-size:20px}
+.contact .lead{color:rgba(255,255,255,.75);margin-top:14px}
+.reach{display:grid;gap:10px;margin-top:26px}
+.reach a{display:flex;justify-content:space-between;gap:10px;padding:16px 18px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);text-decoration:none;font-weight:600}
+.form{background:#fff;color:var(--text);border-radius:16px;padding:26px;display:grid;gap:14px}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;background:var(--bg);border-radius:12px}
+.mode button{font:700 15px var(--body);padding:11px 8px;border-radius:9px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.mode button[aria-pressed="true"]{background:#fff;color:var(--blue);box-shadow:0 1px 4px rgba(13,35,64,.12)}
 .fld{display:grid;gap:6px}
-.fld label{font-weight:600;font-size:14px;color:var(--ink)}
-.fld .opt{font-weight:400;color:var(--muted);font-size:12px;margin-left:4px}
-.fld input,.fld select,.fld textarea{width:100%;font:16px var(--body);color:var(--text);background:#fff;border:1px solid #cdd6e3;border-radius:8px;padding:12px 14px}
-.fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
-.fld textarea{min-height:88px;resize:vertical}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px}
-.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--blue);flex:none}
-.chk a{color:var(--muted)}
-.msg{border-radius:8px;padding:12px 14px;font-size:14px;background:var(--warn);color:var(--warn-ink)}
-.msg.ok{background:var(--mint-soft);color:var(--mint-dk);font-weight:600}
-.err{color:#b42318;font-size:13px}
+.fld label,.fld .l{font-weight:600;font-size:14px;color:var(--ink)}
+.fld input,.fld textarea{font:15px var(--body);padding:12px 14px;border:1px solid #cdd6e3;border-radius:8px;width:100%}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.pick button{font:14px var(--body);padding:8px 13px;border:1px solid #cdd6e3;border-radius:99px;background:#fff;color:var(--text);cursor:pointer}
+.pick button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.talk{display:grid;gap:10px}
+.talk b{font:800 18px/1.4 var(--display);color:var(--ink)}
+.talk p{color:var(--muted);font-size:15px;margin-bottom:6px}
+#pEdu{display:grid;gap:14px}
+#pEdu[hidden]{display:none}
+.fld select{font:15px var(--body);padding:12px 14px;border:1px solid #cdd6e3;border-radius:8px;width:100%;background:#fff}
+.opt{font-weight:400;color:var(--muted);font-size:12.5px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--text)}
+.chk input{margin-top:4px}
+.err{color:#c62828;font-size:14px}
+.msg{font-size:14px;padding:12px 14px;border-radius:8px;background:#fdecea;color:#8a1c1c}
+.msg.ok{background:var(--mint-soft);color:var(--mint-dk)}
 
-/* quick menu */
-.quick{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:35;width:84px;background:var(--paper);border-radius:14px;box-shadow:0 14px 40px rgba(13,35,64,.16);overflow:hidden}
-.quick .qh{background:var(--blue);color:#fff;text-align:center;font:800 12px/1.3 var(--display);letter-spacing:.06em;padding:12px 6px}
-.quick a,.quick button{display:grid;justify-items:center;gap:6px;padding:13px 6px;text-decoration:none;font:600 12px/1.35 var(--body);color:var(--ink);text-align:center;border:0;border-top:1px solid var(--line);background:none;width:100%;cursor:pointer}
-.quick a:hover,.quick button:hover{background:var(--bg);color:var(--blue)}
-.quick svg{width:24px;height:24px;color:var(--mint-dk)}
-.quick .up{color:var(--muted);font-size:11px}
-.qpop{position:absolute;right:100%;margin-right:10px;bottom:72px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(13,35,64,.16);padding:8px;width:220px;display:grid}
-.qpop a{display:flex;justify-content:space-between;padding:11px 12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink);border:0}
-.qpop a:hover{background:var(--bg)}
-.qpop a span{color:var(--muted);font-weight:500}
-
+/* 하단 */
 footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-block:48px 40px}
 .ft{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));gap:28px}
 .ft h4{color:#fff;font-size:14px;margin:0 0 12px}
 .ft ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.ft a{text-decoration:none}
-.ft a:hover{color:#fff}
+.ft a{text-decoration:none}.ft a:hover{color:#fff}
 .ft .fb{color:#fff;font:900 19px var(--display);margin-bottom:10px;display:block}
 .legal{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 20px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px}
 .legal a{color:#fff;font-weight:600}
-.ph{color:#ffd78a}
 
-@media (max-width:1240px){.quick{right:6px}}
+/* 모바일 하단 고정 3버튼 */
+.mbar{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--paper);border-top:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));box-shadow:0 -6px 20px rgba(13,35,64,.08)}
+.mbar a{display:flex;align-items:center;justify-content:center;gap:6px;min-height:46px;border-radius:10px;text-decoration:none;font:700 14.5px var(--body);background:var(--bg);color:var(--ink)}
+.mbar a.on{background:var(--blue);color:#fff}
+
 @media (max-width:1080px){
   .nav,.top .btn{display:none}
-  .menu-btn{display:grid}
-  .pr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cs-wrap{grid-template-columns:1fr;gap:36px}
-  .cs-group .cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ac-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ac.chat{grid-column:1/-1}
-  .quick{display:none}
-}
-@media (max-width:860px){
-  section{padding-block:64px}
-  .hero-grid,.brand-grid,.rp-grid,.lab-grid,.ct-grid,.news-grid{grid-template-columns:1fr}
-  .hero-grid{gap:36px}
-  .float.f1{left:10px;bottom:12px}.float.f2{right:10px;top:12px}
-  .ways{grid-template-columns:1fr}
-  .bphotos{grid-template-columns:1fr 1fr}
-  .bphotos figure:last-child{display:none}
-  .gal{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .lab-main img{aspect-ratio:4/3.4}
-  .ft{grid-template-columns:1fr 1fr}
-  .ft>div:first-child{grid-column:1/-1}
-}
-@media (max-width:560px){
-  .pr-grid,.ac-grid,.gal{grid-template-columns:1fr}
-  .cs-group .cs-grid{grid-template-columns:1fr}
-  .nums{grid-template-columns:1fr 1fr 1fr;gap:8px}
-  .num b{font-size:24px}
-  .row2{grid-template-columns:1fr}
-  .lab-side{grid-template-columns:1fr 1fr;gap:10px}
-  .gi .pills{display:none}
+  .mrow{display:flex}
+  .msub.on{display:flex}
+  .cards4{grid-template-columns:repeat(2,minmax(0,1fr))}
   .mbar{display:grid}
   footer{padding-bottom:110px}
 }
-.mbar{display:none;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--paper);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(13,35,64,.06)}
-@media (max-width:1080px){.mbar{display:grid}footer{padding-bottom:110px}}
-.mbar a{display:grid;justify-items:center;gap:3px;padding:6px 2px;text-decoration:none;font:600 11px/1.25 var(--body);color:var(--ink);text-align:center}
-.mbar svg{width:22px;height:22px;color:var(--mint-dk)}
-.mbar a.on{color:var(--blue)}
-.mbar a.on svg{color:var(--blue)}
+@media (max-width:860px){
+  section{padding-block:64px}
+  .story .grid,.trust .grid,.contact .grid,.acad .box{grid-template-columns:1fr}
+  .story figure img{aspect-ratio:16/10}
+  .stats .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
+  .stat b{font-size:clamp(19px,5.6vw,30px)}
+  .fam{grid-template-columns:1fr}
+  .fam-sub,.area .grid{grid-template-columns:1fr}
+  .cgrid,.ggrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .acad .in{padding:32px 24px}
+  .acad figure img{min-height:0;aspect-ratio:16/10}
+  .ft{grid-template-columns:1fr 1fr}.ft>div:first-child{grid-column:1/-1}
+  .hero{padding-block:32px 48px}
+  .hero .grid{grid-template-columns:1fr;gap:24px}
+  .hero figure img{aspect-ratio:4/5}
+  .hero figure div:last-child{margin-top:24px}
+}
+@media (max-width:560px){
+  .cards4,.cgrid{grid-template-columns:1fr}
+  .ggrid{grid-template-columns:1fr 1fr;gap:8px}
+  .hero .cta .btn{flex:1}
+}
 </style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="청소공방 아카데미 홈">
-      <span class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></svg></span>
-      <span><b>청소공방</b><small>ACADEMY</small></span>
-    </a>
-    <ul class="nav">
-      <li><a href="about.html">청소공방 소개</a></li>
-      <li><a href="#courses">교육과정 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
-        <div class="drop" id="dropCourses"></div></li>
-      <li><a href="notice.html">커뮤니티 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
-        <div class="drop"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="cases/">교육·작업 사례</a><a href="gallery.html">현장 갤러리</a></div></li>
-      <li><a href="#care">케어서비스</a></li>
-      <li><a href="consult.html">상담 신청</a></li>
-    </ul>
-    <a class="btn btn-blue" href="consult.html">무료 상담</a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="메뉴 열기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div class="row">
+      <a class="brand" href="./" aria-label="청소공방 홈"><span class="logo"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><defs><mask id="lgm"><rect width="40" height="40" fill="#fff"/><circle cx="24.5" cy="16.5" r="8.2" fill="#000"/></mask></defs><path d="M20 2.5 35.2 11.25v17.5L20 37.5 4.8 28.75v-17.5z" fill="var(--blue)"/><path d="M20 5.6 32.5 12.8v14.4L20 34.4 7.5 27.2V12.8z" fill="none" stroke="var(--mint)" stroke-width="1.2"/><circle cx="20" cy="21" r="9.5" fill="#fff" mask="url(#lgm)"/><path d="m14.2 12.6.9 1.9 2.1.3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.4 2.1-.3z" fill="var(--mint)"/></svg></span><b>청소공방</b></a>
+      <ul class="nav">
+        <li><a href="./#family">서비스 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="drop"><a href="./#family">매트리스·소파 청소공방</a><a href="./#family">에어컨 청소공방</a><a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">청소 예약 <small>네이버 톡톡</small></a></div></li>
+        <li><a href="academy.html">아카데미 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="drop"><a href="academy.html">아카데미 소개</a><div class="dropin" id="dropCourses"></div></div></li>
+        <li><a href="cases/">사례 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="drop"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파 사례</a><a href="cases/aircon/">에어컨 사례</a><a href="cases/edu/">교육 사례</a></div></li>
+        <li><a href="notice.html">커뮤니티 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
+          <div class="drop"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="gallery.html">현장 갤러리</a></div></li>
+      </ul>
+      <a class="btn btn-blue" href="consult.html">상담 신청</a>
+      <button class="menu-btn" id="menuBtn" type="button" hidden aria-hidden="true" tabindex="-1"></button>
+    </div>
+    <div class="mrow" role="navigation" aria-label="메뉴">
+      <button type="button" data-sub="sv" aria-expanded="false">서비스</button>
+      <button type="button" data-sub="ac" aria-expanded="false">아카데미</button>
+      <button type="button" data-sub="cs" aria-expanded="false">사례</button>
+      <button type="button" data-sub="cm" aria-expanded="false">커뮤니티</button>
+      <a class="cta" href="consult.html">상담 신청</a>
+    </div>
+    <div class="msub" id="sub-sv"><a href="./#family">매트리스·소파 청소공방</a><a href="./#family">에어컨 청소공방</a><a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">청소 예약 (톡톡)</a></div>
+    <div class="msub" id="sub-ac"><a href="academy.html">아카데미 소개</a><a href="course-mattress.html">매트리스·소파 교육</a><a href="course-regular.html">에어컨 정기교육</a><a href="course-1on1.html">에어컨 1:1</a><a href="course-repair.html">에어컨 수리</a></div>
+    <div class="msub" id="sub-cs"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파</a><a href="cases/aircon/">에어컨</a><a href="cases/edu/">교육</a></div>
+    <div class="msub" id="sub-cm"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="gallery.html">현장 갤러리</a></div>
   </div>
-  <nav class="mnav" id="mnav" hidden><div class="wrap" id="mnavIn"></div></nav>
+  <nav class="mnav" id="mnav" hidden aria-hidden="true"><div class="wrap" id="mnavIn"></div></nav>
 </header>
 
 <main id="top">
 <!-- ① 첫 화면 -->
 <section class="hero">
-  <div class="wrap hero-grid">
+  <div class="wrap grid">
     <div>
-      <span class="tag">청소공방 아카데미 · 에어컨 · 가구 케어 기술교육</span>
-      <h1>소수정예 맞춤교육으로<br><em>숙련자의 현장 노하우</em>를<br><span class="u">밀도 있게</span> 전수해 드립니다</h1>
-      <p class="lead">에어컨 분해세척·수리부터 매트리스·소파 가구 케어까지. 기업이 맡기는 현장의 기술을, 손에 익을 때까지 가르칩니다.</p>
+      <span class="tag">종목별 전문 청소 브랜드</span>
+      <h1 style="margin-top:16px">현장 9년의 경험,<br>화학적 원리와 체계적인<br>작동구조 이론이 만나<br><em>청소의 기준</em>을 만듭니다</h1>
+      <p class="lead">매트리스·소파·카페트부터 에어컨까지. 종목마다 그 분야 전문가가 같은 기준으로 책임집니다.</p>
       <div class="cta">
-        <a class="btn btn-blue" href="#courses">교육과정 보기</a>
-        <a class="btn btn-line" href="#contact">무료 상담 신청</a>
+        <a class="btn btn-blue" href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">톡톡 청소 예약</a>
+        <a class="btn btn-line" href="academy.html">교육 알아보기</a>
       </div>
-      <div class="chips"><span>정기교육 4인 1조</span><span>개별교육 1:1 · 2:1</span><span>현장 장비 직접 실습</span><span>제한 없는 사후관리</span></div>
     </div>
-    <figure class="hero-figure">
-      <div class="slides" id="slides" aria-roledescription="carousel">
-        <div class="slide on"><img src="img/door_edu.jpg" alt="청소공방 강사가 천장형 4way 에어컨을 분해하는 모습"><span class="cap">에어컨 분해세척 · 수리 교육</span></div>
-        <div class="slide"><img src="img/sofa_fabric.jpg" alt="청소공방 기술자가 패브릭 소파를 추출 세척하는 모습"><span class="cap">매트리스 · 소파 가구 케어</span></div>
-        <div class="slide"><img src="img/k_lecture.jpg" alt="원단 샘플을 펼쳐놓고 세제의 산성·염기성을 설명하는 이론 수업"><span class="cap">원리부터 배우는 이론 수업</span></div>
-      </div>
-      <div class="dots" id="dots" role="group" aria-label="사진 선택"><button type="button" aria-label="1번 사진" aria-pressed="true"></button><button type="button" aria-label="2번 사진" aria-pressed="false"></button><button type="button" aria-label="3번 사진" aria-pressed="false"></button></div>
-      <div class="float f1"><span class="ico mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.8 14.6c2.3.2 4 1.7 4.7 4.4"/></svg></span><div><b>한 조 최대 4명</b><span>강사가 한 사람씩 봅니다</span></div></div>
-      <div class="float f2"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><div><b>에어컨 · 가구 케어</b><span>두 분야 현장 기술</span></div></div>
-    </figure>
+    <figure><div><img src="img/sofa_fabric.jpg" alt="패브릭 소파를 추출 세척하는 청소공방 기술자" style="object-position:42% center"><span>매트리스·소파</span></div><div><img src="img/ac_stand.jpg" alt="스탠드 에어컨을 분해 세척하는 청소공방 기술자" style="object-position:47% center"><span>에어컨</span></div></figure>
   </div>
 </section>
 
-<!-- ② 청소공방은 -->
-<section class="brand-sec" id="brand">
-  <div class="wrap">
-    <div class="brand-grid">
-      <div>
-        <span class="tag">청소공방은</span>
-        <h2 style="margin-top:16px">지금도 가구 제조기업 기술팀을<br>교육하는 강사가, 직접 가르칩니다</h2>
-        <p class="body">청소공방은 대기업 가구 브랜드의 클리닝을 맡고, 가구 제조기업 기술팀의 교육을 담당하는 현장 기술팀입니다. 기업 기술팀을 가르치는 그 기준 그대로, 소수정예로 교육합니다.</p>
-      </div>
-      <div class="creds">
-        <div class="cred"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></span><div><b>대기업 가구 브랜드 클리닝팀</b><span>기업이 신뢰하는 현장 기준</span></div></div>
-        <div class="cred"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><div><b>전국 가구관리 기술 위탁교육기관</b><span>기업이 교육을 맡기는 곳</span></div></div>
-        <div class="cred"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/></svg></span><div><b>전국 프랜차이즈 운영</b><span>에어컨 · 매트리스 · 소파 · 카페트 케어</span></div></div>
-      </div>
-    </div>
-    <div class="bphotos">
-      <figure><img src="img/k_showroom.jpg" alt="가구 쇼룸에서 진행한 현장 기술 교육"><figcaption>가구 쇼룸 현장 기술 교육</figcaption></figure>
-      <figure><img src="img/k_bowl.jpg" alt="상업 공간의 소파를 현장에서 세척하는 모습"><figcaption>상업 공간 가구 케어</figcaption></figure>
-      <figure><img src="img/k_bench.jpg" alt="세척을 마친 사무 공간 라운지 벤치"><figcaption>대형 라운지 대량 작업</figcaption></figure>
-    </div>
-    <div class="nums">
-      <div class="num"><b>9년</b><span>현장 경력</span></div>
-      <div class="num"><b>10,000점+</b><span>누적 작업 수량</span></div>
-      <div class="num"><b>100명+</b><span>누적 수료생</span></div>
-    </div>
-    <p class="numnote">누적 작업 수량은 소속 강사 3인의 가구·에어컨 작업 수량 합계 기준입니다.</p>
+<!-- ② 숫자 띠 -->
+<section class="stats" aria-label="숫자로 보는 청소공방">
+  <div class="wrap grid">
+    <div class="stat"><b>9년</b><span>현장 경력</span></div>
+    <div class="stat"><b id="cntWork" data-from="8000" data-to="10000">10,000건<span class="plus">+</span></b><span>누적 작업</span></div>
+    <div class="stat"><b>5개 기업</b><span>협업 및 기술위탁교육</span></div>
+    <div class="stat"><b>4개 전문 브랜드</b><span>운영 중인 업종</span></div>
   </div>
 </section>
 
-<!-- ③ 4원칙 -->
-<section id="method">
-  <div class="wrap">
-    <div class="head center">
-      <span class="tag mint">교육 원칙</span>
-      <h2>많이 가르치는 곳보다,<br>제대로 가르치는 곳</h2>
-      <p>단순히 청소하는 법이 아니라, 현장에서 믿고 부르는 기술자로 홀로 설 수 있게 만드는 것. 그것이 청소공방 교육의 목표입니다.</p>
-    </div>
-    <div class="pr-grid">
-      <div class="pr hl"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.8 14.6c2.3.2 4 1.7 4.7 4.4"/></svg></span><h3>소수정예 맞춤</h3><p>숫자를 늘리기보다 한 사람을 끝까지 봅니다. 손이 빠른 사람은 다음 단계로, 막히는 사람은 강사가 옆에서 다시 잡아줍니다.</p></div>
-      <div class="pr"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 12h6M9 16h6"/></svg></span><h3>현장 그대로</h3><p>실제 현장에서 생기는 상황을 그대로 옮겨와 실습합니다. 교재가 아니라 현장이 커리큘럼입니다.</p></div>
-      <div class="pr"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span><h3>원리부터</h3><p>순서만 외우지 않습니다. 구조와 원리를 알아야 처음 보는 기종이나 원단도 스스로 풀 수 있습니다.</p></div>
-      <div class="pr"><span class="ico mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>제한 없는 사후관리</h3><p>수료가 끝이 아닙니다. 기간 제한 없이 묻고, 다시 배우고, 함께 성장합니다.</p></div>
-    </div>
-    <div class="ways">
-      <div class="way"><div><b>정기교육</b><br><span>정해진 일정에 함께</span></div><em>4인 1조</em></div>
-      <div class="way"><div><b>개별교육</b><br><span>강사와 단둘이</span></div><em>1 : 1</em></div>
-      <div class="way"><div><b>개별교육</b><br><span>교육생 2명 · 강사 1명</span></div><em>2 : 1</em></div>
-    </div>
-    <p class="waynote">※ 매트리스·소파 청소교육은 개별교육(1:1 · 2:1)으로만 진행됩니다.</p>
-  </div>
-</section>
-
-<!-- 수리 -->
-<section class="repair" id="repair">
-  <div class="wrap rp-grid">
-    <figure class="rp-figure">
-      <img src="img/g_fan.jpg" alt="오염된 송풍팬을 분해한 모습">
-      <img src="img/g_ladder.jpg" alt="강사가 천장형 에어컨 패널을 탈거하는 모습">
-    </figure>
+<!-- ③ 청소공방 이야기 -->
+<section class="story" id="story">
+  <div class="wrap grid">
     <div>
-      <span class="tag">에어컨 세척 + 수리</span>
-      <h2 style="margin-top:16px">세척에 수리를 더해,<br>대체 불가능한 기술자로</h2>
-      <p style="color:var(--muted);font-size:17px;margin-top:14px">현장에서는 세척하다 고장을 만나는 일이 흔합니다. 청소공방은 분해세척에 수리 교육까지 더해, 고장 앞에서도 멈추지 않는 기술자로 키웁니다.</p>
-      <div class="rp-list">
-        <div class="rp"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><div><h3>고장 걱정 없이</h3><p>냉방 불량, 누수, 소음, 에러코드. 세척 중 만나는 고장을 그 자리에서 진단하고 대처합니다.</p></div></div>
-        <div class="rp"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><div><h3>한 번의 방문, 더 넓은 작업</h3><p>세척 고객의 고장까지 해결하니, 같은 현장에서 할 수 있는 일이 넓어집니다.</p></div></div>
-        <div class="rp"><span class="ico mint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></span><div><h3>길고 안정적인 성수기</h3><p>세척 수요가 몰리는 여름 전후로도 점검과 수리 문의가 이어집니다.</p></div></div>
-      </div>
-      <p class="rp-close">에어컨 단순 세척을 넘어 수리까지.<br>더 길고 안정적인 성수기를 만들어 드립니다.</p>
-      <div class="rp-cta">
-        <a class="btn btn-blue" href="course-repair.html">수리 단과과정 보기</a>
-        <a class="btn btn-line" href="course-1on1.html">1:1 종합실무과정 보기</a>
-      </div>
+      <div class="head"><span class="tag">청소공방 이야기</span><h2>주먹구구식 청소를<br>이론이 있는 기술로 바꾸고 있습니다</h2></div>
+      <ol class="steps">
+        <li><b>정리된 이론이 없던 업계</b><p>청소 현장은 오랫동안 경험과 감에 기대 작업해 왔습니다. 청소공방은 그 시작을 매트리스·소파에서 바꿨습니다.</p></li>
+        <li><b>현장 9년과 체계적인 이론의 만남</b><p>9년간 현장을 지켜 온 대표와, 세제·원리·원단 이론을 정리해 온 대표가 함께 시작했습니다.</p></li>
+        <li><b>2년 이상의 테스트</b><p>약품, 원단, 도구, 작업 방식을 하나씩 시험하고 결과를 기록했습니다.</p></li>
+        <li><b>청소공방의 작업 기준</b><p>그 기록이 현장과 교육에 쓰는 청소공방의 기준이 되었습니다.</p></li>
+        <li><b>종목을 넓히다</b><p>같은 방식에 공감한 에어컨 전문가와 함께 에어컨 청소공방을 열었습니다.</p></li>
+      </ol>
     </div>
+    <figure><img src="img/k_lecture.jpg" alt="원단 샘플과 세제의 산성·염기성을 설명하는 이론 수업" style="object-position:center bottom"></figure>
   </div>
 </section>
 
-<!-- ④ 교육과정 -->
-<section id="courses">
+<!-- ④ 청소공방이 일하는 방식 -->
+<section class="have">
   <div class="wrap">
-    <div class="head center">
-      <span class="tag">교육과정</span>
-      <h2>나에게 맞는 교육과정을 선택하세요</h2>
-      <p>에어컨부터 가구 케어까지, 분야별로 과정을 골라보세요. 과정을 선택하면 상세 커리큘럼을 볼 수 있습니다.</p>
-    </div>
-    <div id="courseList" class="cs-wrap"></div>
-    <p class="later">준비 중인 과정 <span>유리창 청소</span><span>상가 바닥 광택·코팅</span><span>새집증후군</span></p>
-  </div>
-</section>
-
-<!-- ⑤ 실습 환경 -->
-<section class="lab" id="lab">
-  <div class="wrap">
-    <div class="head">
-      <span class="tag">실습 환경</span>
-      <h2>현장에서 쓰는 장비,<br>전부 직접 조작합니다</h2>
-      <p>에어컨 고압세척기와 냉매 게이지부터 가구 원단 실습까지, 실제 현장 장비를 실습실에 갖췄습니다. 보는 데서 끝나지 않고 직접 켜고 다뤄보며 장비별 차이를 몸으로 익힙니다.</p>
-    </div>
-    <div class="lab-grid">
-      <figure class="lab-main"><img src="img/e_all.jpg" alt="고압세척기 3대, 블로워, 습건식 청소기, 냉매 게이지 등 실습실 장비 전체"><figcaption>실습실 보유 장비</figcaption></figure>
-      <div class="lab-side">
-        <figure><img src="img/hall.jpg" alt="스탠드·벽걸이 실습 기종이 줄지어 있는 교육장"><figcaption>실습 기종이 설치된 교육장</figcaption></figure>
-        <figure><img src="img/g_4way.jpg" alt="천장에 설치된 천장형 실습 기종"><figcaption>천장형 실습 설비</figcaption></figure>
-        <figure><img src="img/sofa_fabric.jpg" alt="패브릭 소파를 추출 세척하는 모습"><figcaption>패브릭 소파 세척 실습</figcaption></figure>
-        <figure><img src="img/mattress.jpg" alt="매트리스를 추출 세척하는 모습"><figcaption>매트리스 세척 실습</figcaption></figure>
-      </div>
-    </div>
-    <div class="lab-note">
-      <p><b>창업 장비 구매 목록</b>은 교육 상담 때 안내해 드립니다. 무엇을 먼저 사고, 무엇은 나중에 사도 되는지까지.</p>
-      <a class="btn btn-mint" href="#contact">상담 신청</a>
+    <div class="head"><span class="tag">청소공방이 일하는 방식</span><h2>종목은 달라도<br>기준을 만드는 방식은 같습니다</h2><p>새 종목을 열 때마다 이론을 먼저 정리하고, 매뉴얼과 교재를 만든 다음 현장에 나갑니다.</p></div>
+    <div class="cards4">
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/></svg></span><h3>원리부터 정리</h3><p>세제·약품·소재의 원리를 먼저 정리합니다. 매트리스·소파는 실물 원단 30종 이상으로 테스트합니다.</p></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h6"/></svg></span><h3>종목별 매뉴얼·교재</h3><p>매트리스·소파와 에어컨 모두 작업 매뉴얼과 이론교재를 갖추고 있습니다.</p></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><h3>현장 판단 기준</h3><p>어떤 오염에 무엇을 어떻게 쓸지, 현장에서 바로 판단하는 기준으로 작업합니다.</p></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.8 14.6c2.4.2 4 1.7 4.7 4.4"/></svg></span><h3>분야별 전문가</h3><p>종목마다 그 분야 전문가가 맡아 서비스와 교육을 함께 책임집니다.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ⑥ 사후관리 -->
-<section id="aftercare">
-  <div class="wrap">
-    <div class="head center">
-      <span class="tag mint">사후관리 &amp; 성장 솔루션</span>
-      <h2>수료한 날부터가 진짜 시작입니다</h2>
-      <p>기간 제한 없는 사후관리와 성장 솔루션으로, 현장에서 혼자 막히지 않게 끝까지 함께합니다.</p>
-    </div>
-    <div class="ac-grid">
-      <div class="ac"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><h3>기간 제한 없는 기술 질문</h3><p>현장에서 막히면 사진 한 장으로 바로 묻습니다.</p></div>
-      <div class="ac"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.5 9A9 9 0 0 0 5.6 5.6L1 10m22 4-4.6 4.4A9 9 0 0 1 3.5 15"/></svg></span><h3>재실습 지원</h3><p>부족한 부분은 다시 와서 손에 익힙니다.</p></div>
-      <div class="ac"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><h3>장비 구매 가이드</h3><p>무엇을 먼저 사고 무엇을 나중에 사도 되는지 안내합니다.</p></div>
-      <div class="ac"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></span><h3>성장 솔루션</h3><p>견적 내는 법, 고객 응대, 홍보 채널 운영까지 창업 이후를 함께 고민합니다.</p></div>
-      <div class="ac chat"><span class="ico mint" style="background:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.8 14.6c2.3.2 4 1.7 4.7 4.4"/></svg></span><h3>수료생 커뮤니티</h3><p>수료생 오픈채팅방과 정보 카페에서 일손을 구하고, 일정을 나누며, 같은 길을 가는 동료와 연결됩니다.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑦ 현장 갤러리 -->
-<section class="gal-sec" id="gallery">
-  <div class="wrap">
-    <div class="gal-top">
-      <div class="head" style="margin:0"><span class="tag">현장 갤러리</span><h2>현장의 기록</h2><p>청소공방 교육장과 작업 현장에서 직접 찍은 사진입니다.</p></div>
-      <div class="gtabs" id="gtabs" role="group" aria-label="사진 분류"></div>
-    </div>
-    <div class="gal" id="gal"></div>
-    <div style="text-align:center;margin-top:28px"><a class="btn btn-line" href="gallery.html">갤러리 전체 보기</a></div>
-  </div>
-</section>
-
-<!-- ⑧ 공지 + 후기 -->
-<section id="news">
-  <div class="wrap news-grid">
+<!-- ⑤ 믿고 맡기는 이유 -->
+<section class="trust">
+  <div class="wrap grid">
+    <figure><img src="img/k_showroom.jpg" alt="가구 쇼룸에서 진행한 현장 기술 교육"></figure>
     <div>
-      <div class="box-h"><h3>공지·일정</h3><a href="notice.html">전체 보기</a></div>
-      <ul class="list" id="newsList">
-        <li><span><span class="c">[정기교육]</span>11월 분해세척 정기교육 개강 안내 <span class="todo">예시</span></span><time>2026-10-12</time></li>
-        <li><span><span class="c">[1:1 종합]</span>11월 개별교육 일정 상담 접수 중 <span class="todo">예시</span></span><time>2026-10-08</time></li>
-        <li><span><span class="c">[수리 단과]</span>수리 단과과정 커리큘럼 안내 <span class="todo">예시</span></span><time>2026-10-01</time></li>
-        <li><span><span class="c">[공지]</span>교육장 주차 안내 <span class="todo">예시</span></span><time>2026-09-25</time></li>
+      <span class="tag">믿고 맡기는 이유</span>
+      <h2 style="margin-top:16px">국내 가구 기업들이<br>청소공방에 맡깁니다</h2>
+      <p>가구를 만드는 기업이 자사 고객의 클리닝과, 자사 클리닝팀의 기술교육을 청소공방에 맡기고 있습니다.</p>
+      <ul>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>국내 가구 제조·판매 기업 5곳의 B2C 클리닝 서비스 전국 총괄</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>같은 기업들의 클리닝 서비스팀 기술교육 위탁교육기관</li>
       </ul>
     </div>
-    <div>
-      <div class="box-h"><h3>수료 후기</h3><a href="reviews.html">전체 보기</a></div>
-      <div id="rvBox" style="display:grid;gap:12px"><div class="empty"><b>첫 수료 후기를 기다리고 있습니다</b><span>수료생이 남긴 후기는 확인 후 이곳에 공개됩니다. 실제 수료생의 후기만 올립니다.</span></div></div>
+  </div>
+</section>
+
+<!-- ⑥ 청소공방 패밀리 -->
+<section id="family">
+  <div class="wrap">
+    <div class="head"><span class="tag">청소공방 패밀리</span><h2>분야별 전문가가<br>각 종목을 책임집니다</h2><p>매뉴얼과 이론교재를 먼저 만들고, 교육과정을 연 다음 정식 서비스를 시작합니다.</p></div>
+    <div class="fam">
+      <article class="fcard main">
+        <div class="ph"><img src="img/k_sofa.jpg" alt="매트리스를 추출 세척하는 청소공방 기술자"></div>
+        <div class="bd"><span class="k">청소공방의 시작</span><h3>매트리스·소파 청소공방</h3><p>매트리스, 패브릭·가죽 소파는 원단과 오염에 맞춘 화학적 세척으로. 카페트는 수거 세탁 협력업체와 함께합니다.</p>
+          <div class="acts"><a class="btn btn-blue" href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">톡톡 예약</a><a class="btn btn-line" href="cases/sofa/">사례</a></div></div>
+      </article>
+      <article class="fcard">
+        <div class="ph"><img src="img/ac_stand.jpg" alt="스탠드 에어컨을 분해 세척하는 모습" style="object-position:right center"></div>
+        <div class="bd"><span class="k">분해세척 · 경수리</span><h3>에어컨 청소공방</h3><p>구조와 작동 원리를 아는 완전분해 세척과 경수리.</p>
+          <div class="acts"><a class="btn btn-blue" href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">톡톡 예약</a><a class="btn btn-line" href="cases/aircon/">사례</a></div></div>
+      </article>
+      <article class="fcard">
+        <div class="ph"><img src="img/ac_edu2.jpg" alt="강사와 교육생이 함께 실습하는 모습"></div>
+        <div class="bd"><span class="k">교육</span><h3>청소공방 아카데미</h3><p>현장의 기준을 매뉴얼과 실습으로 가르칩니다.</p>
+          <div class="acts"><a class="btn btn-line" href="academy.html">자세히 보기</a></div></div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ⑨ 케어서비스 -->
-<section class="care" id="care">
-  <div class="wrap"><div class="in">
-    <p><b>청소가 필요하신 고객님이신가요?</b> 에어컨·매트리스·소파·카페트 케어는 케어서비스에서 예약하실 수 있습니다.</p>
-    <a href="#care">케어서비스 보기 →</a>
-  </div></div>
+<!-- ⑦ 작업 사례 -->
+<section class="cases" id="cases">
+  <div class="wrap">
+    <div class="head"><span class="tag">작업 사례</span><h2>결과로 보여 드립니다</h2><p>작업 전·후 사진을 직접 비교해 보세요.</p></div>
+    <div class="tabs" role="group" aria-label="사례 분류"><button type="button" data-c="" aria-pressed="true">전체</button><button type="button" data-c="매트리스·소파" aria-pressed="false">매트리스·소파</button><button type="button" data-c="에어컨" aria-pressed="false">에어컨</button><button type="button" data-c="교육" aria-pressed="false">교육</button></div>
+    <div class="cgrid" id="cgrid"><p class="cempty">사례를 불러오는 중입니다.</p></div>
+    <div class="more"><a class="btn btn-line" href="cases/">사례 전체 보기</a></div>
+  </div>
 </section>
 
-<!-- ⑩ 상담 -->
-<section class="contact" id="contact" style="margin-top:88px">
-  <div class="wrap ct-grid">
-    <div>
-      <span class="tag">상담 신청</span>
-      <h2 style="margin-top:16px">고민은 상담에서<br>끝내세요</h2>
-      <p class="lead">내게 맞는 과정, 일정, 필요한 장비까지 현직 기술자가 직접 안내합니다. 상담을 받았다고 등록을 권하지 않습니다.</p>
-      <div class="reach">
-        <a href="tel:01088330999"><b>전화 상담</b><span>010-8833-0999</span></a>
-        <a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener"><b>네이버 톡톡</b><span>톡톡으로 문의하기 →</span></a>
-        <div id="way"><b>찾아오는 길</b><span>경기도 구리시 갈매중앙로 190<br>휴벨나인 D존 6073호</span></div>
+<!-- ⑧ 청소공방 아카데미 -->
+<section class="acad" id="academy">
+  <div class="wrap">
+    <div class="box">
+      <figure><img src="img/ac_edu1.jpg" alt="강사가 교육생에게 송풍팬 분해를 지도하는 모습"></figure>
+      <div class="in">
+        <span class="tag mint">청소공방 아카데미</span>
+        <h2>현장의 기준을<br>그대로 가르칩니다</h2>
+        <ul>
+          <li><i>1</i><div><b>소수정예</b><span>정기교육 최대 4인, 개별교육 1:1 · 2:1</span></div></li>
+          <li><i>2</i><div><b>현장 장비 전부 실습</b><span>현장에서 쓰는 장비를 교육생이 직접 다룹니다</span></div></li>
+          <li><i>3</i><div><b>무제한 재교육과 성장 솔루션</b><span>수료 후에도 기술 질문, 재실습, 창업 운영을 돕습니다</span></div></li>
+                  </ul>
+        <div class="acts"><a class="btn btn-line" href="course-mattress.html">매트리스·소파 교육</a><a class="btn btn-line" href="course-regular.html">에어컨 교육</a><a class="btn btn-blue" href="academy.html">아카데미 보기</a></div>
       </div>
     </div>
-    <form class="form" id="form" novalidate>
-      <h3>교육 상담 신청</h3>
-      <div class="fld"><label for="course">관심 과정</label><select id="course"></select></div>
-      <div class="row2">
+  </div>
+</section>
+
+<!-- ⑨ 현장 갤러리 -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head"><span class="tag">현장 갤러리</span><h2>청소공방의 현장</h2></div>
+    <div class="tabs" role="group" aria-label="갤러리 분류"><button type="button" data-g="all" aria-pressed="true">전체</button><button type="button" data-g="m" aria-pressed="false">매트리스·소파</button><button type="button" data-g="a" aria-pressed="false">에어컨</button></div>
+    <div class="ggrid" id="ggrid"></div>
+    <div class="more"><a class="btn btn-line" href="gallery.html">갤러리 전체 보기</a></div>
+  </div>
+</section>
+
+<!-- ⑩ 서비스 지역·오시는 길 -->
+<section class="area" id="area">
+  <div class="wrap">
+    <div class="head"><span class="tag">서비스 지역 · 오시는 길</span><h2>서울·경기 어디든 찾아갑니다</h2></div>
+    <div class="grid">
+      <div class="card"><h3>서비스 지역</h3><p class="addr">서울 · 경기 전지역</p><p>지역과 품목을 알려 주시면 방문 일정을 안내해 드립니다.</p><div class="acts"><a class="btn btn-blue" href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">톡톡으로 청소 예약</a></div></div>
+      <div class="card"><h3>청소공방 본점 · 교육장</h3><p class="addr" id="addr">경기도 구리시 갈매중앙로 190 휴벨나인 D존 6073호</p><div class="acts"><a class="btn btn-line" href="https://map.naver.com/p/search/%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EA%B5%AC%EB%A6%AC%EC%8B%9C%20%EA%B0%88%EB%A7%A4%EC%A4%91%EC%95%99%EB%A1%9C%20190" target="_blank" rel="noopener">네이버 지도</a><button class="btn btn-line" type="button" id="copyAddr">주소 복사</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑪ 상담 신청 -->
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <span class="tag" style="background:rgba(255,255,255,.12);color:#fff">상담 신청</span>
+      <h2 style="margin-top:16px">사진 한 장이면<br>상태를 보고 안내해 드립니다</h2>
+      <p class="lead">청소 예약은 네이버 톡톡으로, 교육 상담은 이 자리에서 바로 신청하실 수 있습니다.</p>
+      <div class="reach">
+        <a href="tel:01088330999"><span>전화 상담</span><span>010-8833-0999</span></a>
+        <a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener"><span>네이버 톡톡 (사진 보내기)</span><span>→</span></a>
+      </div>
+    </div>
+    <div class="form" id="form">
+      <div class="mode" role="group" aria-label="상담 종류"><button type="button" id="mClean" aria-pressed="true">청소 예약</button><button type="button" id="mEdu" aria-pressed="false">교육 상담</button></div>
+      <div id="pClean" class="talk">
+        <b>청소 예약은 네이버 톡톡으로 받고 있습니다</b>
+        <p>품목, 지역, 원하시는 날짜와 함께 오염 부위 사진을 보내 주시면 상태를 보고 견적과 일정을 안내해 드립니다.</p>
+        <a class="btn btn-blue" href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">네이버 톡톡으로 예약하기</a>
+        <a class="btn btn-line" href="tel:01088330999">전화 010-8833-0999</a>
+      </div>
+      <form id="pEdu" novalidate hidden>
+        <div class="fld"><label for="course">관심 과정</label><select id="course"></select></div>
         <div class="fld"><label for="nm">이름</label><input id="nm" autocomplete="name" placeholder="홍길동"></div>
         <div class="fld"><label for="ph">연락처</label><input id="ph" type="tel" inputmode="numeric" placeholder="010-0000-0000"></div>
-      </div>
-      <div class="fld"><label for="rg">지역<span class="opt">선택</span></label><input id="rg" placeholder="예: 경기도 구리시"></div>
-      <div class="fld"><label for="mm">남기실 말씀<span class="opt">선택</span></label><textarea id="mm" placeholder="현재 하시는 일, 희망 일정, 궁금한 점"></textarea></div>
-      <label class="chk" for="ag"><input type="checkbox" id="ag">개인정보 수집·이용에 동의합니다 <a href="privacy.html" target="_blank" rel="noopener">(내용 보기)</a></label>
-      <span class="err" id="err" hidden></span>
-      <div class="msg" id="msg" hidden></div>
-      <button class="btn btn-blue" type="submit" style="width:100%;min-height:56px;font-size:17px">상담 신청하기</button>
-    </form>
+        <div class="fld"><label for="mm">남기실 말씀 <span class="opt">선택</span></label><textarea id="mm" rows="3" placeholder="희망 일정, 궁금한 점"></textarea></div>
+        <label class="chk" for="ag"><input type="checkbox" id="ag">개인정보 수집·이용에 동의합니다 <a href="privacy.html" target="_blank" rel="noopener">(내용 보기)</a></label>
+        <span class="err" id="err" hidden></span>
+        <div class="msg" id="msg" hidden></div>
+        <button class="btn btn-blue" type="submit">교육 상담 신청하기</button>
+      </form>
+    </div>
   </div>
 </section>
 </main>
@@ -582,160 +483,103 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 <footer>
   <div class="wrap ft">
     <div>
-      <span class="fb">청소공방 아카데미</span>
+      <span class="fb">청소공방</span>
       경기도 구리시 갈매중앙로 190 휴벨나인 D존 6073호<br>
       대표 이대석 · 사업자등록번호 335-22-02129<br>
       대표번호 010-8833-0999
     </div>
-    <div><h4>교육과정</h4><ul id="ftCourses"></ul></div>
-    <div><h4>커뮤니티</h4><ul><li><a href="notice.html">공지·일정</a></li><li><a href="reviews.html">수료 후기</a></li><li><a href="cases/">교육·작업 사례</a></li><li><a href="gallery.html">현장 갤러리</a></li></ul></div>
-    <div><h4>안내</h4><ul><li><a href="about.html">청소공방 소개</a></li><li><a href="#care">케어서비스</a></li><li><a href="consult.html">상담 신청</a></li><li><a href="about.html#location">찾아오는 길</a></li></ul></div>
+    <div><h4>서비스</h4><ul><li><a href="./#family">매트리스·소파 청소공방</a></li><li><a href="./#family">에어컨 청소공방</a></li><li><a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">청소 예약 (네이버 톡톡)</a></li></ul></div>
+    <div><h4>아카데미</h4><ul id="ftCourses"></ul></div>
+    <div><h4>커뮤니티</h4><ul><li><a href="cases/">작업·교육 사례</a></li><li><a href="notice.html">공지·일정</a></li><li><a href="reviews.html">수료 후기</a></li><li><a href="gallery.html">현장 갤러리</a></li><li><a href="consult.html">상담 신청</a></li><li><a href="./#area">찾아오는 길</a></li></ul></div>
     <div class="legal"><a href="privacy.html">개인정보처리방침</a><span>© 2026 청소공방</span><a href="admin.html" rel="nofollow" style="margin-left:auto;opacity:.45;font-weight:400">관리자</a></div>
   </div>
 </footer>
 
-<!-- 퀵메뉴 (PC) -->
-<aside class="quick" aria-label="퀵메뉴">
-  <div class="qh">QUICK<br>MENU</div>
-  <a href="reviews.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1z"/></svg>수료 후기</a>
-  <a href="#courses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="9" rx="2"/><path d="M6 14v2M10 14v4M14 14v4M18 14v2M6 10h12"/></svg>에어컨 교육</a>
-  <a href="course-mattress.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18v-6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6"/><path d="M3 15h18M5 18v2M19 18v2M6 9V6h12v3"/></svg>매트리스·소파 교육</a>
-  <button type="button" id="qCall" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>상담 신청</button>
-  <a href="about.html#location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/></svg>찾아오는 길</a>
-  <a class="up" href="#top">↑ TOP</a>
-  <div class="qpop" id="qPop" hidden>
-    <a href="tel:01088330999">전화 상담 <span>010-8833-0999</span></a>
-    <a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">네이버 톡톡 <span>문의하기 →</span></a>
-    <a href="consult.html#apply">신청서 작성 <span>→</span></a>
-  </div>
-</aside>
-
-<!-- 퀵메뉴 (모바일 하단) -->
-<nav class="mbar" aria-label="퀵메뉴">
-  <a href="reviews.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1z"/></svg>수료 후기</a>
-  <a href="#courses"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="9" rx="2"/><path d="M6 14v2M10 14v4M14 14v4M18 14v2"/></svg>에어컨 교육</a>
-  <a href="course-mattress.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18v-6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6"/><path d="M3 15h18M5 18v2M19 18v2"/></svg>매트리스·소파 교육</a>
-  <a class="on" href="consult.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>상담 신청</a>
-  <a href="about.html#location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/></svg>오시는 길</a>
+<nav class="mbar" aria-label="빠른 연락">
+  <a href="tel:01088330999">전화</a>
+  <a href="https://talk.naver.com/profile/wenjgv6" target="_blank" rel="noopener">톡톡 청소 예약</a>
+  <a class="on" href="consult.html">상담 신청</a>
 </nav>
 
 <script src="data.js"></script>
 <script>
-if('scrollRestoration' in history) history.scrollRestoration='manual';
-if(!location.hash){ window.scrollTo(0,0); addEventListener('load',()=>window.scrollTo(0,0)); addEventListener('pageshow',()=>window.scrollTo(0,0)); }
-/* ===== 관리자 페이지에서 관리될 데이터 (시안에서는 고정) ===== */
-const COURSES = [
-  {cat:"에어컨", title:"에어컨 분해세척 정기교육", url:"course-regular.html", status:"open", img:"img/g_ceiling.jpg", desc:"벽걸이·스탠드·천장형을 분해부터 세척, 조립까지 4명이 한 조로 반복 실습합니다.", meta:["4인 1조","5일 · 40시간"]},
-  {cat:"에어컨", title:"에어컨 1:1 종합실무과정", url:"course-1on1.html", status:"open", img:"img/door_svc.jpg", desc:"강사와 1:1. 분해세척에 수리까지, 내 속도에 맞춘 종합 과정입니다.", meta:["1:1 · 2:1","4일 · 32시간"]},
-  {cat:"에어컨", title:"에어컨 수리 단과과정", url:"course-repair.html", status:"open", img:"img/g_parts.jpg", desc:"이미 청소를 하고 있다면. 고장 진단, 부품 교체, 냉매 작업을 집중으로 배웁니다.", meta:["개별","1일 · 8시간"]},
-  {cat:"가구 케어", title:"매트리스·소파 청소교육", url:"course-mattress.html", status:"open", img:"img/sofa_fabric.jpg", pos:"center", desc:"원단과 오염의 원리부터 습식 세탁 실습, 마케팅까지. 3일 개별교육으로 배우고 수료 후에도 무제한 재교육을 이어갑니다.", meta:["1:1 · 2:1","3일"]}
-];
-let GALLERY = [
-  {cat:"교육", src:"img/g_ceiling.jpg", title:"천장형 4way 분해 실습", sub:"직접 배우고 경험하는 실무 교육", pills:["분해·조립 실습","1:1 맞춤 지도"]},
-  {cat:"현장", src:"img/f_home.jpg", title:"가정 현장 벽걸이 분해세척", sub:"부품 하나까지 분해하는 완전 세척", pills:["완전 분해","보양 작업"]},
-  {cat:"교육장", src:"img/hall.jpg", title:"실습 기종이 설치된 교육장", sub:"현장과 같은 높이와 자세로", pills:["스탠드·벽걸이·천장형"]},
-  {cat:"현장", src:"img/f_shop.jpg", title:"매장 현장 대량 작업", sub:"상업 공간도 같은 기준으로", pills:["대량 작업","부품 정리"]},
-  {cat:"장비", src:"img/g_equip.jpg", title:"현장 장비 전부 직접 조작", sub:"장비별 차이를 몸으로 익힙니다", pills:["고압세척기","블로워"]},
-  {cat:"교육", src:"img/g_wall.jpg", title:"벽걸이 송풍팬 고압 세척", sub:"세척 순서와 수압 조절까지", pills:["세척 실습"]},
-  {cat:"가구 케어", src:"img/sofa_fabric.jpg", title:"패브릭 소파 추출 세척", sub:"원단을 지키는 세척", pills:["소파 케어","추출 세척"]},
-  {cat:"가구 케어", src:"img/k_bowl.jpg", title:"상업 공간 소파 현장 세척", sub:"영업 공간도 같은 기준으로", pills:["상업 공간"]},
-  {cat:"가구 케어", src:"img/k_bench.jpg", title:"사무 공간 라운지 대량 작업", sub:"수십 개 가구도 한 번에", pills:["대량 작업"]},
-  {cat:"교육", src:"img/ac_wall1.jpg", title:"벽걸이 열교환기 세척 전·후", sub:"오염이 빠지는 과정을 눈으로 확인", pills:["고압 세척","보양 작업"]},
-  {cat:"교육", src:"img/ac_stand.jpg", title:"스탠드 에어컨 송풍부 세척", sub:"분해한 부품을 하나씩", pills:["스탠드","분해 세척"]},
-  {cat:"가구 케어", src:"img/mattress.jpg", title:"매트리스 추출 세척", sub:"원단 속 오염까지", pills:["매트리스","추출 세척"]},
-  {cat:"가구 케어", src:"img/sofa_leather.jpg", title:"가죽소파 오염 케어", sub:"소재에 맞는 방법으로", pills:["가죽소파"]},
-  {cat:"가구 케어", src:"img/sofa_pink.jpg", title:"소파 추출 세척 현장", sub:"원단별 약품과 작업 방식", pills:["소파 케어"]},
-  {cat:"가구 케어", src:"img/extractor.jpg", title:"추출 세척 실습", sub:"오염물이 빠지는 모습을 직접 확인", pills:["추출 세척"]},
-  {cat:"가구 케어", src:"img/steam_spot.jpg", title:"스팀 얼룩 제거 실습", sub:"국소 얼룩 집중 케어", pills:["스팀"]}
-];
-/* ============================================================ */
-
+const COURSES = [{"cat": "매트리스·소파", "title": "매트리스·소파 청소교육", "url": "course-mattress.html", "status": "open"}, {"cat": "에어컨", "title": "에어컨 분해세척 정기교육", "url": "course-regular.html", "status": "open"}, {"cat": "에어컨", "title": "에어컨 1:1 종합실무과정", "url": "course-1on1.html", "status": "open"}, {"cat": "에어컨", "title": "에어컨 수리 단과과정", "url": "course-repair.html", "status": "open"}];
 (function(){
-  const $ = s => document.querySelector(s);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const arrow = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-
-  // 과정 카드
-  const CAT_INFO = {"에어컨":"벽걸이·스탠드·천장형 분해세척부터 고장 수리까지","가구 케어":"매트리스·소파 원단 케어"};
-  const card = c => `
-    <a class="cs ${c.status==='soon'?'soon':''}" href="${c.url||'#contact'}">
-      <div class="cs-img" ${c.img?`style="background-image:url('${c.img}');background-position:${c.pos||'center'}"`:''}>${c.img?'':'상세 준비 중'}</div>
-      <div class="cs-body">
-        <div class="k"><span class="cat">${esc(c.cat)}</span><span class="badge ${c.status==='soon'?'soon':''}">${c.status==='soon'?'준비 중':'모집 중'}</span></div>
-        <h3>${esc(c.title)}</h3>
-        <p>${esc(c.desc)}</p>
-        ${c.meta.length?`<div class="meta">${c.meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div>`:''}
-        <span class="more">${c.status==='soon'?'오픈 알림 신청':'자세히 보기'} ${arrow}</span>
-      </div>
-    </a>`;
-  $('#courseList').innerHTML = [...new Set(COURSES.map(c=>c.cat))].map(cat => `
-    <div class="cs-group">
-      <div class="cs-gh"><h3>${esc(cat)} 교육</h3><span>${esc(CAT_INFO[cat]||'')}</span></div>
-      <div class="cs-grid" style="--n:${COURSES.filter(c=>c.cat===cat).length}">${COURSES.filter(c=>c.cat===cat).map(card).join('')}</div>
-    </div>`).join('');
-
-  // 메뉴 (드롭다운, 모바일, 하단)
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const esc = DB.esc;
+  // 공통 메뉴의 교육과정 목록
   const cats = [...new Set(COURSES.map(c => c.cat))];
-  $('#dropCourses').innerHTML = cats.map(cat => `<span class="grp">${esc(cat)}</span>` + COURSES.filter(c=>c.cat===cat).map(c => `<a href="${c.url||'#courses'}">${esc(c.title)}${c.status==='soon'?'<small>준비 중</small>':''}</a>`).join('')).join('');
-  $('#mnavIn').innerHTML = `<a href="about.html">청소공방 소개</a><a href="#courses">교육과정</a><div class="sub">${COURSES.map(c=>`<a href="${c.url||'#courses'}">${esc(c.title)}</a>`).join('')}</div><a href="notice.html">커뮤니티</a><div class="sub"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="cases/">교육·작업 사례</a><a href="gallery.html">현장 갤러리</a></div><a href="#care">케어서비스</a><a href="consult.html">상담 신청</a>`;
-  $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url||'#courses'}">${esc(c.title)}</a></li>`).join('');
-  $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
-  $('#mnav').addEventListener('click', e => { if (e.target.tagName==='A') { $('#mnav').hidden = true; $('#menuBtn').setAttribute('aria-expanded', false); } });
+  $('#dropCourses').innerHTML = cats.map(cat => `<span class="grp">${esc(cat)}</span>` + COURSES.filter(c => c.cat===cat).map(c => `<a href="${c.url}">${esc(c.title)}</a>`).join('')).join('');
+  $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
 
-  // 갤러리 (로고·문구 자동 오버레이)
-  let gcur = "전체";
-  function renderGal(){
-    $('#gal').innerHTML = GALLERY.filter(g => gcur==="전체" || g.cat===gcur).map(g => `
-      <figure class="gi"><img src="${g.src}" alt="${esc(g.title)}">
-        <div class="lg"><i>청</i><span>청소공방<small>ACADEMY</small></span></div>
-        <div class="pills">${(g.pills||[]).map(p=>`<span>${esc(p)}</span>`).join('')}</div>
-        <figcaption class="cp"><span>${esc(g.cat)}</span><b>${esc(g.title)}</b></figcaption>
-      </figure>`).join('');
+  // 작업 사례: 사례 게시판에서 최신 글
+  const NORM = c => ({'작업 사례':'매트리스·소파','교육 사례':'교육'})[c] || c || '매트리스·소파';
+  let ALL = [], cur = '';
+  function drawCases(){
+    const L = ALL.filter(r => !cur || r.category === cur).slice(0, 3);
+    $('#cgrid').innerHTML = L.length ? L.map(r => {
+      const im = r.after_url || r.before_url || '';
+      return `<a class="case" href="cases/${encodeURIComponent(r.slug)}/"><div class="ph">${im ? `<img src="${esc(im)}" alt="${esc(r.title)}" loading="lazy">` : ''}${r.before_url && r.after_url ? '<span class="ba">전·후 비교</span>' : ''}</div><div class="bd"><span>${esc(r.category)}</span><b>${esc(r.title)}</b></div></a>`;
+    }).join('') : `<p class="cempty">${cur ? esc(cur) + ' 사례를 정리하고 있습니다.' : '사례를 정리하고 있습니다.'} <a href="gallery.html">현장 갤러리 보기</a></p>`;
   }
-  function buildTabs(){ const gcats = ["전체", ...new Set(GALLERY.map(g => g.cat))]; $('#gtabs').innerHTML = gcats.map(c => `<button type="button" aria-pressed="${c===gcur}" data-g="${esc(c)}">${esc(c)}</button>`).join(''); }
-  buildTabs();
-  $('#gtabs').addEventListener('click', e => { const b = e.target.closest('[data-g]'); if(!b) return; gcur = b.dataset.g; document.querySelectorAll('#gtabs button').forEach(x => x.setAttribute('aria-pressed', x.dataset.g===gcur)); renderGal(); });
-  renderGal();
+  $$('[data-c]').forEach(b => b.addEventListener('click', () => { $$('[data-c]').forEach(x => x.setAttribute('aria-pressed', x===b)); cur = b.dataset.c; drawCases(); }));
+  if (DB.on) DB.get('cases?select=slug,title,category,before_url,after_url,created_at&published=eq.true&order=created_at.desc&limit=30')
+    .then(l => { ALL = l.map(r => ({ ...r, category: NORM(r.category) })); drawCases(); })
+    .catch(e => { console.error(e); drawCases(); });
+  else drawCases();
 
-  // 첫 화면 슬라이드
-  const slides=[...document.querySelectorAll('#slides .slide')], dots=[...document.querySelectorAll('#dots button')]; let si=0, timer;
-  function show(i){ si=i; slides.forEach((s,k)=>s.classList.toggle('on',k===i)); dots.forEach((d,k)=>d.setAttribute('aria-pressed',k===i)); }
-  function play(){ clearInterval(timer); if(!matchMedia('(prefers-reduced-motion: reduce)').matches) timer=setInterval(()=>show((si+1)%slides.length),5000); }
-  dots.forEach((d,k)=>d.addEventListener('click',()=>{show(k);play();}));
-  play();
+  // 현장 갤러리 (실제 현장 사진)
+  const GAL = [['m','img/k_sofa.jpg','패브릭 소파 추출 세척'],['m','img/k_bowl.jpg','상업 공간 소파 세척'],['m','img/k_bench.jpg','사무 공간 라운지 대량 작업'],['a','img/f_home.jpg','가정 현장 벽걸이 분해세척'],['a','img/g_wall.jpg','천장형 1way 송풍팬 고압 세척'],['a','img/f_shop.jpg','매장 현장 대량 작업']];
+  function drawGal(k){ $('#ggrid').innerHTML = GAL.filter(g => k==='all' || g[0]===k).map(g => `<figure><img src="${g[1]}" alt="${g[2]}" loading="lazy"><figcaption>${g[2]}</figcaption></figure>`).join(''); }
+  $$('[data-g]').forEach(b => b.addEventListener('click', () => { $$('[data-g]').forEach(x => x.setAttribute('aria-pressed', x===b)); drawGal(b.dataset.g); }));
+  drawGal('all');
 
-  // 퀵메뉴 상담 팝업
-  $('#qCall').addEventListener('click', () => { const o = $('#qPop').hidden; $('#qPop').hidden = !o; $('#qCall').setAttribute('aria-expanded', o); });
-  document.addEventListener('click', e => { if (!e.target.closest('.quick')) { $('#qPop').hidden = true; $('#qCall').setAttribute('aria-expanded', false); } });
-
-  // 상담 폼
-  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
+  // 상담: 청소 예약(톡톡 안내) / 교육 상담(접수 폼)
+  function mode(clean){ $('#mClean').setAttribute('aria-pressed', clean); $('#mEdu').setAttribute('aria-pressed', !clean); $('#pClean').hidden = !clean; $('#pEdu').hidden = clean; }
+  $('#mClean').addEventListener('click', () => mode(true));
+  $('#mEdu').addEventListener('click', () => mode(false));
+  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
   const ph = $('#ph');
   ph.addEventListener('input', () => { const d = ph.value.replace(/\D/g,'').slice(0,11); ph.value = d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`; });
-  $('#form').addEventListener('submit', e => {
+  $('#pEdu').addEventListener('submit', e => {
     e.preventDefault();
     const err = $('#err'), msg = $('#msg'); err.hidden = true; msg.hidden = true;
     if ($('#nm').value.trim().length < 2) { err.textContent = '이름을 입력해 주세요.'; err.hidden = false; return $('#nm').focus(); }
     if (!/^01[016789]\d{7,8}$/.test(ph.value.replace(/\D/g,''))) { err.textContent = '010으로 시작하는 휴대폰 번호를 입력해 주세요.'; err.hidden = false; return ph.focus(); }
     if (!$('#ag').checked) { err.textContent = '개인정보 수집·이용에 동의해 주세요.'; err.hidden = false; return; }
-    DB.send('inquiries', { course: $('#course').value, name: $('#nm').value.trim(), phone: ph.value.trim(), region: $('#rg').value.trim() || null, memo: $('#mm').value.trim() || null, source: '메인' },
-      { msg, btn: e.target.querySelector('button[type=submit]'), form: e.target, ok: '상담 신청이 접수되었습니다. 09:00 ~ 22:00 사이에 연락드리겠습니다.' });
+    DB.send('inquiries', { course: $('#course').value, name: $('#nm').value.trim(), phone: ph.value.trim(), memo: $('#mm').value.trim() || null, source: '메인' },
+      { msg, btn: e.target.querySelector('button[type=submit]'), form: e.target, ok: '교육 상담 신청이 접수되었습니다. 09:00 ~ 22:00 사이에 연락드리겠습니다.' });
   });
 
-  // 관리자 페이지 데이터 (연결된 경우에만)
-  if (DB.on) {
-    DB.get('posts?select=id,cat,title,date&order=pin.desc,date.desc&limit=4').then(list => {
-      $('#newsList').innerHTML = list.length ? list.map(DB.newsLi).join('') : '<li><span>등록된 공지가 없습니다.</span></li>';
-    }).catch(console.error);
-    DB.get('public_reviews?select=*&order=created_at.desc&limit=2').then(list => {
-      if (list.length) $('#rvBox').innerHTML = list.map(DB.reviewCard).join('');
-    }).catch(console.error);
-    DB.get('gallery?select=cat,title,pills,src&on_main=eq.true&order=sort.asc,id.desc&limit=12').then(list => {
-      if (list.length) { GALLERY = list; gcur = "전체"; buildTabs(); renderGal(); }
-    }).catch(console.error);
-  }
+  // 누적 작업 숫자: 화면에 보이면 8,000 → 10,000 으로 올라가고 마지막에 + 표시
+  (function(){
+    const el = $('#cntWork'); if (!el || !('IntersectionObserver' in window)) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const from = +el.dataset.from, to = +el.dataset.to, fmt = n => n.toLocaleString('ko-KR') + '건';
+    let done = false;
+    const run = () => {
+      done = true; const t0 = performance.now(), dur = 4800, POW = 4.5;
+      // 끝에서 9,999에 오래 머물지 않도록, 마지막 1건이 남는 지점까지를 전체 시간에 맞춤
+      const k = 1 - Math.pow(1 / (to - from), 1 / POW);
+      const step = now => {
+        const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p * k, POW);
+        el.textContent = fmt(Math.min(to - 1, Math.floor(from + (to - from) * e)));
+        if (p < 1) requestAnimationFrame(step); else el.innerHTML = fmt(to) + '<span class="plus pop">+</span>';
+      };
+      el.textContent = fmt(from); requestAnimationFrame(step);
+    };
+    new IntersectionObserver((en, ob) => { if (!done && en[0].isIntersecting) { ob.disconnect(); run(); } }, { threshold: .6 }).observe(el);
+  })();
+
+  // 주소 복사
+  $('#copyAddr').addEventListener('click', e => {
+    const b = e.currentTarget, t = $('#addr').textContent;
+    const done = () => { b.textContent = '복사됨'; setTimeout(() => b.textContent = '주소 복사', 1500); };
+    const sel = () => { const r = document.createRange(); r.selectNodeContents($('#addr')); getSelection().removeAllRanges(); getSelection().addRange(r); };
+    try { navigator.clipboard.writeText(t).then(done, sel); } catch (_) { sel(); }
+  });
 })();
 </script>
-
+<script src="site.js"></script>
 </body>
 </html>

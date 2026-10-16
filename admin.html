@@ -246,7 +246,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
         <form class="form" id="caseForm" novalidate>
           <h3 id="cfTitle">새 사례 쓰기</h3>
           <div class="row2">
-            <label class="l">분류<select class="inp" id="cCat"><option>작업 사례</option><option>교육 사례</option></select></label>
+            <label class="l">분류<select class="inp" id="cCat"><option>매트리스·소파</option><option>에어컨</option><option>교육</option></select></label>
             <label class="l">대상 <small style="font-weight:400;color:var(--muted)">예: 가죽 소파 3인용</small><input class="inp" id="cTarget" maxlength="60"></label>
           </div>
           <label class="l">제목 <small style="font-weight:400;color:var(--muted)">검색에 가장 중요합니다. 제품·상태·결과를 넣어 주세요</small><input class="inp" id="cTitle" maxlength="100" placeholder="예: 구리 가죽 소파 오염 제거 사례 · 3인용 패브릭 얼룩 클리닝"></label>
@@ -364,7 +364,7 @@ function memApi(){
       {id:2,created_at:ago(50),cat:'교육일정',course:'에어컨 1:1 종합실무과정',title:'[1:1 종합] 11월 개별교육 일정 상담 접수 중',body:'상담 후 원하시는 날짜로 일정을 잡아 드립니다.',date:new Date(now+7*864e5).toISOString().slice(0,10),pin:false,published:true},
       {id:1,created_at:ago(300),cat:'공지',course:null,title:'[공지] 교육장 주차 안내',body:'주차 안내',date:today(),pin:false,published:false}
     ],
-    gallery: [['교육','천장형 4way 분해 실습','img/g_ceiling.jpg',true],['교육장','실습 기종이 설치된 교육장','img/hall.jpg',true],['장비','고압세척기·블로워 세팅','img/g_equip.jpg',false],['현장','가정 현장 벽걸이 분해세척','img/f_home.jpg',true],['가구 케어','패브릭 소파 추출 세척','img/k_sofa.jpg',true],['현장','오염된 송풍팬 분해','img/g_fan.jpg',false]]
+    gallery: [['교육','천장형 1way 분해 실습','img/g_ceiling.jpg',true],['교육장','실습 기종이 설치된 교육장','img/hall.jpg',true],['장비','고압세척기·블로워 세팅','img/g_equip.jpg',false],['현장','가정 현장 벽걸이 분해세척','img/f_home.jpg',true],['가구 케어','패브릭 소파 추출 세척','img/k_sofa.jpg',true],['현장','오염된 송풍팬 분해','img/g_fan.jpg',false]]
       .map(([cat,title,src,on_main],i)=>({id:i+1,created_at:ago(400),cat,title,pills:['예시 태그'],src,sort:(i+1)*10,on_main,visible:true}))
   };
   D.cases = []; let seq = 100; const tbl = t => D[t];
@@ -704,7 +704,7 @@ async function loadCases(){ caseAll = await api.list('cases', { order: [['create
 function renderCases(){
   $('#caseList').innerHTML = caseAll.length ? caseAll.map(c => `
     <div class="prow" data-id="${c.id}">
-      <span class="tag ${c.category==='교육 사례'?'m':''}">${esc(c.category)}</span>
+      <span class="tag ${c.category==='교육'||c.category==='교육 사례'?'m':''}">${esc(c.category)}</span>
       <div class="t"><b>${esc(c.title)}</b><small>${esc(fmt(c.created_at).slice(0,10))} · 조회 ${c.views||0}${c.published?'':' · <span class="tag g">비공개</span>'}${c.before_url&&c.after_url?' · 전후 비교':''}</small></div>
       <div class="acts" style="gap:6px"><a class="btn b-line b-sm" href="cases/${encodeURIComponent(c.slug)}" target="_blank" rel="noopener">보기</a><button class="btn b-line b-sm" type="button" data-act="edit">수정</button><button class="btn b-red b-sm" type="button" data-act="del">삭제</button></div>
     </div>`).join('') : '<div class="empty">아직 쓴 사례가 없습니다. 왼쪽에서 첫 사례를 써 보세요.</div>';
@@ -714,7 +714,7 @@ $('#caseList').addEventListener('click', async e => {
   const id = +b.closest('[data-id]').dataset.id, c = caseAll.find(x => x.id === id);
   if (b.dataset.act === 'edit') {
     resetCase(); editCase = id;
-    $('#cCat').value = c.category; $('#cTarget').value = c.target || ''; $('#cTitle').value = c.title; $('#cSummary').value = c.summary || '';
+    $('#cCat').value = ({'작업 사례':'매트리스·소파','교육 사례':'교육'})[c.category] || c.category; $('#cTarget').value = c.target || ''; $('#cTitle').value = c.title; $('#cSummary').value = c.summary || '';
     $('#cTags').value = (c.tags || []).join(', '); $('#cWorks').value = (c.works || []).join(', '); $('#cProblems').value = (c.problems || []).join(', ');
     $('#cProblem').value = c.problem || ''; $('#cSteps').value = (c.steps || []).join('\n'); $('#cResult').value = c.result || ''; $('#cCaution').value = c.caution || '';
     $('#cFaq').value = faqText(c.faq); $('#cBlog').value = c.blog_url || ''; $('#cSlug').value = c.slug; $('#cSlug').disabled = true; $('#cPub').checked = c.published;

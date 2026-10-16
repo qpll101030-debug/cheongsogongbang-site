@@ -1,7 +1,7 @@
 // 사례 게시판 자동 생성기
 // Netlify가 배포할 때마다 실행됩니다. Supabase에서 공개된 글을 받아
 //   · 글마다 완성된 페이지 (cases/글이름/index.html)
-//   · 목록 페이지 (cases/, cases/work/, cases/edu/, 각 2쪽 이상)
+//   · 목록 페이지 (cases/, cases/sofa/, cases/aircon/, cases/edu/, 각 2쪽 이상)
 //   · sitemap.xml, robots.txt
 // 를 만들어 둡니다. 그래서 네이버·구글 로봇이 글 내용을 바로 읽습니다.
 import fs from 'node:fs';
@@ -29,7 +29,8 @@ function write(rel, html) {
 }
 
 const rows = (await sb('cases?select=*&published=eq.true&order=created_at.desc&limit=1000'))
-  .filter(r => r.slug && !R.RESERVED.includes(r.slug));
+  .filter(r => r.slug && !R.RESERVED.includes(r.slug))
+  .map(r => ({ ...r, category: R.normCat(r.category) }));
 console.log(`공개된 사례 ${rows.length}개`);
 
 // 1) 글 페이지
@@ -40,7 +41,7 @@ for (const r of rows) {
   write(`cases/${r.slug}/index.html`, R.fill(tpl, meta, R.postHTML(r, rel)));
 }
 
-// 2) 목록 페이지 (전체 / 작업 사례 / 교육 사례, 12개씩)
+// 2) 목록 페이지 (전체 / 매트리스·소파 / 에어컨 / 교육, 12개씩)
 const groups = [['', rows], ...R.CATS.map(c => [c, rows.filter(r => r.category === c)])];
 const listUrls = [];
 for (const [cat, list] of groups) {
@@ -56,7 +57,7 @@ for (const [cat, list] of groups) {
 }
 
 // 3) 사이트맵, robots.txt
-const stat = ['/', '/about.html', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/course-mattress.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
+const stat = ['/', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/course-mattress.html', '/academy.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
 const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...listUrls.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`)];
