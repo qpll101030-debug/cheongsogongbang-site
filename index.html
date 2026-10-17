@@ -98,14 +98,18 @@ section{padding-block:88px}
 .stat>span{display:block;margin-top:6px;font-size:14px;color:rgba(255,255,255,.72)}
 
 /* ③ 이야기 */
-.story .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
-.steps li{position:relative;padding:0 0 26px 56px;counter-increment:s}
-.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font:800 15px var(--display)}
-.steps li::after{content:"";position:absolute;left:17px;top:40px;bottom:4px;width:2px;background:var(--line)}
-.steps li:last-child::after{display:none}
-.steps b{display:block;font:800 18px/1.4 var(--display);color:var(--ink)}
-.steps p{color:var(--muted);margin-top:4px}
+.story .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:start}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{position:relative;padding:0 0 22px 112px;min-height:44px}
+.tl li::before{content:"";position:absolute;left:92px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-sizing:border-box}
+.tl li::after{content:"";position:absolute;left:97px;top:22px;bottom:-4px;width:2px;background:var(--line)}
+.tl li:last-child::after{display:none}
+.tl li.now::before{background:var(--blue)}
+.tl .yr{position:absolute;left:0;top:2px;width:82px;font:800 14px/1.4 var(--display);color:var(--blue);letter-spacing:-.01em}
+.tl b{display:block;font:800 17px/1.45 var(--display);color:var(--ink)}
+.tl p{color:var(--muted);margin-top:3px;font-size:15px}
+.tl li.now p{color:var(--ink);font-weight:700}
+.story figure{position:sticky;top:96px}
 .story figure{margin:0;border-radius:14px;overflow:hidden}
 .story figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
 
@@ -243,6 +247,11 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   section{padding-block:64px}
   .story .grid,.trust .grid,.contact .grid,.acad .box{grid-template-columns:1fr}
   .story figure img{aspect-ratio:16/10}
+  .story figure{position:static}
+  .tl li{padding-left:28px}
+  .tl li::before{left:0}
+  .tl li::after{left:5px}
+  .tl .yr{position:static;display:block;width:auto}
   .stats .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 16px}
   .stat b{font-size:clamp(19px,5.6vw,30px)}
   .fam{grid-template-columns:1fr}
@@ -329,13 +338,17 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 <section class="story" id="story">
   <div class="wrap grid">
     <div>
-      <div class="head"><span class="tag">청소공방 이야기</span><h2>주먹구구식 청소를<br>이론이 있는 기술로 바꾸고 있습니다</h2></div>
-      <ol class="steps">
-        <li><b>정리된 이론이 없던 업계</b><p>청소 현장은 오랫동안 경험과 감에 기대 작업해 왔습니다. 청소공방은 그 시작을 매트리스·소파에서 바꿨습니다.</p></li>
-        <li><b>현장 9년과 체계적인 이론의 만남</b><p>9년간 현장을 지켜 온 대표와, 세제·원리·원단 이론을 정리해 온 대표가 함께 시작했습니다.</p></li>
-        <li><b>2년 이상의 테스트</b><p>약품, 원단, 도구, 작업 방식을 하나씩 시험하고 결과를 기록했습니다.</p></li>
-        <li><b>청소공방의 작업 기준</b><p>그 기록이 현장과 교육에 쓰는 청소공방의 기준이 되었습니다.</p></li>
-        <li><b>종목을 넓히다</b><p>같은 방식에 공감한 에어컨 전문가와 함께 에어컨 청소공방을 열었습니다.</p></li>
+      <div class="head"><span class="tag">청소공방이 걸어온 길</span><h2>주먹구구식 청소를<br>이론이 있는 기술로 바꿔 왔습니다</h2></div>
+      <ol class="tl">
+        <li><span class="yr">2018.02</span><b>현장에서 시작</b><p>매트리스·소파 클리닝 현장에서 청소공방이 출발했습니다.</p></li>
+        <li><span class="yr">2023</span><b>현장과 이론의 만남</b><p>현장 대표와, 세제·원리·원단 이론을 정리해 온 대표가 손잡았습니다. 2년 넘게 약품·원단·작업 방식을 시험하고 기록해 청소공방의 작업 기준을 만들었습니다.</p></li>
+        <li><span class="yr">2023 가을</span><b>첫 가구 브랜드 협업</b><p>가구 제조 브랜드와 첫 클리닝 협업을 시작했습니다.</p></li>
+        <li><span class="yr">2024</span><b>아카데미와 에어컨 청소공방</b><p>5월 청소공방 아카데미를 공식 출범했습니다. 에어컨 청소·수리 기술자가 합류해 에어컨 청소공방과 에어컨 교육 커리큘럼을 시작했고, 가구 브랜드 협업도 넓혔습니다.</p></li>
+        <li><span class="yr">2025</span><b>공공기관 관리업체 선정</b><p>경기북부 공공 유아체육 교육기관의 의자·소파·체험시설물 관리업체로 2025년, 2026년 연속 선정되었습니다.</p></li>
+        <li><span class="yr">2025.05</span><b>대형 가구기업 공식 클리닝 서비스</b><p>하이엔드 소파 브랜드의 클리닝 과정·서비스 가이드·작업 방식·금액 책정을 함께 만들고, 클리닝팀의 일정 운영과 기술교육·관리를 맡고 있습니다.</p></li>
+        <li><span class="yr">2025.08</span><b>백화점 행사 클리닝 시연</b><p>백화점 행사에 초청되어 클리닝 서비스 시연과 설명을 진행했습니다.</p></li>
+        <li><span class="yr">2025.11</span><b>에어컨 교육과정 개강</b><p>에어컨 청소·수리 교육과정을 정식으로 열었습니다.</p></li>
+        <li class="now"><span class="yr">현재</span><b>5개 가구 브랜드와 협업 중</b><p>현장 9년 · 누적 작업 10,000건+ · 4개 전문 브랜드</p></li>
       </ol>
     </div>
     <figure><img src="img/k_lecture.jpg" alt="원단 샘플과 세제의 산성·염기성을 설명하는 이론 수업" style="object-position:center bottom"></figure>
@@ -366,6 +379,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
       <ul>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>국내 가구 제조·판매 기업 5곳의 B2C 클리닝 서비스 전국 총괄</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>같은 기업들의 클리닝 서비스팀 기술교육 위탁교육기관</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 5 5 9-10"/></svg>공공기관 의자·소파·체험시설물 관리업체 2년 연속 선정 (2025·2026)</li>
       </ul>
     </div>
   </div>
