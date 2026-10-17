@@ -56,6 +56,17 @@ for (const [cat, list] of groups) {
   }
 }
 
+// 2-1) 메인 페이지: canonical·대표 이미지 주소를 사이트 전체 주소로 (네이버·카카오 미리보기용)
+{
+  const f = path.join(ROOT, 'index.html');
+  if (fs.existsSync(f)) {
+    let h = fs.readFileSync(f, 'utf8');
+    h = h.replace('<link rel="canonical" href="/">', `<link rel="canonical" href="${ORIGIN}/">`)
+         .replace('<meta property="og:image" content="img/', `<meta property="og:url" content="${ORIGIN}/"><meta property="og:image" content="${ORIGIN}/img/`);
+    fs.writeFileSync(f, h);
+  }
+}
+
 // 3) 사이트맵, robots.txt
 const stat = ['/', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/course-mattress.html', '/academy.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
 const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
