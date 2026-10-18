@@ -10,7 +10,7 @@
   const SITE = '청소공방';
   const PER_PAGE = 12;
   const CATS = ['매트리스·소파', '에어컨', '교육'];
-  const TALK = 'https://talk.naver.com/profile/wenjgv6';
+  const TALK = 'https://talk.naver.com/ct/w5tas4';
   const TEL = '010-8833-0999';
 
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
