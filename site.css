@@ -6,7 +6,16 @@
 .brand .logo svg{display:block}
 .brand b{display:block;font:900 21px/1 var(--display);color:var(--ink);letter-spacing:-.02em}
 .brand small{display:none}
+.brand .logo-img{display:block;height:60px;width:auto}
+.top .row{height:84px}
 .drop .dropin{display:contents}
+.nav>li>a{padding:10px 20px;font-size:16.5px}
+.nav>li+li{margin-left:2px}
+.top .row{position:relative}
+.top .row>.nav{position:absolute;left:50%;transform:translateX(-50%);margin:0}
+.top .row>.btn{margin-left:auto}
+.nav .drop{left:6px}
+.drop .grp{display:block;font-size:12px;color:var(--muted);padding:10px 12px 2px;letter-spacing:.04em}
 .menu-btn,.mnav{display:none!important}
 .mrow{display:none;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
 .mrow::-webkit-scrollbar{display:none}
@@ -24,5 +33,6 @@
   .mrow{display:flex}
   .msub.on{display:flex}
   .top .row{height:64px}
+  .brand .logo-img{height:44px}
 }
 @media (max-width:860px){.ft{grid-template-columns:1fr 1fr}.ft>div:first-child{grid-column:1/-1}}
