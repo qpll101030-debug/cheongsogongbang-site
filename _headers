@@ -10,3 +10,7 @@
   X-Robots-Tag: noindex
 /admin.html
   X-Robots-Tag: noindex
+/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+/*.css
+  Cache-Control: public, max-age=0, must-revalidate
