@@ -74,6 +74,18 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
 .stat span{font-size:13.5px;color:var(--muted);font-weight:600}
 .stat b{font-family:var(--display);font-size:32px;color:var(--ink);line-height:1.2}
 .stat.hot b{color:var(--red)}
+.cards4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.cards4 .stat{cursor:default}
+.vchart{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px;height:150px;padding-top:20px;align-items:end}
+.vchart .bar{position:relative;height:100%;display:flex;align-items:flex-end}
+.vchart .bar i{display:block;width:100%;background:var(--blue);border-radius:4px 4px 0 0;min-height:2px;opacity:.85}
+.vchart .bar.today i{opacity:1;background:var(--ink)}
+.vchart .bar em{position:absolute;left:50%;transform:translateX(-50%);font-style:normal;font-size:11px;color:var(--muted);white-space:nowrap}
+.vaxis{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px;margin-top:4px}
+.vaxis small{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:visible;text-align:center}
+.vnote{font-size:12.5px;color:var(--muted);margin-top:14px}
+@media (max-width:760px){.cards4{grid-template-columns:repeat(2,minmax(0,1fr))}.vchart .bar em{display:none}.vaxis small{font-size:9px}}
+
 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .two>*,.split>*,.box,.form{min-width:0}
 .mini li{min-width:0}
@@ -184,6 +196,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
       <button role="tab" data-v="post">공지·일정</button>
       <button role="tab" data-v="case">사례 글</button>
       <button role="tab" data-v="gal">현장 갤러리</button>
+      <button role="tab" data-v="visit">방문자</button>
     </nav>
   </header>
 
@@ -200,6 +213,18 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
         <div class="box"><h3>최근 상담 신청</h3><ul class="mini" id="hInq"></ul></div>
         <div class="box"><h3>다가오는 교육일정</h3><ul class="mini" id="hPost"></ul></div>
       </div>
+    </section>
+
+    <!-- 방문자 -->
+    <section data-view="visit" hidden>
+      <div class="vh"><h2>홈페이지 방문자</h2><button class="btn b-line b-sm" type="button" data-refresh>새로고침</button></div>
+      <div class="cards4" id="vStats"></div>
+      <div class="box" style="margin-bottom:16px"><h3>최근 30일 방문자 수</h3><div class="vchart" id="vChart"></div><div class="vaxis" id="vAxis"></div></div>
+      <div class="two">
+        <div class="box"><h3>많이 본 페이지 (30일)</h3><ul class="mini" id="vPages"></ul></div>
+        <div class="box"><h3>어디서 왔나요 (30일)</h3><ul class="mini" id="vRefs"></ul></div>
+      </div>
+      <p class="vnote">같은 사람이 하루에 여러 번 와도 방문자는 1명으로 셉니다. 관리자 페이지 방문은 세지 않습니다.</p>
     </section>
 
     <!-- 상담 신청 -->
@@ -451,9 +476,28 @@ async function badges(){
     return [a, b];
   } catch (e) { fail(e); return [0, 0]; }
 }
-function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal })[v]().catch(fail); }
+function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal, visit: loadVisit })[v]().catch(fail); }
 
 /* ---------- 요약 ---------- */
+const REF_NAME = r => !r ? '직접 방문·즐겨찾기' : /naver/.test(r) ? '네이버' : /google/.test(r) ? '구글' : /daum|kakao/.test(r) ? (/kakao/.test(r) ? '카카오' : '다음') : /bing/.test(r) ? 'Bing' : /instagram/.test(r) ? '인스타그램' : /threads/.test(r) ? '스레드' : /daangn|karrot/.test(r) ? '당근' : /facebook/.test(r) ? '페이스북' : r;
+const PAGE_NAME = p => ({ '/':'메인', '/academy':'아카데미', '/consult':'상담 신청', '/course-mattress':'매트리스·소파 교육', '/course-regular':'에어컨 정기교육', '/course-1on1':'에어컨 1:1', '/course-repair':'에어컨 수리', '/gallery':'현장 갤러리', '/reviews':'수료 후기', '/notice':'공지·일정', '/cases/':'사례 목록', '/cases':'사례 목록', '/privacy':'개인정보처리방침' })[p] || (p.startsWith('/cases/') ? '사례 · ' + decodeURIComponent(p.slice(7).replace(/\/$/, '')) : p);
+async function loadVisit(){
+  let d;
+  if (sb && $('#demoBar').hidden) { const { data, error } = await sb.rpc('admin_view_stats', { p_days: 30 }); if (error) throw error; d = data; }
+  else { const t = new Date(); d = { today_visitors: 12, today_views: 31, yesterday_visitors: 18, week_visitors: 96, daily: Array.from({length:30}, (_, i) => { const x = new Date(t - (29 - i) * 864e5); return { d: x.toISOString().slice(0,10), visitors: Math.round(5 + Math.random()*20), views: 0 }; }), pages: [{path:'/',views:120},{path:'/academy',views:64},{path:'/course-mattress',views:40}], refs: [{ref:'naver.com',visitors:52},{ref:'',visitors:30},{ref:'google.com',visitors:14}], devices: [{device:'mobile',visitors:80},{device:'pc',visitors:20}] }; }
+  const mob = (d.devices||[]).find(x => x.device === 'mobile')?.visitors || 0, devAll = (d.devices||[]).reduce((a, x) => a + x.visitors, 0);
+  const st = (l, v, sub) => `<div class="stat"><span>${l}</span><b>${typeof v === 'string' ? v : Number(v||0).toLocaleString()}</b>${sub ? `<span>${sub}</span>` : ''}</div>`;
+  $('#vStats').innerHTML = st('오늘 방문자', d.today_visitors, `페이지 조회 ${Number(d.today_views||0).toLocaleString()}회`) + st('어제 방문자', d.yesterday_visitors) + st('최근 7일 방문자', d.week_visitors) + st('휴대폰 비율 (30일)', devAll ? Math.round(mob / devAll * 100) + '%' : '-');
+  const days = d.daily || [], max = Math.max(1, ...days.map(x => x.visitors)), last = days.length - 1;
+  $('#vChart').innerHTML = days.map((x, i) => { const h = Math.round(x.visitors / max * 100); return `<div class="bar${i === last ? ' today' : ''}" title="${x.d} · ${x.visitors}명"><em style="bottom:calc(${h}% + 2px)">${x.visitors || ''}</em><i style="height:${h}%"></i></div>`; }).join('');
+  $('#vAxis').innerHTML = days.map((x, i) => `<small>${i % 5 === 4 || i === last ? x.d.slice(5).replace('-', '/') : ''}</small>`).join('');
+  const li = (a, b) => `<li><span>${esc(a)}</span><time>${b}</time></li>`;
+  const none = '<li><span style="color:var(--muted)">아직 기록이 없습니다.</span></li>';
+  $('#vPages').innerHTML = (d.pages||[]).length ? d.pages.map(x => li(PAGE_NAME(x.path), x.views.toLocaleString() + '회')).join('') : none;
+  const refs = {}; (d.refs||[]).forEach(x => { const n = REF_NAME(x.ref); refs[n] = (refs[n] || 0) + x.visitors; });
+  const rl = Object.entries(refs).sort((a, b) => b[1] - a[1]);
+  $('#vRefs').innerHTML = rl.length ? rl.map(([n, c]) => li(n, c.toLocaleString() + '명')).join('') : none;
+}
 async function loadHome(){
   const [[a, b], up, recent, sched] = await Promise.all([
     badges(), api.count('posts', { cat: '교육일정', published: true }, ['date', today()]),
