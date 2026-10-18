@@ -117,6 +117,7 @@ section{padding-block:88px}
 .tl.anim li{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
 .tl.anim li.in{opacity:1;transform:none}
 .tl li[data-i]{cursor:pointer}
+.tl .th{display:none}
 .tl li b,.tl li::before{transition:color .3s,background .3s,transform .3s}
 .tl li.act b{color:var(--blue)}
 .tl li.act::before{background:var(--blue);transform:scale(1.25)}
@@ -258,7 +259,8 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   section{padding-block:64px}
   .story .grid,.trust .grid,.contact .grid,.acad .box{grid-template-columns:1fr}
   .story figure img{aspect-ratio:16/10}
-  .story figure{position:sticky;top:118px;z-index:2;order:-1;box-shadow:0 10px 20px -12px rgba(0,0,0,.35)}
+  .story figure.tlph{display:none}
+  .tl .th{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-top:10px;background:#e9edf3}
   .story .tlph{aspect-ratio:16/9}
   .tl li{padding-left:28px}
   .tl li::before{left:0}
@@ -611,18 +613,24 @@ const COURSES = [{"cat": "매트리스·소파", "title": "매트리스·소파 
 (() => {
   const ol = document.querySelector('.tl'), fig = document.querySelector('.tlph'); if (!ol || !fig) return;
   const lis = [...ol.querySelectorAll('li[data-i]')], ims = [...fig.querySelectorAll('img')], map = fig.dataset.map.split(',').map(Number);
+  const mob = matchMedia('(max-width:860px)');
+  lis.forEach((l, k) => { const src = ims[map[k]]; const t = document.createElement('img'); t.className = 'th'; t.src = src.getAttribute('src'); t.alt = src.alt; t.loading = 'lazy'; const op = src.style.objectPosition; if (op) t.style.objectPosition = op; l.appendChild(t); });
   let cur = -1, timer;
   const show = i => { cur = i; lis.forEach((l, k) => l.classList.toggle('act', k === i)); const nx = map[i], pv = ims.findIndex(m => m.classList.contains('on')); if (pv !== nx) ims.forEach((m, k) => { m.classList.toggle('was', k === pv); m.classList.toggle('on', k === nx); }); };
-  const loop = () => { clearInterval(timer); timer = setInterval(() => show((cur + 1) % lis.length), 2000); };
+  const loop = () => { clearInterval(timer); if (mob.matches) return; timer = setInterval(() => show((cur + 1) % lis.length), 2000); };
   lis.forEach((l, k) => l.addEventListener('click', () => { show(k); loop(); }));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window)) { show(0); loop(); return; }
   ol.classList.add('anim');
+  if (mob.matches) {
+    const io = new IntersectionObserver(en => en.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
+    lis.forEach(l => io.observe(l)); return;
+  }
   new IntersectionObserver((en, ob) => {
     if (!en[0].isIntersecting) return; ob.disconnect();
     lis.forEach((l, k) => setTimeout(() => l.classList.add('in'), k * 500));
     setTimeout(() => { show(0); loop(); }, lis.length * 500 + 300);
-  }, { threshold: .25 }).observe(ol);
+  }, { threshold: 0, rootMargin: '0px 0px -25% 0px' }).observe(ol);
 })();
 </script>
 </body>
