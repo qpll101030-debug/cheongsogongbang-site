@@ -164,7 +164,7 @@ section{padding-block:88px}
 .later{margin-top:18px;font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .later span{border:1px dashed #c4cfdd;border-radius:99px;padding:4px 12px}
 
-.cs-wrap{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:24px}
+.cs-wrap{display:grid;grid-template-columns:var(--cols,minmax(0,1fr) minmax(0,3fr));gap:24px}
 .cs-group{min-width:0}
 .cs-gh{display:flex;flex-wrap:wrap;align-items:baseline;min-height:50px;align-content:flex-end;gap:6px 14px;padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--ink)}
 .cs-gh h3{font-size:21px}
@@ -475,7 +475,6 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
       <p>매트리스·소파부터 에어컨까지, 분야별로 과정을 골라보세요. 과정을 선택하면 상세 커리큘럼을 볼 수 있습니다.</p>
     </div>
     <div id="courseList" class="cs-wrap"></div>
-    <p class="later">준비 중인 과정 <span>유리창 청소</span><span>상가 바닥 광택·코팅</span><span>새집증후군</span></p>
   </div>
 </section>
 
@@ -668,6 +667,7 @@ let GALLERY = [
       <div class="cs-gh"><h3>${esc(cat)} 교육</h3><span>${esc(CAT_INFO[cat]||'')}</span></div>
       <div class="cs-grid" style="--n:${COURSES.filter(c=>c.cat===cat).length}">${COURSES.filter(c=>c.cat===cat).map(card).join('')}</div>
     </div>`).join('');
+  $('#courseList').style.setProperty('--cols', [...new Set(COURSES.map(c=>c.cat))].map(cat => `minmax(0,${COURSES.filter(c=>c.cat===cat).length}fr)`).join(' '));
 
   // 메뉴 (드롭다운, 모바일, 하단)
   const cats = [...new Set(COURSES.map(c => c.cat))];
