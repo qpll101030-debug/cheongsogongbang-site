@@ -36,3 +36,21 @@
   .brand .logo-img{height:44px}
 }
 @media (max-width:860px){.ft{grid-template-columns:1fr 1fr}.ft>div:first-child{grid-column:1/-1}}
+
+/* 퀵메뉴 (PC) */
+.quick{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:35;width:84px;background:var(--paper);border-radius:14px;box-shadow:0 14px 40px rgba(13,35,64,.16);overflow:hidden}
+.quick .qh{background:var(--blue);color:#fff;text-align:center;font:800 12px/1.3 var(--display);letter-spacing:.06em;padding:12px 6px}
+.quick a,.quick button{display:grid;justify-items:center;gap:6px;padding:13px 6px;text-decoration:none;font:600 12px/1.35 var(--body);color:var(--ink);text-align:center;border:0;border-top:1px solid var(--line);background:none;width:100%;cursor:pointer}
+.quick a:hover,.quick button:hover{background:var(--bg);color:var(--blue)}
+.quick svg{width:24px;height:24px;color:var(--mint-dk)}
+.quick .up{color:var(--muted);font-size:11px}
+.qpop{position:absolute;right:100%;margin-right:10px;bottom:72px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(13,35,64,.16);padding:8px;width:220px;display:grid}
+.qpop a{display:flex;justify-content:space-between;padding:11px 12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;color:var(--ink);border:0}
+.qpop a:hover{background:var(--bg)}
+.qpop a span{color:var(--muted);font-weight:500}
+.quick{overflow:visible}
+.quick .qh{border-radius:14px 14px 0 0}
+.quick .up{border-radius:0 0 14px 14px}
+.qpop[hidden]{display:none}
+.quick button[aria-expanded="true"]{background:var(--bg);color:var(--blue)}
+@media (max-width:1080px){.quick{display:none}}

@@ -325,7 +325,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 .mbar a.on{color:var(--blue)}
 .mbar a.on svg{color:var(--blue)}
 </style>
-<link rel="stylesheet" href="site.css?v=20261018">
+<link rel="stylesheet" href="site.css?v=20261019">
 </head>
 <body>
 
@@ -700,8 +700,6 @@ let GALLERY = [
   play();
 
   // 퀵메뉴 상담 팝업
-  $('#qCall').addEventListener('click', () => { const o = $('#qPop').hidden; $('#qPop').hidden = !o; $('#qCall').setAttribute('aria-expanded', o); });
-  document.addEventListener('click', e => { if (!e.target.closest('.quick')) { $('#qPop').hidden = true; $('#qCall').setAttribute('aria-expanded', false); } });
 
   // 상담 폼
   $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
@@ -732,6 +730,6 @@ let GALLERY = [
 })();
 </script>
 
-<script src="site.js?v=20261018"></script>
+<script src="site.js?v=20261019"></script>
 </body>
 </html>

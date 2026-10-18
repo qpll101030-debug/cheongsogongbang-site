@@ -395,7 +395,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 @media (max-width:560px){.facts{grid-template-columns:1fr 1fr}.info th{width:96px;padding:14px 12px}.info td{padding:14px 12px}}
 </style>
 
-<link rel="stylesheet" href="site.css?v=20261018">
+<link rel="stylesheet" href="site.css?v=20261019">
 </head>
 <body>
 <header class="top">
@@ -575,8 +575,6 @@ const THIS = "매트리스·소파 청소교육";
   $('#mnavIn').innerHTML = `<a href="academy.html#courses">교육과정</a><div class="sub">${COURSES.map(c=>`<a href="${c.url}">${esc(c.title)}</a>`).join('')}</div><a href="notice.html">커뮤니티</a><div class="sub"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="cases/">작업·교육 사례</a><a href="gallery.html">현장 갤러리</a></div><a href="consult.html#clean">케어서비스</a><a href="consult.html">상담 신청</a>`;
   $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
   $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
-  $('#qCall').addEventListener('click', () => { const o = $('#qPop').hidden; $('#qPop').hidden = !o; $('#qCall').setAttribute('aria-expanded', o); });
-  document.addEventListener('click', e => { if (!e.target.closest('.quick')) { $('#qPop').hidden = true; $('#qCall').setAttribute('aria-expanded', false); } });
   $('#course').innerHTML = COURSES.map(c => `<option ${c.title===THIS?'selected':''}>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
   const ph = $('#ph');
   ph.addEventListener('input', () => { const d = ph.value.replace(/\D/g,'').slice(0,11); ph.value = d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`; });
@@ -600,6 +598,6 @@ const THIS = "매트리스·소파 청소교육";
   }
 })();
 </script>
-<script src="site.js?v=20261018"></script>
+<script src="site.js?v=20261019"></script>
 </body>
 </html>

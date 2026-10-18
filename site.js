@@ -27,3 +27,11 @@
     }).catch(() => {});
   } catch (e) {}
 })();
+
+/* 퀵메뉴 전화 상담 팝업 */
+(() => {
+  const b = document.getElementById('qCall'), p = document.getElementById('qPop'); if (!b || !p) return;
+  b.addEventListener('click', e => { e.stopPropagation(); const open = p.hidden; p.hidden = !open; b.setAttribute('aria-expanded', open); });
+  document.addEventListener('click', e => { if (!e.target.closest('.quick')) { p.hidden = true; b.setAttribute('aria-expanded', false); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { p.hidden = true; b.setAttribute('aria-expanded', false); } });
+})();

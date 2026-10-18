@@ -457,7 +457,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 @media (max-width:560px){.ptbl{font-size:13.5px}.ptbl th,.ptbl td{padding:10px 6px}}
 </style>
 
-<link rel="stylesheet" href="site.css?v=20261018">
+<link rel="stylesheet" href="site.css?v=20261019">
 </head>
 <body>
 <header class="top">
@@ -561,12 +561,10 @@ $('#mnavIn').innerHTML = `<a href="academy.html#courses">교육과정</a><div cl
 $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
 $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
 $('#mnav').addEventListener('click', e => { if (e.target.tagName==='A') { $('#mnav').hidden = true; } });
-$('#qCall').addEventListener('click', () => { const o = $('#qPop').hidden; $('#qPop').hidden = !o; $('#qCall').setAttribute('aria-expanded', o); });
-document.addEventListener('click', e => { if (!e.target.closest('.quick')) { $('#qPop').hidden = true; $('#qCall').setAttribute('aria-expanded', false); } });
 
 
 })();
 </script>
-<script src="site.js?v=20261018"></script>
+<script src="site.js?v=20261019"></script>
 </body>
 </html>

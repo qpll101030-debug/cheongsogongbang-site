@@ -287,7 +287,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   .hero .cta .btn{flex:1}
 }
 </style>
-<link rel="stylesheet" href="site.css?v=20261018">
+<link rel="stylesheet" href="site.css?v=20261019">
 </head>
 <body>
 
@@ -525,6 +525,19 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   </div>
 </footer>
 
+<aside class="quick" aria-label="퀵메뉴">
+  <div class="qh">QUICK<br>MENU</div>
+  <a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>청소 예약<br>(톡톡)</a>
+  <a href="consult.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>교육 상담</a>
+  <button type="button" id="qCall" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>전화 상담</button>
+  <a href="#area"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/></svg>오시는 길</a>
+  <a class="up" href="#top">↑ TOP</a>
+  <div class="qpop" id="qPop" hidden>
+    <a href="tel:01088330999">전화 상담 <span>010-8833-0999</span></a>
+    <a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">네이버 톡톡 <span>문의하기 →</span></a>
+  </div>
+</aside>
+
 <nav class="mbar" aria-label="빠른 연락">
   <a href="tel:01088330999">전화</a>
   <a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">톡톡 청소 예약</a>
@@ -610,7 +623,7 @@ const COURSES = [{"cat": "매트리스·소파", "title": "매트리스·소파 
   });
 })();
 </script>
-<script src="site.js?v=20261018"></script>
+<script src="site.js?v=20261019"></script>
 <script>
 (() => {
   const ol = document.querySelector('.tl'), fig = document.querySelector('.tlph'); if (!ol || !fig) return;

@@ -441,7 +441,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 @media (max-width:560px){.gal-full{grid-template-columns:1fr}}
 </style>
 
-<link rel="stylesheet" href="site.css?v=20261018">
+<link rel="stylesheet" href="site.css?v=20261019">
 </head>
 <body>
 <header class="top">
@@ -554,8 +554,6 @@ $('#mnavIn').innerHTML = `<a href="academy.html#courses">교육과정</a><div cl
 $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
 $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
 $('#mnav').addEventListener('click', e => { if (e.target.tagName==='A') { $('#mnav').hidden = true; } });
-$('#qCall').addEventListener('click', () => { const o = $('#qPop').hidden; $('#qPop').hidden = !o; $('#qCall').setAttribute('aria-expanded', o); });
-document.addEventListener('click', e => { if (!e.target.closest('.quick')) { $('#qPop').hidden = true; $('#qCall').setAttribute('aria-expanded', false); } });
 
 let GALLERY = [{"cat": "교육", "src": "img/g_ceiling.jpg", "title": "천장형 1way 분해 실습", "pills": ["분해·조립 실습", "1:1 맞춤 지도"]}, {"cat": "교육", "src": "img/g_ladder.jpg", "title": "천장형 패널 탈거", "pills": ["천장 작업"]}, {"cat": "교육", "src": "img/g_wall.jpg", "title": "천장형 1way 송풍팬 고압 세척", "pills": ["세척 실습"]}, {"cat": "교육", "src": "img/k_lecture.jpg", "title": "원단과 세제 원리 이론 수업", "pills": ["원리부터"]}, {"cat": "교육장", "src": "img/hall.jpg", "title": "실습 기종이 설치된 교육장", "pills": ["스탠드·벽걸이·천장형"]}, {"cat": "교육장", "src": "img/g_4way.jpg", "title": "천장형 실습 설비", "pills": ["현장과 같은 높이"]}, {"cat": "장비", "src": "img/e_all.jpg", "title": "실습실 보유 장비", "pills": ["고압세척기", "냉매 게이지"]}, {"cat": "장비", "src": "img/g_equip.jpg", "title": "고압세척기·블로워 세팅", "pills": ["장비 직접 조작"]}, {"cat": "장비", "src": "img/e_kranzle.jpg", "title": "업소용 고압세척기", "pills": ["장비 비교"]}, {"cat": "현장", "src": "img/f_home.jpg", "title": "가정 현장 벽걸이 분해세척", "pills": ["완전 분해", "보양 작업"]}, {"cat": "현장", "src": "img/f_shop.jpg", "title": "매장 현장 대량 작업", "pills": ["대량 작업"]}, {"cat": "현장", "src": "img/g_spray.jpg", "title": "스탠드 열교환기 세척", "pills": ["세척"]}, {"cat": "현장", "src": "img/g_fan.jpg", "title": "오염된 송풍팬 분해", "pills": ["분해"]}, {"cat": "가구 케어", "src": "img/sofa_fabric.jpg", "title": "패브릭 소파 추출 세척", "pills": ["소파 케어", "추출 세척"]}, {"cat": "가구 케어", "src": "img/k_bowl.jpg", "title": "상업 공간 소파 현장 세척", "pills": ["상업 공간"]}, {"cat": "가구 케어", "src": "img/k_bench.jpg", "title": "사무 공간 라운지 대량 작업", "pills": ["대량 작업"]}, {"cat": "가구 케어", "src": "img/k_showroom.jpg", "title": "가구 쇼룸 현장 기술 교육", "pills": ["기업 교육"]}, {"cat": "교육", "src": "img/ac_wall1.jpg", "title": "벽걸이 열교환기 세척 전·후", "pills": ["고압 세척", "보양 작업"]}, {"cat": "교육", "src": "img/ac_stand.jpg", "title": "스탠드 에어컨 송풍부 세척", "pills": ["스탠드", "분해 세척"]}, {"cat": "가구 케어", "src": "img/mattress.jpg", "title": "매트리스 추출 세척", "pills": ["매트리스", "추출 세척"]}, {"cat": "가구 케어", "src": "img/sofa_leather.jpg", "title": "가죽소파 오염 케어", "pills": ["가죽소파"]}, {"cat": "가구 케어", "src": "img/sofa_pink.jpg", "title": "소파 추출 세척 현장", "pills": ["소파 케어"]}, {"cat": "가구 케어", "src": "img/extractor.jpg", "title": "추출 세척 실습", "pills": ["추출 세척"]}, {"cat": "가구 케어", "src": "img/steam_spot.jpg", "title": "스팀 얼룩 제거 실습", "pills": ["스팀"]}];
 let gcur="전체", shown=[], li=0;
@@ -584,6 +582,6 @@ if (DB.on) DB.get('gallery?select=cat,title,pills,src&order=sort.asc,id.desc').t
 <script src="ba-data.js"></script>
 <script src="ba.js"></script>
 <script>if (window.BA && BA.mount(document.getElementById("baList"), window.BA_ITEMS)) document.getElementById("ba").hidden = false;</script>
-<script src="site.js?v=20261018"></script>
+<script src="site.js?v=20261019"></script>
 </body>
 </html>
