@@ -1,8 +1,8 @@
 # 예전 주소 → 새 주소
-/about.html      /           301!
-/about           /           301!
-/cases/work      /cases/     301!
-/cases/work/*    /cases/     301!
+/about.html      /           301
+/about           /           301
+/cases/work      /cases/     301
+/cases/work/*    /cases/     301
 
 # 검색용 페이지가 만들어지기 전에는 브라우저에서 그려 줌
 /cases/*  /case.html  200

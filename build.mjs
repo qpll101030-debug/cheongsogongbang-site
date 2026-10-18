@@ -11,7 +11,7 @@ import { createRequire } from 'node:module';
 const R = createRequire(import.meta.url)('./cases-render.js');
 const SB_URL = process.env.SUPABASE_URL || 'https://xkprrwwubwzpkgpmdsuq.supabase.co';
 const SB_KEY = process.env.SUPABASE_KEY || 'sb_publishable_9fabTR8mplneUdoXj3io-A_haxfJ_6N';
-const ORIGIN = (process.env.SITE_URL || process.env.URL || 'http://localhost:4173').replace(/\/+$/, '');
+const ORIGIN = (process.env.SITE_URL || 'https://cleanateliers.com').replace(/\/+$/, '');
 const ROOT = process.env.OUT_DIR || path.dirname(new URL(import.meta.url).pathname);
 
 const tpl = fs.readFileSync(path.join(ROOT, '_tpl.html'), 'utf8');
@@ -68,10 +68,10 @@ for (const [cat, list] of groups) {
 }
 
 // 3) 사이트맵, robots.txt
-const stat = ['/', '/course-regular.html', '/course-1on1.html', '/course-repair.html', '/course-mattress.html', '/academy.html', '/gallery.html', '/reviews.html', '/notice.html', '/consult.html'];
+const stat = ['/', '/course-regular', '/course-1on1', '/course-repair', '/course-mattress', '/academy', '/gallery', '/reviews', '/notice', '/consult'];
 const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...listUrls.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`)];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
-write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /admin.html\nDisallow: /_tpl.html\nDisallow: /ba-preview.html\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /_tpl\nDisallow: /ba-preview\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이트맵 ${urls.length}주소`);
