@@ -47,7 +47,7 @@ window.SITE_CFG = {
 
   // 화면 조각 (메인·상세 페이지 공용)
   const newsLi = p => `<li><span><span class="c">[${esc(p.cat)}]</span><a href="notice.html#p${p.id}" style="text-decoration:none;color:inherit">${esc(p.title)}</a></span><time>${esc(p.date)}</time></li>`;
-  const reviewCard = r => `<article class="pr"><div class="stars" style="color:#f5b301;letter-spacing:2px">${'★'.repeat(r.stars)}${'<span style="color:#d5dce6">★</span>'.repeat(5 - r.stars)}</div><p>${esc(r.body)}</p><b style="font-size:14px;color:var(--ink)">${esc(r.name)} · ${esc(r.course)}</b></article>`;
+  const reviewCard = r => `<article class="pr"><div class="stars" style="color:#f5b301;letter-spacing:2px">${'★'.repeat(r.stars)}${'<span style="color:#d5dce6">★</span>'.repeat(5 - r.stars)}</div><p>${esc(r.body)}</p>${(r.photos || []).length ? `<div class="rv-ph">${r.photos.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="후기 사진" loading="lazy"></a>`).join('')}</div>` : ''}<b style="font-size:14px;color:var(--ink)">${esc(r.name)} · ${esc(r.course)}</b></article>`;
 
   window.DB = { on, get, add, send, esc, newsLi, reviewCard };
 })();

@@ -344,7 +344,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
 </div>
 <div class="toast" id="toast" hidden role="status"></div>
 
-<script src="data.js"></script>
+<script src="data.js?v=20261019b"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
 <script>
 const COURSE_TITLES = ["에어컨 분해세척 정기교육", "에어컨 1:1 종합실무과정", "에어컨 수리 단과과정", "매트리스·소파 청소교육"];
@@ -576,6 +576,7 @@ function renderRev(){
       <div class="ih"><b>${esc(r.name)}</b><span style="color:var(--muted);font-size:13.5px">홈페이지 표시: ${esc(r.name.slice(0,1))}○○</span><span class="st s-${esc(r.status)}">${r.status==='대기'?'승인 대기':esc(r.status)}</span><time>${fmt(r.created_at)}</time></div>
       <div class="ih" style="gap:6px 14px"><span class="stars">${'★'.repeat(r.stars)}<span style="color:#d5dce6">${'★'.repeat(5-r.stars)}</span></span><span class="tag">${esc(r.course||'')}</span><a class="tel" href="tel:${esc(r.phone.replace(/[^0-9]/g,''))}" style="font-size:13.5px">${esc(r.phone)}</a></div>
       <div class="memo">${esc(r.body)}</div>
+      ${(r.photos||[]).length ? `<div class="prev">${r.photos.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="후기 사진" style="width:96px;height:72px"></a>`).join('')}</div>` : ''}
       <div class="acts">
         ${r.status!=='공개' ? '<button class="btn b-mint b-sm" type="button" data-act="공개">공개하기</button>' : ''}
         ${r.status!=='숨김' ? '<button class="btn b-line b-sm" type="button" data-act="숨김">숨기기</button>' : ''}

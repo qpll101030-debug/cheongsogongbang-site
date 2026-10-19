@@ -441,7 +441,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 @media (max-width:560px){.gal-full{grid-template-columns:1fr}}
 </style>
 
-<link rel="stylesheet" href="site.css?v=20261019">
+<link rel="stylesheet" href="site.css?v=20261019b">
 </head>
 <body>
 <header class="top">
@@ -515,6 +515,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
     </div>
     <div class="fld"><label>별점</label><div class="stars" id="stars" role="group" aria-label="별점"></div></div>
     <div class="fld"><label for="rt">후기</label><textarea id="rt" placeholder="교육에서 좋았던 점, 현장에서 도움이 된 점을 적어주세요" style="min-height:120px"></textarea></div>
+    <div class="fld"><label for="rph">사진 첨부<span class="opt">선택 · 최대 3장</span></label><input id="rph" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple><div class="rv-up" id="rphPrev"></div></div>
     <label class="chk" for="ra"><input type="checkbox" id="ra">후기 공개와 개인정보 수집·이용에 동의합니다</label>
     <span class="err" id="rerr" hidden></span>
     <div class="msg" id="rmsg" hidden></div>
@@ -553,7 +554,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   <a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">톡톡 청소 예약</a>
   <a class="on" href="consult.html">상담 신청</a>
 </nav>
-<script src="data.js"></script>
+<script src="data.js?v=20261019b"></script>
 <script>
 if('scrollRestoration' in history) history.scrollRestoration='manual';
 if(!location.hash){ window.scrollTo(0,0); addEventListener('load',()=>window.scrollTo(0,0)); addEventListener('pageshow',()=>window.scrollTo(0,0)); }
@@ -587,19 +588,52 @@ function renderStars(){ $('#stars').innerHTML=[1,2,3,4,5].map(n=>`<button type="
 $('#stars').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return; star=+b.dataset.s; renderStars();});
 renderStars();
 const rp=$('#rp'); rp.addEventListener('input',()=>{const d=rp.value.replace(/\D/g,'').slice(0,11); rp.value=d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`;});
-$('#rform').addEventListener('submit',e=>{
+let rfiles = [];
+const rph = $('#rph');
+function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join(''); }
+rph.addEventListener('change', () => { rfiles = rfiles.concat([...rph.files].filter(f => /^image\//.test(f.type) || /\.heic$/i.test(f.name))).slice(0, 3); rph.value = ''; renderRph(); });
+$('#rphPrev').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { rfiles.splice(+b.dataset.rm, 1); renderRph(); } });
+async function shrinkImg(file, max = 1600, q = .82){
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+    const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const cv = document.createElement('canvas'); cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
+    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+    return await new Promise(ok => cv.toBlob(ok, 'image/jpeg', q));
+  } finally { URL.revokeObjectURL(url); }
+}
+async function uploadRph(){
+  const C = window.SITE_CFG, out = [];
+  for (const f of rfiles) {
+    const blob = await shrinkImg(f);
+    const name = `u/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}.jpg`;
+    const r = await fetch(`${C.url}/storage/v1/object/reviews/${name}`, { method: 'POST', headers: { apikey: C.key, 'Content-Type': 'image/jpeg', 'cache-control': '31536000' }, body: blob });
+    if (!r.ok) throw new Error('upload ' + r.status + ' ' + (await r.text()));
+    out.push(`${C.url}/storage/v1/object/public/reviews/${name}`);
+  }
+  return out;
+}
+$('#rform').addEventListener('submit',async e=>{
   e.preventDefault(); const err=$('#rerr'), msg=$('#rmsg'); err.hidden=true; msg.hidden=true;
   if($('#rn').value.trim().length<2){err.textContent='이름을 입력해 주세요.'; err.hidden=false; return $('#rn').focus();}
   if(!/^01[016789]\d{7,8}$/.test(rp.value.replace(/\D/g,''))){err.textContent='본인 확인을 위해 휴대폰 번호를 입력해 주세요.'; err.hidden=false; return rp.focus();}
   if($('#rt').value.trim().length<10){err.textContent='후기를 10자 이상 적어주세요.'; err.hidden=false; return $('#rt').focus();}
   if(!$('#ra').checked){err.textContent='후기 공개와 개인정보 수집·이용에 동의해 주세요.'; err.hidden=false; return;}
-  DB.send('reviews', { course: $('#rc').value, name: $('#rn').value.trim(), phone: rp.value.trim(), stars: star, body: $('#rt').value.trim() },
+  const sbtn = e.target.querySelector('button[type=submit]'); let photos = [];
+  if (rfiles.length && DB.on) {
+    sbtn.disabled = true; sbtn.textContent = '사진 올리는 중…';
+    try { photos = await uploadRph(); }
+    catch (x) { console.error(x); err.textContent = '사진을 올리지 못했습니다. 사진을 빼고 보내시거나 다른 사진으로 다시 시도해 주세요.'; err.hidden = false; return; }
+    finally { sbtn.disabled = false; sbtn.textContent = '후기 보내기'; }
+  }
+  DB.send('reviews', { course: $('#rc').value, name: $('#rn').value.trim(), phone: rp.value.trim(), stars: star, body: $('#rt').value.trim(), ...(photos.length ? { photos } : {}) },
     { msg, btn: e.target.querySelector('button[type=submit]'), form: e.target, ok: '후기가 접수되었습니다. 확인 후 공개됩니다. 감사합니다!', demo: '시안 화면입니다. 관리자 페이지와 연결하면 접수 후 승인 대기 상태로 저장됩니다.' })
-    .then(done => { if (done) { star = 5; renderStars(); } });
+    .then(done => { if (done) { star = 5; renderStars(); rfiles = []; renderRph(); } });
 });
 
 })();
 </script>
-<script src="site.js?v=20261019"></script>
+<script src="site.js?v=20261019b"></script>
 </body>
 </html>
