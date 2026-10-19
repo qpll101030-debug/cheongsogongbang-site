@@ -83,6 +83,25 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
 .vchart .bar em{position:absolute;left:50%;transform:translateX(-50%);font-style:normal;font-size:11px;color:var(--muted);white-space:nowrap}
 .vaxis{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:3px;margin-top:4px}
 .vaxis small{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:visible;text-align:center}
+.adbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.adtabs{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:3px}
+.adtabs button{border:0;background:none;padding:7px 14px;border-radius:7px;font-weight:700;cursor:pointer;color:var(--muted)}
+.adtabs button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.adadd{display:flex;gap:6px;flex-wrap:wrap}
+.adadd input,.adadd select{height:36px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font-size:14px;background:#fff}
+.adadd input{width:220px}
+.adwrap{padding:0;overflow-x:auto}
+.adt{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
+.adt th,.adt td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.adt th:first-child,.adt td:first-child{text-align:left}
+.adt thead th{background:var(--bg);font-size:12.5px;color:var(--muted);font-weight:700;position:sticky;top:0}
+.adt tr.g td{background:#f7f9fc;font-weight:800;color:var(--ink);text-align:left;font-size:13px}
+.adt td.k{font-weight:700;color:var(--ink);cursor:pointer}
+.adt td.k:hover{color:var(--blue)}
+.adt td b{color:var(--ink)}
+.adt .up{color:#d23c3c;font-size:11.5px;margin-left:3px}.adt .dn{color:#1a7f5a;font-size:11.5px;margin-left:3px}
+.adt .rm{border:0;background:none;color:var(--muted);cursor:pointer;font-size:13px}
+.adt .rm:hover{color:#d23c3c}
 .vnote{font-size:12.5px;color:var(--muted);margin-top:14px}
 @media (max-width:760px){.cards4{grid-template-columns:repeat(2,minmax(0,1fr))}.vchart .bar em{display:none}.vaxis small{font-size:9px}}
 
@@ -197,6 +216,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
       <button role="tab" data-v="case">사례 글</button>
       <button role="tab" data-v="gal">현장 갤러리</button>
       <button role="tab" data-v="visit">방문자</button>
+      <button role="tab" data-v="ad">광고 키워드</button>
     </nav>
   </header>
 
@@ -213,6 +233,19 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
         <div class="box"><h3>최근 상담 신청</h3><ul class="mini" id="hInq"></ul></div>
         <div class="box"><h3>다가오는 교육일정</h3><ul class="mini" id="hPost"></ul></div>
       </div>
+    </section>
+
+    <!-- 광고 키워드 -->
+    <section data-view="ad" hidden>
+      <div class="vh"><h2>파워링크 키워드 예상 입찰가</h2><button class="btn b-line b-sm" type="button" data-refresh>새로고침</button></div>
+      <p class="vnote" id="adInfo" style="margin:0 0 12px"></p>
+      <div class="adbar">
+        <div class="adtabs" id="adDev"><button type="button" data-d="mo" aria-pressed="true">모바일</button><button type="button" data-d="pc" aria-pressed="false">PC</button></div>
+        <form id="adAdd" class="adadd"><input id="adKw" placeholder="키워드 추가 (예: 에어컨청소자격증)"><select id="adGrp"></select><button class="btn b-mint b-sm" type="submit">추가</button></form>
+      </div>
+      <div class="box adwrap"><table class="adt" id="adTable"></table></div>
+      <div class="box" id="adChartBox" hidden style="margin-top:16px"><h3 id="adChartT"></h3><div id="adChart"></div></div>
+      <p class="vnote">매일 아침 7시에 네이버 검색광고에서 자동으로 받아옵니다. 예상 입찰가는 네이버가 알려주는 추정치이고, 검색수는 최근 한 달 기준입니다. ▲▼는 어제 대비 1위 입찰가 변화입니다. 키워드를 누르면 30일 추이가 보입니다.</p>
     </section>
 
     <!-- 방문자 -->
@@ -476,7 +509,7 @@ async function badges(){
     return [a, b];
   } catch (e) { fail(e); return [0, 0]; }
 }
-function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal, visit: loadVisit })[v]().catch(fail); }
+function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal, visit: loadVisit, ad: loadAd })[v]().catch(fail); }
 
 /* ---------- 요약 ---------- */
 const AD_NAME = { ac: '에어컨 교육', ms: '매트리스·소파 교육', rp: '에어컨 수리교육', edu: '청소 창업교육' };
@@ -499,6 +532,54 @@ async function loadVisit(){
   const rl = Object.entries(refs).sort((a, b) => b[1] - a[1]);
   $('#vRefs').innerHTML = rl.length ? rl.map(([n, c]) => li(n, c.toLocaleString() + '명')).join('') : none;
 }
+let adDev = 'mo', adKws = [], adRows = [];
+const won = v => v == null ? '-' : Number(v).toLocaleString();
+async function loadAd(){
+  if (!(sb && $('#demoBar').hidden)) { $('#adInfo').textContent = '예시 화면에서는 볼 수 없습니다. 관리자 로그인 후 확인해 주세요.'; $('#adTable').innerHTML = ''; return; }
+  const since = new Date(Date.now() - 31 * 864e5).toISOString().slice(0, 10);
+  const [k, d] = await Promise.all([sb.from('ad_keywords').select('*').order('grp').order('keyword'), sb.from('ad_kw_daily').select('*').gte('day', since).order('day', { ascending: false })]);
+  if (k.error) throw k.error; if (d.error) throw d.error;
+  adKws = k.data; adRows = d.data; renderAd();
+}
+function renderAd(){
+  const days = [...new Set(adRows.map(r => r.day))]; const today = days[0], prev = days[1];
+  $('#adInfo').textContent = today ? `마지막 수집: ${today} · 키워드 ${adKws.filter(x => x.active).length}개` : '아직 수집된 기록이 없습니다. GitHub에 API 키를 넣고 첫 수집을 실행하면 이곳에 나옵니다.';
+  const grps = [...new Set(adKws.map(x => x.grp))];
+  $('#adGrp').innerHTML = grps.map(g => `<option>${esc(g)}</option>`).join('') + '<option>기타</option>';
+  const col = adDev === 'mo' ? 'mo_bid' : 'pc_bid', qc = adDev === 'mo' ? 'mo_qc' : 'pc_qc', clk = adDev === 'mo' ? 'mo_clk' : 'pc_clk';
+  const by = (kw, dd) => adRows.find(r => r.keyword === kw && r.day === dd);
+  const head = `<thead><tr><th>키워드</th><th>월 검색수</th><th>월 클릭수</th><th>경쟁</th><th>1위</th><th>2위</th><th>3위</th><th>4위</th><th>5위</th><th></th></tr></thead>`;
+  const body = grps.map(g => `<tr class="g"><td colspan="10">${esc(g)}</td></tr>` + adKws.filter(x => x.grp === g && x.active).map(x => {
+    const r = today && by(x.keyword, today), p = prev && by(x.keyword, prev);
+    const b = r ? (r[col] || {}) : {}, pb = p ? (p[col] || {}) : {};
+    const diff = b[1] != null && pb[1] != null ? b[1] - pb[1] : 0;
+    const arrow = diff > 0 ? `<span class="up">▲${won(diff)}</span>` : diff < 0 ? `<span class="dn">▼${won(-diff)}</span>` : '';
+    return `<tr><td class="k" data-k="${esc(x.keyword)}">${esc(x.keyword)}</td><td>${r ? won(r[qc]) : '-'}</td><td>${r ? won(r[clk]) : '-'}</td><td>${r ? esc(r.comp || '-') : '-'}</td><td><b>${won(b[1])}</b>${arrow}</td><td>${won(b[2])}</td><td>${won(b[3])}</td><td>${won(b[4])}</td><td>${won(b[5])}</td><td><button class="rm" type="button" data-rm="${esc(x.keyword)}" title="수집 중단">✕</button></td></tr>`;
+  }).join('')).join('');
+  $('#adTable').innerHTML = head + '<tbody>' + body + '</tbody>';
+}
+function adChart(kw){
+  const pts = adRows.filter(r => r.keyword === kw).sort((a, b) => a.day < b.day ? -1 : 1);
+  $('#adChartBox').hidden = false; $('#adChartT').textContent = `${kw} · 1위 예상 입찰가 30일 추이 (파랑 모바일 · 회색 PC)`;
+  if (pts.length < 2) { $('#adChart').innerHTML = '<p class="vnote">기록이 이틀 이상 쌓이면 그래프가 나옵니다.</p>'; return; }
+  const W = 720, H = 180, P = 30, vals = pts.flatMap(r => [r.mo_bid?.[1], r.pc_bid?.[1]]).filter(v => v != null), mx = Math.max(...vals, 1) * 1.05, mn = Math.min(...vals) * 0.9;
+  const x = i => P + i * (W - 2 * P) / (pts.length - 1), y = v => H - P - (v - mn) / ((mx - mn) || 1) * (H - 2 * P);
+  const line = (c, color) => `<polyline fill="none" stroke="${color}" stroke-width="2.5" points="${pts.map((r, i) => r[c]?.[1] != null ? `${x(i)},${y(r[c][1])}` : '').filter(Boolean).join(' ')}"/>`;
+  $('#adChart').innerHTML = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">${line('pc_bid', '#9aa7b8')}${line('mo_bid', 'var(--blue)')}<text x="${P}" y="14" font-size="11" fill="#8a96a8">${won(mx)}원</text><text x="${P}" y="${H - 8}" font-size="11" fill="#8a96a8">${pts[0].day.slice(5)}</text><text x="${W - P}" y="${H - 8}" font-size="11" fill="#8a96a8" text-anchor="end">${pts[pts.length - 1].day.slice(5)}</text></svg>`;
+}
+$('#adDev').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; adDev = b.dataset.d; $$('#adDev button').forEach(x => x.setAttribute('aria-pressed', x === b)); renderAd(); });
+$('#adTable').addEventListener('click', async e => {
+  const k = e.target.closest('[data-k]'); if (k) return adChart(k.dataset.k);
+  const rm = e.target.closest('[data-rm]'); if (!rm) return;
+  if (!confirm(`'${rm.dataset.rm}' 키워드 수집을 멈출까요? (지난 기록은 남습니다)`)) return;
+  const { error } = await sb.from('ad_keywords').update({ active: false }).eq('keyword', rm.dataset.rm); if (error) return fail(error);
+  adKws.find(x => x.keyword === rm.dataset.rm).active = false; renderAd(); toast('수집을 멈췄습니다.');
+});
+$('#adAdd').addEventListener('submit', async e => {
+  e.preventDefault(); const kw = $('#adKw').value.replace(/\s+/g, ''); if (!kw) return;
+  const { error } = await sb.from('ad_keywords').upsert({ keyword: kw, grp: $('#adGrp').value, active: true }); if (error) return fail(error);
+  $('#adKw').value = ''; toast('추가했습니다. 내일 아침 수집부터 나옵니다.'); loadAd().catch(fail);
+});
 async function loadHome(){
   const [[a, b], up, recent, sched] = await Promise.all([
     badges(), api.count('posts', { cat: '교육일정', published: true }, ['date', today()]),
