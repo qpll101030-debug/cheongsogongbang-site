@@ -18,6 +18,7 @@
     try { vid = localStorage.getItem('cg_vid') || ''; if (!vid) { vid = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2)); localStorage.setItem('cg_vid', vid); } } catch (e) { vid = 's-' + Math.random().toString(36).slice(2); }
     let ref = '';
     try { const r = document.referrer ? new URL(document.referrer).hostname : ''; ref = /cleanateliers\.com$/.test(r) ? '' : r.replace(/^www\.|^m\./, ''); } catch (e) {}
+    try { const q = new URLSearchParams(location.search), ad = q.get('ad'), kw = q.get('n_keyword') || q.get('n_query') || q.get('kw') || ''; if (ad || q.has('n_media')) ref = ('ad:' + (ad || 'naver') + (kw ? ':' + kw : '')).slice(0, 100); } catch (e) {}
     const path = (location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/');
     const device = (matchMedia('(max-width:860px)').matches || /Mobi|Android|iPhone/i.test(navigator.userAgent)) ? 'mobile' : 'pc';
     fetch('https://xkprrwwubwzpkgpmdsuq.supabase.co/rest/v1/rpc/log_view', {
