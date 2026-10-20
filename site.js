@@ -36,3 +36,36 @@
   document.addEventListener('click', e => { if (!e.target.closest('.quick')) { p.hidden = true; b.setAttribute('aria-expanded', false); } });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { p.hidden = true; b.setAttribute('aria-expanded', false); } });
 })();
+
+/* 후기 더보기 / 접기 (후기 카드가 그려지면 자동 적용) */
+(() => {
+  const fit = card => {
+    const tx = card.querySelector('.rv-tx'), b = card.querySelector('.rv-more'); if (!tx || !b) return;
+    if (card.classList.contains('open')) return;
+    b.hidden = !(tx.scrollHeight > tx.clientHeight + 2);
+  };
+  const scan = () => document.querySelectorAll('.pr .rv-tx').forEach(tx => fit(tx.closest('.pr')));
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.rv-more'); if (!b) return;
+    const card = b.closest('.pr'), open = !card.classList.contains('open');
+    card.classList.toggle('open', open); b.textContent = open ? '접기' : '더보기'; b.setAttribute('aria-expanded', open);
+    if (!open) { const top = card.getBoundingClientRect().top; if (top < 70) window.scrollBy({ top: top - 90, behavior: 'smooth' }); }
+  });
+  new MutationObserver(() => requestAnimationFrame(scan)).observe(document.body, { childList: true, subtree: true });
+  addEventListener('resize', () => requestAnimationFrame(scan));
+  addEventListener('load', scan); scan();
+})();
+
+/* 과정 페이지 후기 가로 넘김 화살표 */
+(() => {
+  document.querySelectorAll('.rv-rail-wrap').forEach(w => {
+    const rail = w.querySelector('.rv-rail'), prev = w.parentElement.querySelector('[data-rv="prev"]'), next = w.parentElement.querySelector('[data-rv="next"]');
+    if (!rail || !prev || !next) return;
+    const step = () => { const c = rail.querySelector('.pr'); return c ? c.getBoundingClientRect().width + 16 : rail.clientWidth; };
+    const upd = () => { prev.disabled = rail.scrollLeft < 4; next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4; prev.parentElement.style.visibility = rail.scrollWidth > rail.clientWidth + 4 ? '' : 'hidden'; };
+    prev.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: 'smooth' }));
+    next.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: 'smooth' }));
+    rail.addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd);
+    new MutationObserver(upd).observe(rail, { childList: true }); upd();
+  });
+})();

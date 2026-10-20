@@ -395,7 +395,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 @media (max-width:560px){.facts{grid-template-columns:1fr 1fr}.info th{width:96px;padding:14px 12px}.info td{padding:14px 12px}}
 </style>
 
-<link rel="stylesheet" href="site.css?v=20261019c">
+<link rel="stylesheet" href="site.css?v=20261021a">
 </head>
 <body>
 <header class="top">
@@ -482,15 +482,9 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   <div class="d-gal"><figure><img src="img/k_lecture.jpg" alt="매트리스·소파 청소교육 강의" style="object-position:center bottom"><figcaption>이론 강의</figcaption></figure><figure><img src="img/k_sofa.jpg" alt="패브릭 소파 추출 세척 실습"><figcaption>패브릭 소파 추출 세척</figcaption></figure><figure><img src="img/k_bench.jpg" alt="실습 작업대"><figcaption>실습 작업</figcaption></figure><figure><img src="img/k_bowl.jpg" alt="상업 공간 소파 세척"><figcaption>상업 공간 소파 세척</figcaption></figure></div>
 </div></section>
 
-<section class="d-sec alt" id="news"><div class="wrap two-col">
-  <div>
-    <div class="box-h"><h3>다음 개강 일정</h3><a href="notice.html">전체 공지</a></div>
-    <ul class="list" id="dNews"><li><span><span class="c">[개별교육]</span>일정은 상담 후 조율합니다</span></li></ul>
-  </div>
-  <div>
-    <div class="box-h"><h3>이 과정 수료 후기</h3><a href="reviews.html">전체 후기</a></div>
-    <div id="dRv" style="display:grid;gap:12px"><div class="empty"><b>첫 수료 후기를 기다리고 있습니다</b><span>이 과정을 수료한 분의 후기는 확인 후 이곳에 공개됩니다.</span></div></div>
-  </div>
+<section class="d-sec alt" id="news"><div class="wrap">
+  <div class="box-h"><h3>이 과정 수료 후기</h3><div style="display:flex;align-items:center;gap:14px"><div class="rv-nav"><button type="button" data-rv="prev" aria-label="이전 후기">‹</button><button type="button" data-rv="next" aria-label="다음 후기">›</button></div><a href="reviews.html">전체 후기</a></div></div>
+  <div class="rv-rail-wrap"><div class="rv-rail" id="dRv"><div class="empty"><b>첫 수료 후기를 기다리고 있습니다</b><span>이 과정을 수료한 분의 후기는 확인 후 이곳에 공개됩니다.</span></div></div></div>
 </div></section>
 
 <section class="d-sec" id="faq"><div class="wrap">
@@ -525,9 +519,10 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   </div>
 </section>
 
-<section class="d-sec" style="padding-block:64px"><div class="wrap">
-  <div class="head" style="margin-bottom:24px"><h2 style="font-size:24px">다른 과정도 살펴보세요</h2></div>
-  <div class="others"><a class="other" href="course-regular.html"><span>정기교육 · 4인 1조</span><b>에어컨 분해세척 정기교육</b><p>분해세척을 동료와 함께, 정해진 일정에.</p></a><a class="other" href="course-1on1.html"><span>개별교육 · 1:1 · 2:1</span><b>에어컨 1:1 종합실무과정</b><p>세척에 수리까지, 내 속도에 맞춰.</p></a><a class="other" href="course-repair.html"><span>단과 · 1일</span><b>에어컨 수리 단과과정</b><p>청소 중인 기사님을 위한 수리 집중.</p></a></div>
+<section class="d-sec" id="pair" style="padding-block:64px"><div class="wrap">
+  <div class="head" style="margin-bottom:24px"><h2 style="font-size:24px">함께 배우면 좋은 과정</h2></div>
+  <p class="pair-lead">매트리스·소파와 에어컨은 바쁜 계절이 서로 달라, 함께 익혀 두면 일 년 내내 일을 이어가기 좋습니다.</p>
+  <div class="pairs"><a class="pair" href="course-regular.html"><span class="tag">정기교육 · 4인 1조</span><b>에어컨 분해세척 정기교육</b><p>4명이 한 조가 되어 정해진 일정에 함께 배우는 과정. 벽걸이·스탠드·천장형 분해세척과 냉매 작업까지 5일간 실습합니다.</p><span class="go">과정 자세히 보기 →</span></a><a class="pair" href="course-1on1.html"><span class="tag">개별교육 · 1:1 · 2:1</span><b>에어컨 1:1 종합실무과정</b><p>강사와 1:1로 내 일정에 맞춰 배우는 과정. 분해세척에 수리까지 4일 동안 한 번에 익힙니다.</p><span class="go">과정 자세히 보기 →</span></a></div>
 </div></section>
 </main>
 <footer>
@@ -561,7 +556,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   <a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">톡톡 청소 예약</a>
   <a class="on" href="consult.html">상담 신청</a>
 </nav>
-<script src="data.js?v=20261019c"></script>
+<script src="data.js?v=20261021a"></script>
 <script>
 if('scrollRestoration' in history) history.scrollRestoration='manual';
 if(!location.hash){ window.scrollTo(0,0); addEventListener('load',()=>window.scrollTo(0,0)); addEventListener('pageshow',()=>window.scrollTo(0,0)); }
@@ -589,15 +584,13 @@ const THIS = "매트리스·소파 청소교육";
   });
   if (DB.on) {
     const q = encodeURIComponent(THIS);
-    DB.get(`posts?select=id,cat,title,date&cat=eq.${encodeURIComponent('교육일정')}&course=eq.${q}&order=pin.desc,date.desc&limit=3`).then(list => {
-      $('#dNews').innerHTML = list.length ? list.map(DB.newsLi).join('') : '<li><span>예정된 일정은 상담 시 안내해 드립니다.</span></li>';
-    }).catch(console.error);
-    DB.get(`public_reviews?select=*&course=eq.${q}&order=created_at.desc&limit=2`).then(list => {
+    DB.get(`public_reviews?select=*&course=eq.${q}&order=created_at.desc&limit=12`).then(list => {
+      list.sort((a, b) => ((b.photos || []).length > 0) - ((a.photos || []).length > 0));
       if (list.length) $('#dRv').innerHTML = list.map(DB.reviewCard).join('');
     }).catch(console.error);
   }
 })();
 </script>
-<script src="site.js?v=20261019c"></script>
+<script src="site.js?v=20261021a"></script>
 </body>
 </html>
