@@ -65,6 +65,10 @@ for (const [device, col] of [['PC', 'pc_bid'], ['MOBILE', 'mo_bid']]) {
 }
 const out = Object.values(rows);
 if (process.env.RESULT_FILE) (await import('node:fs')).writeFileSync(process.env.RESULT_FILE, JSON.stringify(out));
+if (process.env.GITHUB_ACTIONS) { // 결과 요약을 실행 기록 알림(annotation)으로 남김
+  const z = (await import('node:zlib')).gzipSync(JSON.stringify(out.map(r => [r.keyword, r.mo_qc, r.pc_qc, r.mo_bid, r.pc_bid]))).toString('base64');
+  console.log(`::notice title=ad-result::${z}`);
+}
 console.log(out.map(r => `${r.keyword}\t검색 ${r.pc_qc ?? '-'}/${r.mo_qc ?? '-'}\tPC1위 ${r.pc_bid[1] ?? '-'}원\t모바일1위 ${r.mo_bid[1] ?? '-'}원`).join('\n'));
 if (DRY) { console.log('(--dry: 저장하지 않음)'); process.exit(0); }
 await sb('ad_kw_daily?on_conflict=day,keyword', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(out) });
