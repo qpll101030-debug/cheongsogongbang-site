@@ -408,9 +408,9 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
         <li><a href="academy.html">아카데미 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
           <div class="drop"><a href="academy.html">아카데미 소개</a><div class="dropin" id="dropCourses"></div></div></li>
         <li><a href="cases/">사례 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="drop"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파 사례</a><a href="cases/aircon/">에어컨 사례</a><a href="cases/edu/">교육 사례</a></div></li>
-        <li><a href="notice.html">커뮤니티 <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m6 9 6 6 6-6"/></svg></a>
-          <div class="drop"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="gallery.html">현장 갤러리</a></div></li>
+          <div class="drop"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파 사례</a><a href="cases/aircon/">에어컨 사례</a><a href="cases/edu/">교육 사례</a><a href="gallery.html">현장 갤러리</a></div></li>
+        <li><a href="reviews.html">수료 후기</a></li>
+        <li><a href="notice.html">공지·일정</a></li>
       </ul>
       <a class="btn btn-blue" href="consult.html">상담 신청</a>
       <button class="menu-btn" id="menuBtn" type="button" hidden aria-hidden="true" tabindex="-1"></button>
@@ -419,13 +419,12 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
       <button type="button" data-sub="sv" aria-expanded="false">서비스</button>
       <button type="button" data-sub="ac" aria-expanded="false">아카데미</button>
       <button type="button" data-sub="cs" aria-expanded="false">사례</button>
-      <button type="button" data-sub="cm" aria-expanded="false">커뮤니티</button>
-      <a class="cta" href="consult.html">상담 신청</a>
+      <a href="reviews.html">수료 후기</a>
+      <a href="notice.html">공지·일정</a>
     </div>
     <div class="msub" id="sub-sv"><a href="./#family">매트리스·소파 청소공방</a><a href="./#family">에어컨 청소공방</a><a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">청소 예약 (톡톡)</a></div>
     <div class="msub" id="sub-ac"><a href="academy.html">아카데미 소개</a><a href="course-mattress.html">매트리스·소파 교육</a><a href="course-regular.html">에어컨 정기교육</a><a href="course-1on1.html">에어컨 1:1</a><a href="course-repair.html">에어컨 수리</a></div>
-    <div class="msub" id="sub-cs"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파</a><a href="cases/aircon/">에어컨</a><a href="cases/edu/">교육</a></div>
-    <div class="msub" id="sub-cm"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="gallery.html">현장 갤러리</a></div>
+    <div class="msub" id="sub-cs"><a href="cases/">전체 사례</a><a href="cases/sofa/">매트리스·소파</a><a href="cases/aircon/">에어컨</a><a href="cases/edu/">교육</a><a href="gallery.html">현장 갤러리</a></div>
   </div>
   <nav class="mnav" id="mnav" hidden aria-hidden="true"><div class="wrap" id="mnavIn"></div></nav>
 </header>
@@ -540,7 +539,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
     </div>
     <div><h4>서비스</h4><ul><li><a href="./#family">매트리스·소파 청소공방</a></li><li><a href="./#family">에어컨 청소공방</a></li><li><a href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">청소 예약 (네이버 톡톡)</a></li></ul></div>
     <div><h4>아카데미</h4><ul id="ftCourses"></ul></div>
-    <div><h4>커뮤니티</h4><ul><li><a href="cases/">작업·교육 사례</a></li><li><a href="notice.html">공지·일정</a></li><li><a href="reviews.html">수료 후기</a></li><li><a href="gallery.html">현장 갤러리</a></li><li><a href="consult.html">상담 신청</a></li><li><a href="./#area">찾아오는 길</a></li></ul></div>
+    <div><h4>바로가기</h4><ul><li><a href="cases/">작업·교육 사례</a></li><li><a href="gallery.html">현장 갤러리</a></li><li><a href="reviews.html">수료 후기</a></li><li><a href="notice.html">공지·일정</a></li><li><a href="consult.html">상담 신청</a></li><li><a href="./#area">찾아오는 길</a></li></ul></div>
     <div class="legal"><a href="privacy.html">개인정보처리방침</a><span>© 2026 청소공방</span><a href="admin.html" rel="nofollow" style="margin-left:auto;opacity:.45;font-weight:400">관리자</a></div>
   </div>
 </footer>
@@ -572,7 +571,7 @@ const THIS = "에어컨 분해세척 정기교육";
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const cats = [...new Set(COURSES.map(c => c.cat))];
   $('#dropCourses').innerHTML = cats.map(cat => `<span class="grp">${esc(cat)}</span>` + COURSES.filter(c=>c.cat===cat).map(c => `<a href="${c.url}">${esc(c.title)}${c.status==='soon'?'<small>준비 중</small>':''}</a>`).join('')).join('');
-  $('#mnavIn').innerHTML = `<a href="academy.html#courses">교육과정</a><div class="sub">${COURSES.map(c=>`<a href="${c.url}">${esc(c.title)}</a>`).join('')}</div><a href="notice.html">커뮤니티</a><div class="sub"><a href="notice.html">공지·일정</a><a href="reviews.html">수료 후기</a><a href="cases/">작업·교육 사례</a><a href="gallery.html">현장 갤러리</a></div><a href="consult.html#clean">케어서비스</a><a href="consult.html">상담 신청</a>`;
+  $('#mnavIn').innerHTML = `<a href="academy.html#courses">교육과정</a><div class="sub">${COURSES.map(c=>`<a href="${c.url}">${esc(c.title)}</a>`).join('')}</div><a href="cases/">사례</a><div class="sub"><a href="cases/">작업·교육 사례</a><a href="gallery.html">현장 갤러리</a></div><a href="reviews.html">수료 후기</a><a href="notice.html">공지·일정</a><a href="consult.html#clean">케어서비스</a><a href="consult.html">상담 신청</a>`;
   $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
   $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
   $('#course').innerHTML = COURSES.map(c => `<option ${c.title===THIS?'selected':''}>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';

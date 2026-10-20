@@ -17,11 +17,12 @@
 .nav .drop{left:6px}
 .drop .grp{display:block;font-size:12px;color:var(--muted);padding:10px 12px 2px;letter-spacing:.04em}
 .menu-btn,.mnav{display:none!important}
-.mrow{display:none;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.mrow{display:none;gap:2px;flex-wrap:wrap;padding-bottom:8px;margin-inline:-6px}
 .mrow::-webkit-scrollbar{display:none}
-.mrow button,.mrow a{flex:none;font:600 14.5px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:8px 14px;text-decoration:none;cursor:pointer}
+.mrow button,.mrow a{flex:1 1 auto;text-align:center;white-space:nowrap;font:600 14.5px var(--body);color:var(--ink);background:none;border:1px solid transparent;border-radius:99px;padding:7px 6px;text-decoration:none;cursor:pointer}
 .mrow [aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .mrow .cta{background:var(--blue);color:#fff;border-color:var(--blue)}
+@media (max-width:380px){.mrow button,.mrow a{font-size:13.5px;padding:7px 3px}}
 .msub{display:none;padding-bottom:10px;gap:6px;flex-wrap:wrap}
 .msub a{font-size:14px;text-decoration:none;color:var(--text);padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .mbar{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:8px max(10px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
