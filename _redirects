@@ -4,5 +4,5 @@
 /cases/work      /cases/     301
 /cases/work/*    /cases/     301
 
-# 검색용 페이지가 만들어지기 전에는 브라우저에서 그려 줌
-/cases/*  /case.html  200
+# /cases/ 아래 글·목록 페이지는 빌드 때 실제 파일로 만들어짐.
+# Cloudflare는 _redirects를 실제 파일보다 먼저 적용하므로 /cases/* 전체를 case.html로 보내는 규칙은 두지 않음.
