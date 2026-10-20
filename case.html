@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<script>/* 예전 잘못된 주소(/case)로 들어오면 사례 목록으로 보냄 (브라우저에 남은 옛 이동 기록 대비) */
+if (/^\/case(\.html)?\/?$/.test(location.pathname)) location.replace('/cases/?r=' + Date.now());</script>
 <meta charset="utf-8">
 <base href="/">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
