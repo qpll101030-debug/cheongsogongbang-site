@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 const API = process.env.NAVER_AD_API || 'https://api.searchad.naver.com';
 const { NAVER_AD_API_KEY: KEY, NAVER_AD_SECRET: SECRET, NAVER_AD_CUSTOMER_ID: CID, SUPABASE_SERVICE_KEY: SB_KEY } = process.env;
 const SB_URL = process.env.SUPABASE_URL || 'https://xkprrwwubwzpkgpmdsuq.supabase.co';
-const POSITIONS = [1, 2, 3, 4, 5];
+const POSITIONS = { PC: [1,2,3,4,5,6,7,8,9,10], MOBILE: [1,2,3,4,5,6,7,8,9,10] };
 const DRY = process.argv.includes('--dry');
 
 for (const [k, v] of Object.entries({ NAVER_AD_API_KEY: KEY, NAVER_AD_SECRET: SECRET, NAVER_AD_CUSTOMER_ID: CID, SUPABASE_SERVICE_KEY: SB_KEY }))
@@ -50,15 +50,21 @@ for (let i = 0; i < kws.length; i += 5) {
 }
 // 2) 순위별 예상 입찰가 (PC·모바일)
 for (const [device, col] of [['PC', 'pc_bid'], ['MOBILE', 'mo_bid']]) {
-  for (let i = 0; i < kws.length; i += 20) {
-    const part = kws.slice(i, i + 20);
-    const items = part.flatMap(k => POSITIONS.map(position => ({ key: k, position })));
-    const d = await naver('POST', '/estimate/average-position-bid/keyword', { body: { device, items } });
-    for (const e of d.estimate || []) { const k = part.find(x => norm(x) === norm(e.keyword)); if (k) rows[k][col][e.position] = e.bid; }
+  for (let i = 0; i < kws.length; i += 10) {
+    const part = kws.slice(i, i + 10);
+    const put = d => { for (const e of d.estimate || []) { const k = part.find(x => norm(x) === norm(e.keyword)); if (k) rows[k][col][e.position] = e.bid; } };
+    try {
+      put(await naver('POST', '/estimate/average-position-bid/keyword', { body: { device, items: part.flatMap(k => POSITIONS[device].map(position => ({ key: k, position }))) } }));
+    } catch (err) {
+      // 일부 순위를 지원하지 않으면 1~5위만 다시 요청
+      console.log(`${device} 1~${POSITIONS[device].length}위 요청 실패 → 1~5위로 재시도: ${err.message}`);
+      put(await naver('POST', '/estimate/average-position-bid/keyword', { body: { device, items: part.flatMap(k => [1,2,3,4,5].map(position => ({ key: k, position }))) } }));
+    }
     await sleep(400);
   }
 }
 const out = Object.values(rows);
+if (process.env.RESULT_FILE) (await import('node:fs')).writeFileSync(process.env.RESULT_FILE, JSON.stringify(out));
 console.log(out.map(r => `${r.keyword}\t검색 ${r.pc_qc ?? '-'}/${r.mo_qc ?? '-'}\tPC1위 ${r.pc_bid[1] ?? '-'}원\t모바일1위 ${r.mo_bid[1] ?? '-'}원`).join('\n'));
 if (DRY) { console.log('(--dry: 저장하지 않음)'); process.exit(0); }
 await sb('ad_kw_daily?on_conflict=day,keyword', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(out) });

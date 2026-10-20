@@ -548,13 +548,13 @@ function renderAd(){
   $('#adGrp').innerHTML = grps.map(g => `<option>${esc(g)}</option>`).join('') + '<option>기타</option>';
   const col = adDev === 'mo' ? 'mo_bid' : 'pc_bid', qc = adDev === 'mo' ? 'mo_qc' : 'pc_qc', clk = adDev === 'mo' ? 'mo_clk' : 'pc_clk';
   const by = (kw, dd) => adRows.find(r => r.keyword === kw && r.day === dd);
-  const head = `<thead><tr><th>키워드</th><th>월 검색수</th><th>월 클릭수</th><th>경쟁</th><th>1위</th><th>2위</th><th>3위</th><th>4위</th><th>5위</th><th></th></tr></thead>`;
-  const body = grps.map(g => `<tr class="g"><td colspan="10">${esc(g)}</td></tr>` + adKws.filter(x => x.grp === g && x.active).map(x => {
+  const head = `<thead><tr><th>키워드</th><th>월 검색수</th><th>월 클릭수</th><th>경쟁</th>${[1,2,3,4,5,6,7,8,9,10].map(n => `<th>${n}위</th>`).join('')}<th></th></tr></thead>`;
+  const body = grps.map(g => `<tr class="g"><td colspan="15">${esc(g)}</td></tr>` + adKws.filter(x => x.grp === g && x.active).map(x => {
     const r = today && by(x.keyword, today), p = prev && by(x.keyword, prev);
     const b = r ? (r[col] || {}) : {}, pb = p ? (p[col] || {}) : {};
     const diff = b[1] != null && pb[1] != null ? b[1] - pb[1] : 0;
     const arrow = diff > 0 ? `<span class="up">▲${won(diff)}</span>` : diff < 0 ? `<span class="dn">▼${won(-diff)}</span>` : '';
-    return `<tr><td class="k" data-k="${esc(x.keyword)}">${esc(x.keyword)}</td><td>${r ? won(r[qc]) : '-'}</td><td>${r ? won(r[clk]) : '-'}</td><td>${r ? esc(r.comp || '-') : '-'}</td><td><b>${won(b[1])}</b>${arrow}</td><td>${won(b[2])}</td><td>${won(b[3])}</td><td>${won(b[4])}</td><td>${won(b[5])}</td><td><button class="rm" type="button" data-rm="${esc(x.keyword)}" title="수집 중단">✕</button></td></tr>`;
+    return `<tr><td class="k" data-k="${esc(x.keyword)}">${esc(x.keyword)}</td><td>${r ? won(r[qc]) : '-'}</td><td>${r ? won(r[clk]) : '-'}</td><td>${r ? esc(r.comp || '-') : '-'}</td><td><b>${won(b[1])}</b>${arrow}</td>${[2,3,4,5,6,7,8,9,10].map(n => `<td>${won(b[n])}</td>`).join('')}<td><button class="rm" type="button" data-rm="${esc(x.keyword)}" title="수집 중단">✕</button></td></tr>`;
   }).join('')).join('');
   $('#adTable').innerHTML = head + '<tbody>' + body + '</tbody>';
 }
