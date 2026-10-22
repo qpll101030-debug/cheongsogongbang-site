@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>에어컨 분해청소 | 에어컨 청소공방 · 청소공방</title>
-<meta name="description" content="에어컨 분해청소의 비용 기준, 작업 순서, 업체 고르는 법을 안내합니다. 냄새와 검은 먼지가 고민이라면 먼저 상담하세요. 서울·경기, 대구, 부산 방문.">
+<meta name="description" content="에어컨 분해청소의 비용 기준, 작업 순서, 업체 고르는 법을 안내합니다. 벽걸이 80,000원부터. 냄새와 검은 먼지가 고민이라면 먼저 상담하세요. 서울·경기, 대구, 부산 방문.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Sans+KR:wght@700;800;900&display=swap">
@@ -417,6 +417,26 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 .ptnote{max-width:960px;margin-top:12px;font-size:14.5px;color:var(--muted)}
 .d-gal.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .d-gal.g3 img{aspect-ratio:4/3}
+#price{scroll-margin-top:140px}
+.ptwrap{max-width:960px;overflow-x:auto}
+.price{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);font-size:16px}
+.price thead th{background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:14px 20px;text-align:left}
+.price thead th.r,.price td.r{text-align:right}
+.price tbody th{width:150px;text-align:left;font:800 16.5px var(--display);color:var(--ink);padding:18px 20px;border-top:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.price td{padding:18px 20px;border-top:1px solid var(--line);vertical-align:middle;color:var(--text);font-size:15.5px}
+.price td small{display:block;margin-top:4px;font-size:13.5px;color:var(--mint-dk);font-weight:600}
+.price td.r{white-space:nowrap}
+.price td.r b{font:800 20px var(--display);color:var(--blue);font-variant-numeric:tabular-nums}
+.price td.r span{font-size:13.5px;color:var(--muted);margin-left:2px}
+.price tr.biz td.r b{font-size:17px;color:var(--ink)}
+.price tbody tr:nth-child(even){background:var(--bg)}
+.ptflag{max-width:960px;margin-top:14px;background:var(--mint-soft);border-radius:12px;padding:18px 22px;display:grid;gap:4px}
+.ptflag b{color:var(--mint-dk)}
+.ptflag p{color:var(--ink);font-size:15.5px}
+h3.sub{margin:36px 0 14px;font-size:19px}
+a.fact{text-decoration:none;display:block}
+a.fact:hover{border-color:var(--blue)}
+@media (max-width:640px){.price tbody th{width:auto;padding:14px 12px;white-space:normal}.price td{padding:14px 12px}.price thead th{padding:12px}.price td.r b{font-size:17px}}
 .ct-grid.one{grid-template-columns:minmax(0,720px)}
 @media (max-width:860px){.three{grid-template-columns:1fr}.d-gal.g3{grid-template-columns:1fr}.ptab td:first-child,.ptab td:last-child{white-space:normal}}
 </style>
@@ -462,14 +482,14 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
         <span class="tag">에어컨 청소공방 · 분해세척</span>
         <h1>에어컨 분해청소,<br>무엇을 보고 맡기면 될까요?</h1>
         <p class="lead">필터를 닦아도 냄새가 나고 검은 먼지가 날린다면 내부 세척이 필요한 신호일 수 있습니다. 분해 범위와 비용 기준을 작업 전에 설명드립니다.</p>
-        <div class="facts"><div class="fact"><span>작업 종류</span><b>벽걸이·스탠드·시스템</b></div><div class="fact"><span>비용</span><b>80,000원부터</b></div><div class="fact"><span>예약</span><b>톡톡 · 전화</b></div></div>
-        <div class="cta"><a class="btn btn-blue" href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">톡톡으로 예약·상담</a><a class="btn btn-line" href="#cost">비용 기준 보기</a></div>
+        <div class="facts"><div class="fact"><span>작업 종류</span><b>벽걸이·스탠드·시스템</b></div><a class="fact" href="#price"><span>비용 (눌러서 보기)</span><b>80,000원부터</b></a><div class="fact"><span>예약</span><b>톡톡 · 전화</b></div></div>
+        <div class="cta"><a class="btn btn-blue" href="https://talk.naver.com/ct/w5tas4" target="_blank" rel="noopener">톡톡으로 예약·상담</a><a class="btn btn-mint" href="#price">비용 보기</a></div>
       </div>
       <figure class="d-img"><img src="img/ac_stand.jpg" alt="스탠드 에어컨을 분해 세척하는 청소공방 기술자" style="object-position:47% center"></figure>
     </div>
   </div>
 </section>
-<div class="subnav"><div class="wrap"><a href="#prep">먼저 확인할 것</a><a href="#cost">비용 기준</a><a href="#process">작업 순서</a><a href="#choose">업체 고르는 법</a><a href="#after">작업 후</a><a href="#photos">작업 사진</a><a href="#faq">자주 묻는 질문</a></div></div>
+<div class="subnav"><div class="wrap"><a href="#prep">먼저 확인할 것</a><a href="#price">비용</a><a href="#process">작업 순서</a><a href="#choose">업체 고르는 법</a><a href="#after">작업 후</a><a href="#photos">작업 사진</a><a href="#faq">자주 묻는 질문</a></div></div>
 
 <section class="d-sec" id="prep"><div class="wrap">
   <div class="head"><span class="tag mint">상담 전에</span><h2>상담하실 때 알려주세요</h2><p>아래 세 가지를 알려주시면 분해 범위와 비용을 더 정확하게 안내드릴 수 있습니다.</p></div>
@@ -488,23 +508,28 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 </div></section>
 
 <section class="d-sec alt" id="cost"><div class="wrap">
-  <div class="head"><span class="tag">비용 기준</span><h2>비용은 이렇게 정해집니다</h2><p>같은 에어컨 청소라도 현장 조건에 따라 달라서, 기본 금액을 알려드리고 확인한 뒤 작업 전에 총액을 안내드립니다.</p></div>
+  <div class="head"><span class="tag">비용 안내</span><h2>작업 비용</h2><p>표의 금액은 에어컨 1대 기준 기본 금액입니다. 현장 조건을 확인한 뒤 작업 전에 총액을 안내드립니다.</p></div>
+  <div class="ptwrap" id="price">
+    <table class="price">
+      <thead><tr><th scope="col">구분</th><th scope="col">이런 경우에 맞습니다</th><th scope="col" class="r">기본 금액</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">벽걸이형</th><td>방이나 거실에 한 대 설치된 일반 가정용</td><td class="r"><b>80,000원</b><span>부터</span></td></tr>
+        <tr><th scope="row">스탠드형</th><td>거실에 세워 두는 큰 에어컨</td><td class="r"><b>130,000원</b><span>부터</span></td></tr>
+        <tr><th scope="row">투인원</th><td>스탠드와 벽걸이가 한 세트로 설치된 경우</td><td class="r"><b>200,000원</b><span>부터</span></td></tr>
+        <tr><th scope="row">시스템 1Way</th><td>천장에 매립된 한 방향 토출 시스템에어컨<small>층고 3m 이상이면 1m당 20,000원 추가</small></td><td class="r"><b>100,000원</b><span>부터</span></td></tr>
+        <tr><th scope="row">시스템 4Way</th><td>천장에 매립된 사방 토출 시스템에어컨<small>층고 3m 이상이면 1m당 20,000원 추가</small></td><td class="r"><b>150,000원</b><span>부터</span></td></tr>
+        <tr class="biz"><th scope="row">상업용</th><td>매장, 사무실 등 상업 공간</td><td class="r"><b>별도 문의</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ptflag"><b>층고에 따라 가격이 달라집니다</b><p>시스템에어컨은 층고 3m 이상부터 1m당 20,000원이 추가됩니다. 정확한 금액은 설치된 곳 사진과 층고를 알려주시면 안내드립니다.</p></div>
+  <h3 class="sub">비용을 정하는 요소</h3>
   <div class="three">
     <div class="pick"><b>기종과 대수</b><p>벽걸이, 스탠드, 투인원, 시스템 등 종류와 몇 대인지에 따라 작업량이 달라집니다.</p></div>
     <div class="pick"><b>분해 범위</b><p>필터와 외관만 닦는지, 내부 부품을 분리해 세척하는지에 따라 달라집니다.</p></div>
-    <div class="pick"><b>설치 조건</b><p>설치 높이, 작업 공간, 가구 이동, 실외기 작업 여부가 비용에 영향을 줍니다.</p></div>
+    <div class="pick"><b>설치 조건</b><p>설치 높이(층고), 작업 공간, 가구 이동, 실외기 작업 여부가 비용에 영향을 줍니다.</p></div>
   </div>
-  <table class="info ptab">
-    <tr><th>구분</th><th>이런 경우에 맞습니다</th><th>비용</th></tr>
-    <tr><td>벽걸이형</td><td>방이나 거실에 한 대 설치된 일반 가정용</td><td>80,000원부터</td></tr>
-    <tr><td>투인원</td><td>스탠드와 벽걸이가 한 세트로 설치된 경우</td><td>상담 후 안내</td></tr>
-    <tr><td>스탠드형</td><td>거실에 세워 두는 큰 에어컨</td><td>상담 후 안내</td></tr>
-    <tr><td>시스템 1Way</td><td>천장에 매립된 한 방향 토출 시스템에어컨</td><td>100,000원부터</td></tr>
-    <tr><td>시스템 4Way</td><td>천장에 매립된 사방 토출 시스템에어컨</td><td>150,000원부터</td></tr>
-    <tr><td>천장형·업소용</td><td>매장, 사무실 등 상업 공간</td><td>상담 후 안내</td></tr>
-  </table>
-  <p class="ptnote">표의 금액은 기본 금액입니다. 설치 층고(천장 높이)에 따라 가격이 달라질 수 있고, 투인원·스탠드형·천장형·업소용은 현장 확인 후 안내드립니다.</p>
-  <div class="addon"><p><b>추가금이 생길 수 있는 경우</b> 천장이 높거나 사다리 작업이 필요한 설치, 가구를 옮겨야 하는 공간, 협의한 범위를 넘는 추가 분해, 실외기 작업입니다. 작업 전에 이유와 함께 알려드리고, 총액은 문자로 확인하실 수 있습니다.</p></div>
+  <div class="addon"><p><b>추가금이 생길 수 있는 경우</b> 사다리 작업이 필요한 설치, 가구를 옮겨야 하는 공간, 협의한 범위를 넘는 추가 분해, 실외기 작업입니다. 작업 전에 이유와 함께 알려드리고, 총액은 문자로 확인하실 수 있습니다.</p></div>
 </div></section>
 
 <section class="d-sec" id="process"><div class="wrap">
@@ -546,7 +571,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
   <div class="faq">
     <details><summary>청소는 얼마나 자주 해야 하나요?</summary><p>사용 빈도와 설치 환경에 따라 다릅니다. 냄새가 나거나 바람이 약해졌다면 점검할 시점으로 보시면 됩니다.</p></details>
     <details><summary>상담 전에 준비할 것이 있나요?</summary><p>모델명 라벨과 설치된 곳 사진, 불편한 증상을 알려주시면 분해 범위와 비용을 더 정확하게 안내드릴 수 있습니다.</p></details>
-    <details><summary>비용은 얼마인가요?</summary><p>벽걸이형 80,000원부터, 시스템 1Way 100,000원부터, 시스템 4Way 150,000원부터입니다. 설치 층고와 분해 범위, 대수에 따라 달라질 수 있고, 투인원·스탠드형·천장형·업소용은 상담 후 안내드립니다. 추가금이 생기는 경우에는 작업 전에 총액을 문자로 확인하실 수 있습니다.</p></details>
+    <details><summary>비용은 얼마인가요?</summary><p>벽걸이형 80,000원부터, 스탠드형 130,000원부터, 투인원 200,000원부터, 시스템 1Way 100,000원부터, 시스템 4Way 150,000원부터입니다. 시스템에어컨은 층고 3m 이상이면 1m당 20,000원이 추가되고, 상업용은 별도 문의입니다. 자세한 표는 <a href="#price" style="color:var(--blue);font-weight:600">비용 안내</a>에서 확인하실 수 있습니다.</p></details>
     <details><summary>작업 시간은 얼마나 걸리나요?</summary><p>기종과 대수, 오염 상태에 따라 달라서 상담 때 안내드립니다.</p></details>
     <details><summary>청소 후 바로 사용해도 되나요?</summary><p>건조와 조립, 작동 확인을 마친 뒤 사용 가능 여부를 안내드립니다.</p></details>
     <details><summary>당일 접수도 가능한가요?</summary><p>기사 일정에 따라 달라집니다. 급하시면 예약 때 희망 날짜를 말씀해 주세요.</p></details>
