@@ -93,3 +93,14 @@
 .pair b{font:800 18px var(--display);color:var(--ink)}
 .pair p{margin:0;color:var(--muted);font-size:15px;flex:1}
 .pair .go{font-size:14px;font-weight:700;color:var(--blue)}
+
+/* 아카데미: 업계 정보공유 오픈채팅 */
+.oc{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px;scroll-margin-top:110px}
+.oc-t{display:flex;align-items:center;gap:14px;min-width:0;flex:1 1 320px}
+.oc-ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#fee500;color:#3c1e1e}
+.oc-t b{display:block;font:800 17px/1.4 var(--display);color:var(--ink)}
+.oc-t p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
+.oc-b{display:flex;gap:10px;flex-wrap:wrap}
+.oc-b a{display:inline-flex;align-items:center;gap:6px;min-height:46px;padding:0 18px;border-radius:10px;background:#fee500;color:#3c1e1e;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.oc-b a:hover{filter:brightness(.96)}
+@media (max-width:760px){.oc{padding:20px}.oc-b{width:100%;flex-direction:column}.oc-b a{justify-content:center;width:100%}}
