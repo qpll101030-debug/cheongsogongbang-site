@@ -250,6 +250,9 @@ section{padding-block:88px}
 .fld label{font-weight:600;font-size:14px;color:var(--ink)}
 .fld .opt{font-weight:400;color:var(--muted);font-size:12px;margin-left:4px}
 .fld input,.fld select,.fld textarea{width:100%;font:16px var(--body);color:var(--text);background:#fff;border:1px solid #cdd6e3;border-radius:8px;padding:12px 14px}
+.rph-alt{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:8px}
+.rph-alt button{min-height:40px;padding:0 14px;border:1px solid #cdd6e3;border-radius:8px;background:#fff;color:var(--ink);font:600 14px var(--body);cursor:pointer}
+.rph-alt small{color:var(--muted);font-size:12.5px;flex:1 1 220px}
 .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
 .fld textarea{min-height:88px;resize:vertical}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -518,7 +521,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
     </div>
     <div class="fld"><label>별점</label><div class="stars" id="stars" role="group" aria-label="별점"></div></div>
     <div class="fld"><label for="rt">후기</label><textarea id="rt" placeholder="교육에서 좋았던 점, 현장에서 도움이 된 점을 적어주세요" style="min-height:120px"></textarea></div>
-    <div class="fld"><label for="rph">사진 첨부<span class="opt">선택 · 최대 3장</span></label><input id="rph" type="file" accept="image/*" multiple><div class="rv-up" id="rphPrev"></div></div>
+    <div class="fld"><label for="rph">사진 첨부<span class="opt">선택 · 최대 3장</span></label><input id="rph" type="file" accept="image/*" multiple><div class="rph-alt"><button type="button" id="rphFile">갤러리·내 파일에서 찾기</button><small>위 선택창에 원하는 사진이 없으면 이 버튼으로 기기의 파일 목록에서 고르세요.</small></div><input id="rph2" type="file" accept="image/*,.pdf" multiple hidden><div class="rv-up" id="rphPrev"></div></div>
     <label class="chk" for="ra"><input type="checkbox" id="ra">후기 공개와 개인정보 수집·이용에 동의합니다</label>
     <span class="err" id="rerr" hidden></span>
     <div class="msg" id="rmsg" hidden></div>
@@ -595,7 +598,10 @@ const rp=$('#rp'); rp.addEventListener('input',()=>{const d=rp.value.replace(/\D
 let rfiles = [];
 const rph = $('#rph');
 function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join(''); }
-rph.addEventListener('change', () => { rfiles = rfiles.concat([...rph.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name))).slice(0, 3); rph.value = ''; renderRph(); });
+function addRph(inp){ rfiles = rfiles.concat([...inp.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name))).slice(0, 3); inp.value = ''; renderRph(); }
+rph.addEventListener('change', () => addRph(rph));
+const rph2 = $('#rph2'); rph2.addEventListener('change', () => addRph(rph2));
+$('#rphFile').addEventListener('click', () => rph2.click());
 $('#rphPrev').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { rfiles.splice(+b.dataset.rm, 1); renderRph(); } });
 async function shrinkImg(file, max = 1600, q = .82){
   // 1순위: 브라우저가 방향까지 맞춰 읽는 방식, 2순위: 일반 이미지 읽기. 둘 다 안 되면 null(원본 그대로 올림)
