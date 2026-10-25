@@ -597,8 +597,25 @@ renderStars();
 const rp=$('#rp'); rp.addEventListener('input',()=>{const d=rp.value.replace(/\D/g,'').slice(0,11); rp.value=d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`;});
 let rfiles = [];
 const rph = $('#rph');
-function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join(''); }
-function addRph(inp){ rfiles = rfiles.concat([...inp.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name))).slice(0, 3); inp.value = ''; renderRph(); }
+function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('em'),{textContent:'사진'}))"><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join('') + (cvBusy ? '<small>사진 변환 중…</small>' : ''); }
+let cvBusy = 0, heicLib;
+const isHeic = f => /image\/hei[cf]/i.test(f.type) || /\.hei[cf]$/i.test(f.name);
+function loadHeic(){ return heicLib || (heicLib = new Promise((ok, no) => { if (window.heic2any) return ok(window.heic2any); const s = document.createElement('script'); s.src = 'vendor-heic2any.min.js?v=1'; s.onload = () => window.heic2any ? ok(window.heic2any) : no(new Error('heic lib')); s.onerror = () => { heicLib = null; no(new Error('heic lib load')); }; document.head.appendChild(s); })); }
+async function toJpegIfHeic(f){
+  if (!isHeic(f)) return f;
+  const h = await loadHeic(); let b = await h({ blob: f, toType: 'image/jpeg', quality: .85 }); if (Array.isArray(b)) b = b[0];
+  return new File([b], f.name.replace(/\.hei[cf]$/i, '') + '.jpg', { type: 'image/jpeg' });
+}
+async function addRph(inp){
+  const picked = [...inp.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name)); inp.value = '';
+  cvBusy++; renderRph();
+  for (const f of picked) {
+    if (rfiles.length >= 3) break;
+    try { rfiles.push(await toJpegIfHeic(f)); } catch (x) { console.error(x); rfiles.push(f); }
+    renderRph();
+  }
+  cvBusy--; renderRph();
+}
 rph.addEventListener('change', () => addRph(rph));
 const rph2 = $('#rph2'); rph2.addEventListener('change', () => addRph(rph2));
 $('#rphFile').addEventListener('click', () => rph2.click());
