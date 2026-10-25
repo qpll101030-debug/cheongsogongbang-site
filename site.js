@@ -44,6 +44,7 @@
     if (card.classList.contains('open')) return;
     b.hidden = !(tx.scrollHeight > tx.clientHeight + 2);
   };
+  document.addEventListener('scroll', e => { const t = e.target; if (!t || !t.classList || !t.classList.contains('rv-ph')) return; const dots = t.parentNode.querySelectorAll('.rv-dots i'); const k = Math.round(t.scrollLeft / (t.clientWidth + 8)); dots.forEach((d, i) => d.classList.toggle('on', i === k)); }, true);
   const scan = () => document.querySelectorAll('.pr .rv-tx').forEach(tx => fit(tx.closest('.pr')));
   document.addEventListener('click', e => {
     const b = e.target.closest('.rv-more'); if (!b) return;
