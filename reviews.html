@@ -601,10 +601,10 @@ function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img sr
 let cvBusy = 0, heicLib;
 const heicTimeout = (p, ms) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error('시간 초과')), ms))]);
 const isHeic = f => /image\/hei[cf]/i.test(f.type) || /\.hei[cf]$/i.test(f.name);
-function loadHeic(){ return heicLib || (heicLib = new Promise((ok, no) => { if (window.heic2any) return ok(window.heic2any); const s = document.createElement('script'); s.src = 'vendor-heic2any.min.js?v=1'; s.onload = () => window.heic2any ? ok(window.heic2any) : no(new Error('heic lib')); s.onerror = () => { heicLib = null; no(new Error('heic lib load')); }; document.head.appendChild(s); })); }
+function loadHeic(){ return heicLib || (heicLib = new Promise((ok, no) => { if (window.HeicTo) return ok(window.HeicTo); const s = document.createElement('script'); s.src = 'vendor-heic-to.js?v=1'; s.onload = () => window.HeicTo ? ok(window.HeicTo) : no(new Error('heic lib')); s.onerror = () => { heicLib = null; no(new Error('heic lib load')); }; document.head.appendChild(s); })); }
 async function toJpegIfHeic(f){
   if (!isHeic(f)) return f;
-  const h = await loadHeic(); let b = await heicTimeout(h({ blob: f, toType: 'image/jpeg', quality: .85 }), 45000); if (Array.isArray(b)) b = b[0];
+  const h = await loadHeic(); const b = await heicTimeout(h({ blob: f, type: 'image/jpeg', quality: .85 }), 45000);
   return new File([b], f.name.replace(/\.hei[cf]$/i, '') + '.jpg', { type: 'image/jpeg' });
 }
 async function addRph(inp){
