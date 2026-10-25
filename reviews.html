@@ -518,7 +518,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
     </div>
     <div class="fld"><label>별점</label><div class="stars" id="stars" role="group" aria-label="별점"></div></div>
     <div class="fld"><label for="rt">후기</label><textarea id="rt" placeholder="교육에서 좋았던 점, 현장에서 도움이 된 점을 적어주세요" style="min-height:120px"></textarea></div>
-    <div class="fld"><label for="rph">사진 첨부<span class="opt">선택 · 최대 3장</span></label><input id="rph" type="file" accept="image/jpeg,image/png,image/webp,image/heic" multiple><div class="rv-up" id="rphPrev"></div></div>
+    <div class="fld"><label for="rph">사진 첨부<span class="opt">선택 · 최대 3장</span></label><input id="rph" type="file" accept="image/*" multiple><div class="rv-up" id="rphPrev"></div></div>
     <label class="chk" for="ra"><input type="checkbox" id="ra">후기 공개와 개인정보 수집·이용에 동의합니다</label>
     <span class="err" id="rerr" hidden></span>
     <div class="msg" id="rmsg" hidden></div>
@@ -595,25 +595,41 @@ const rp=$('#rp'); rp.addEventListener('input',()=>{const d=rp.value.replace(/\D
 let rfiles = [];
 const rph = $('#rph');
 function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt=""><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join(''); }
-rph.addEventListener('change', () => { rfiles = rfiles.concat([...rph.files].filter(f => /^image\//.test(f.type) || /\.heic$/i.test(f.name))).slice(0, 3); rph.value = ''; renderRph(); });
+rph.addEventListener('change', () => { rfiles = rfiles.concat([...rph.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name))).slice(0, 3); rph.value = ''; renderRph(); });
 $('#rphPrev').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) { rfiles.splice(+b.dataset.rm, 1); renderRph(); } });
 async function shrinkImg(file, max = 1600, q = .82){
-  const url = URL.createObjectURL(file);
+  // 1순위: 브라우저가 방향까지 맞춰 읽는 방식, 2순위: 일반 이미지 읽기. 둘 다 안 되면 null(원본 그대로 올림)
   try {
-    const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
-    const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
-    const cv = document.createElement('canvas'); cv.width = Math.round(img.naturalWidth * k); cv.height = Math.round(img.naturalHeight * k);
-    cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
-    return await new Promise(ok => cv.toBlob(ok, 'image/jpeg', q));
-  } finally { URL.revokeObjectURL(url); }
+    let src, w, h, close = () => {};
+    if (window.createImageBitmap) {
+      try { const bm = await createImageBitmap(file, { imageOrientation: 'from-image' }); src = bm; w = bm.width; h = bm.height; close = () => bm.close && bm.close(); } catch (_) {}
+    }
+    if (!src) {
+      const url = URL.createObjectURL(file);
+      try {
+        const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+        src = img; w = img.naturalWidth; h = img.naturalHeight;
+      } finally { URL.revokeObjectURL(url); }
+    }
+    const k = Math.min(1, max / Math.max(w, h));
+    const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(w * k)); cv.height = Math.max(1, Math.round(h * k));
+    cv.getContext('2d').drawImage(src, 0, 0, cv.width, cv.height); close();
+    const blob = await new Promise(ok => cv.toBlob(ok, 'image/jpeg', q));
+    return blob && blob.size ? blob : null;
+  } catch (_) { return null; }
 }
 async function uploadRph(){
   const C = window.SITE_CFG, out = [];
   for (const f of rfiles) {
-    const blob = await shrinkImg(f);
-    const name = `u/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}.jpg`;
-    const r = await fetch(`${C.url}/storage/v1/object/reviews/${name}`, { method: 'POST', headers: { apikey: C.key, 'Content-Type': 'image/jpeg', 'cache-control': '31536000' }, body: blob });
-    if (!r.ok) throw new Error('upload ' + r.status + ' ' + (await r.text()));
+    let blob = await shrinkImg(f), type = 'image/jpeg', ext = 'jpg';
+    if (!blob) {
+      const t = (f.type || '').toLowerCase();
+      if (/^image\/(jpeg|png|webp)$/.test(t) && f.size <= 10 * 1024 * 1024) { blob = f; type = t; ext = t === 'image/png' ? 'png' : t === 'image/webp' ? 'webp' : 'jpg'; }
+      else throw new Error('decode ' + (t || f.name.split('.').pop()));
+    }
+    const name = `u/${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
+    const r = await fetch(`${C.url}/storage/v1/object/reviews/${name}`, { method: 'POST', headers: { apikey: C.key, 'Content-Type': type, 'cache-control': '31536000' }, body: blob });
+    if (!r.ok) throw new Error('upload ' + r.status + ' ' + (await r.text()).slice(0, 80));
     out.push(`${C.url}/storage/v1/object/public/reviews/${name}`);
   }
   return out;
@@ -628,7 +644,7 @@ $('#rform').addEventListener('submit',async e=>{
   if (rfiles.length && DB.on) {
     sbtn.disabled = true; sbtn.textContent = '사진 올리는 중…';
     try { photos = await uploadRph(); }
-    catch (x) { console.error(x); err.textContent = '사진을 올리지 못했습니다. 사진을 빼고 보내시거나 다른 사진으로 다시 시도해 주세요.'; err.hidden = false; return; }
+    catch (x) { console.error(x); err.textContent = '사진을 올리지 못했습니다. 사진을 빼고 보내시거나 다른 사진으로 다시 시도해 주세요. (오류: ' + String(x && x.message || x).slice(0, 70) + ')'; err.hidden = false; return; }
     finally { sbtn.disabled = false; sbtn.textContent = '후기 보내기'; }
   }
   DB.send('reviews', { course: $('#rc').value, name: $('#rn').value.trim(), phone: rp.value.trim(), stars: star, body: $('#rt').value.trim(), ...(photos.length ? { photos } : {}) },
