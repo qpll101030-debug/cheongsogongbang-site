@@ -599,19 +599,24 @@ let rfiles = [];
 const rph = $('#rph');
 function renderRph(){ $('#rphPrev').innerHTML = rfiles.map((f,i)=>`<span><img src="${URL.createObjectURL(f)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('em'),{textContent:'사진'}))"><button type="button" data-rm="${i}" aria-label="사진 빼기">×</button></span>`).join('') + (cvBusy ? '<small>사진 변환 중…</small>' : ''); }
 let cvBusy = 0, heicLib;
+const heicTimeout = (p, ms) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error('시간 초과')), ms))]);
 const isHeic = f => /image\/hei[cf]/i.test(f.type) || /\.hei[cf]$/i.test(f.name);
 function loadHeic(){ return heicLib || (heicLib = new Promise((ok, no) => { if (window.heic2any) return ok(window.heic2any); const s = document.createElement('script'); s.src = 'vendor-heic2any.min.js?v=1'; s.onload = () => window.heic2any ? ok(window.heic2any) : no(new Error('heic lib')); s.onerror = () => { heicLib = null; no(new Error('heic lib load')); }; document.head.appendChild(s); })); }
 async function toJpegIfHeic(f){
   if (!isHeic(f)) return f;
-  const h = await loadHeic(); let b = await h({ blob: f, toType: 'image/jpeg', quality: .85 }); if (Array.isArray(b)) b = b[0];
+  const h = await loadHeic(); let b = await heicTimeout(h({ blob: f, toType: 'image/jpeg', quality: .85 }), 45000); if (Array.isArray(b)) b = b[0];
   return new File([b], f.name.replace(/\.hei[cf]$/i, '') + '.jpg', { type: 'image/jpeg' });
 }
 async function addRph(inp){
   const picked = [...inp.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name)); inp.value = '';
-  cvBusy++; renderRph();
+  cvBusy++; $('#rerr').hidden = true; renderRph();
   for (const f of picked) {
     if (rfiles.length >= 3) break;
-    try { rfiles.push(await toJpegIfHeic(f)); } catch (x) { console.error(x); rfiles.push(f); }
+    try { rfiles.push(await toJpegIfHeic(f)); }
+    catch (x) {
+      console.error(x); const er = $('#rerr'), why = String(x && (x.message || x.code) || x).replace(/^.*?:\s*/, '').slice(0, 60);
+      er.textContent = `이 사진(${(f.size / 1048576).toFixed(1)}MB)은 변환되지 않아 첨부할 수 없습니다. 갤러리에서 같은 사진을 JPG로 저장하거나 스크린샷으로 찍어 다시 올려 주세요. (오류: ${why})`; er.hidden = false;
+    }
     renderRph();
   }
   cvBusy--; renderRph();
