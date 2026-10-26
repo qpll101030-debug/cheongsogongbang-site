@@ -73,7 +73,7 @@ const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...listUrls.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`)];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
-write('robots.txt', `#DaumWebMasterTool:f4889392d92099d9112012bd8d746494820257eff0eb447c6c320928f47618a2:vYXLWHUThEpl8+ynMNCRJQ==\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /_tpl\nDisallow: /ba-preview\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
+write('robots.txt', `#DaumWebMasterTool:f4889392d92099d9112012bd8d746494820257eff0eb447c6c320928f47618a2:vYXLWHUThEpl8+ynMNCRJQ==\n#AI 검색·답변 서비스의 로봇도 공개 페이지를 읽을 수 있게 허용\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /_tpl\nDisallow: /ba-preview\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이트맵 ${urls.length}주소`);
 
 // 4) Cloudflare Pages: 사이트 파일만 dist 폴더로 복사해 업로드
