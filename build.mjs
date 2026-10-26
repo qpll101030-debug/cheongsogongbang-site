@@ -79,7 +79,7 @@ console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이
 // 4) Cloudflare Pages: 사이트 파일만 dist 폴더로 복사해 업로드
 if (process.env.CF_PAGES || process.env.COPY_DIST) {
   const DIST = path.join(ROOT, 'dist');
-  const skip = new Set(['dist', '.git', 'node_modules', '.github', 'netlify.toml', 'build.mjs', '.node-version', 'README.md', 'scripts']);
+  const skip = new Set(['dist', '.git', 'node_modules', '.github', 'netlify.toml', 'build.mjs', '.node-version', 'README.md', 'scripts', 'functions']);
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   for (const n of fs.readdirSync(ROOT)) if (!skip.has(n)) fs.cpSync(path.join(ROOT, n), path.join(DIST, n), { recursive: true });
