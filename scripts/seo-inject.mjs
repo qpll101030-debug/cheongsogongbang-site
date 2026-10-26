@@ -7,8 +7,10 @@ const ORIGIN = 'https://cleanateliers.com';
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const txt = s => s.replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 
+// 공식 채널(같은 업체임을 검색엔진·AI에 알림). 새 채널이 생기면 여기에 추가 후 다시 실행
+const SAME_AS = ['https://blog.naver.com/bluebubble-', 'https://www.youtube.com/channel/UCsSqMHhPrbAaLTXdZmp8e-Q'];
 const ADDR = { '@type': 'PostalAddress', streetAddress: '갈매중앙로 190 휴벨나인 D존 6073호', addressLocality: '구리시', addressRegion: '경기도', addressCountry: 'KR' };
-const ORG = { '@type': 'LocalBusiness', '@id': ORIGIN + '/#business', name: '청소공방', url: ORIGIN + '/', telephone: '+82-10-8833-0999', address: ADDR, areaServed: ['서울', '경기'], image: ORIGIN + '/img/sofa_fabric.jpg' };
+const ORG = { '@type': 'LocalBusiness', '@id': ORIGIN + '/#business', name: '청소공방', url: ORIGIN + '/', telephone: '+82-10-8833-0999', address: ADDR, areaServed: ['서울', '경기'], image: ORIGIN + '/img/sofa_fabric.jpg', sameAs: SAME_AS };
 const PROVIDER = { '@type': 'EducationalOrganization', name: '청소공방 아카데미', url: ORIGIN + '/academy', telephone: '+82-10-8833-0999', address: ADDR };
 
 // slug → { img, ld(): 추가 구조화 데이터 }
