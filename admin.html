@@ -171,6 +171,16 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
 .prev{display:flex;flex-wrap:wrap;gap:6px}
 .prev img{width:64px;height:48px;object-fit:cover;border-radius:6px}
 
+
+.ed-bar{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border:1px solid #cdd6e3;border-bottom:0;border-radius:8px 8px 0 0;background:var(--bg)}
+.ed-bar button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 10px;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--ink)}
+.ed-bar button:hover{border-color:var(--blue);color:var(--blue)}
+.ed-body{min-height:340px;max-height:70vh;overflow:auto;border:1px solid #cdd6e3;border-radius:0 0 8px 8px;padding:14px 16px;font-size:16px;line-height:1.85;background:#fff}
+.ed-body:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.ed-body:empty:before{content:attr(data-ph);color:#9aa8bb}
+.ed-body img{max-width:100%;height:auto;border-radius:8px;display:block;margin:12px auto}
+.ed-body h2{font-size:22px;margin:18px 0 8px}.ed-body h3{font-size:18px;margin:14px 0 6px}
+.ed-body blockquote{margin:12px 0;padding:8px 14px;border-left:4px solid var(--mint);background:var(--bg)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;font-size:14px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.2);max-width:calc(100% - 32px)}
 .toast.err{background:var(--red)}
 
@@ -222,6 +232,7 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
       <button role="tab" data-v="rev">수료 후기 <span class="cnt" id="cRev" hidden></span></button>
       <button role="tab" data-v="post">공지·일정</button>
       <button role="tab" data-v="case">사례 글</button>
+      <button role="tab" data-v="blog">블로그</button>
       <button role="tab" data-v="gal">현장 갤러리</button>
       <button role="tab" data-v="visit">방문자</button>
       <button role="tab" data-v="ad">광고 키워드</button>
@@ -355,6 +366,36 @@ main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
       </div>
     </section>
 
+    <!-- 블로그 -->
+    <section data-view="blog" hidden>
+      <div class="vh"><h2>블로그</h2><a class="btn b-line b-sm" href="blog/" target="_blank" rel="noopener">홈페이지에서 보기</a></div>
+      <div class="split" style="grid-template-columns:minmax(0,760px) minmax(0,1fr)">
+        <form class="form" id="blogForm" novalidate>
+          <h3 id="bfTitle">새 글 쓰기</h3>
+          <label class="l">제목<input class="inp" id="bTitle" maxlength="100" placeholder="예: 벽걸이 에어컨 분해청소, 이 3가지만 알면 됩니다"></label>
+          <div class="row2">
+            <label class="l">분류<select class="inp" id="bCat"><option>에어컨</option><option>매트리스·소파</option><option>교육·창업</option><option>소식</option></select></label>
+            <label class="l">주소 이름 <small style="font-weight:400;color:var(--muted)">비우면 제목으로 자동</small><input class="inp" id="bSlug" maxlength="60" placeholder="예: 벽걸이-분해청소-방법"></label>
+          </div>
+          <label class="l">한 줄 요약 <small style="font-weight:400;color:var(--muted)">검색결과 설명문 (120자 안팎)</small><textarea class="inp" id="bSum" maxlength="200" style="min-height:64px"></textarea></label>
+          <div>
+            <div class="ed-bar" id="edBar">
+              <button type="button" data-c="h2">큰 제목</button><button type="button" data-c="h3">소제목</button><button type="button" data-c="p">본문</button>
+              <button type="button" data-c="bold"><b>굵게</b></button><button type="button" data-c="ul">• 목록</button><button type="button" data-c="ol">1. 목록</button>
+              <button type="button" data-c="quote">인용</button><button type="button" data-c="link">링크</button><button type="button" data-c="hr">구분선</button>
+              <button type="button" data-c="img">📷 사진 넣기</button><button type="button" data-c="clear">서식 지우기</button>
+            </div>
+            <div class="ed-body" id="bBody" contenteditable="true" data-ph="여기에 글을 쓰세요. 사진은 위의 '사진 넣기'로 원하는 위치에 넣을 수 있습니다."></div>
+            <input type="file" id="bFile" accept="image/*,.heic,.heif" multiple hidden>
+          </div>
+          <div class="acts"><label class="chk"><input type="checkbox" id="bPub" checked>홈페이지에 공개</label></div>
+          <p style="margin:0;font-size:12.5px;color:var(--muted)">첫 번째 사진이 목록의 대표 사진이 됩니다. 공개한 글은 홈페이지가 다시 만들어질 때(보통 몇 분 안) 나타납니다.</p>
+          <div class="acts"><button class="btn b-blue" type="submit" id="bSave" style="flex:1">저장</button><button class="btn b-line" type="button" id="bCancel" hidden>취소</button></div>
+        </form>
+        <div class="list" id="blogList"></div>
+      </div>
+    </section>
+
     <!-- 현장 갤러리 -->
     <section data-view="gal" hidden>
       <div class="vh"><h2>현장 갤러리</h2></div>
@@ -433,7 +474,7 @@ function memApi(){
     gallery: [['교육','천장형 1way 분해 실습','img/g_ceiling.jpg',true],['교육장','실습 기종이 설치된 교육장','img/hall.jpg',true],['장비','고압세척기·블로워 세팅','img/g_equip.jpg',false],['현장','가정 현장 벽걸이 분해세척','img/f_home.jpg',true],['가구 케어','패브릭 소파 추출 세척','img/k_sofa.jpg',true],['현장','오염된 송풍팬 분해','img/g_fan.jpg',false]]
       .map(([cat,title,src,on_main],i)=>({id:i+1,created_at:ago(400),cat,title,pills:['예시 태그'],src,sort:(i+1)*10,on_main,visible:true}))
   };
-  D.cases = []; let seq = 100; const tbl = t => D[t];
+  D.cases = []; D.blog_posts = []; let seq = 100; const tbl = t => D[t];
   return {
     list: async (t, o = {}) => { let r = tbl(t).filter(x => Object.entries(o.eq||{}).every(([k,v]) => x[k]===v)); for (const [k,asc] of [...(o.order||[])].reverse()) r = [...r].sort((a,b) => (a[k]>b[k]?1:a[k]<b[k]?-1:0) * (asc?1:-1)); return JSON.parse(JSON.stringify(o.limit ? r.slice(0,o.limit) : r)); },
     count: async (t, eq = {}, gte) => tbl(t).filter(x => Object.entries(eq).every(([k,v]) => x[k]===v) && (!gte || x[gte[0]] >= gte[1])).length,
@@ -517,7 +558,7 @@ async function badges(){
     return [a, b];
   } catch (e) { fail(e); return [0, 0]; }
 }
-function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, gal: loadGal, visit: loadVisit, ad: loadAd })[v]().catch(fail); }
+function load(v){ badges(); ({ home: loadHome, inq: loadInq, rev: loadRev, post: loadPosts, case: loadCases, blog: loadBlog, gal: loadGal, visit: loadVisit, ad: loadAd })[v]().catch(fail); }
 
 /* ---------- 요약 ---------- */
 const AD_NAME = { ac: '에어컨 교육', ms: '매트리스·소파 교육', rp: '에어컨 수리교육', edu: '청소 창업교육' };
@@ -718,6 +759,73 @@ $('#postForm').addEventListener('submit', async e => {
   $('#pSave').disabled = true;
   try { editPost ? await api.update('posts', editPost, row) : await api.insert('posts', row); toast(editPost ? '수정했습니다.' : '글을 올렸습니다.'); resetPost(); loadPosts(); }
   catch (er) { fail(er); } finally { $('#pSave').disabled = false; }
+});
+
+/* ---------- 블로그 ---------- */
+let blogAll = [], editBlog = null, bSel = null;
+async function loadBlog(){ blogAll = await api.list('blog_posts', { order: [['created_at', false]] }); renderBlog(); }
+function renderBlog(){
+  $('#blogList').innerHTML = blogAll.length ? blogAll.map(p => `
+    <div class="prow" data-id="${p.id}">
+      <span class="tag">${esc(p.category || '')}</span>
+      <div class="t"><b>${esc(p.title)}</b><small>${esc(fmt(p.created_at))}${p.published ? ` · 조회 ${p.views || 0}` : ' · <span class="tag g">비공개</span>'}</small></div>
+      <div class="acts" style="gap:6px"><button class="btn b-line b-sm" type="button" data-act="edit">수정</button><button class="btn b-red b-sm" type="button" data-act="del">삭제</button></div>
+    </div>`).join('') : '<div class="empty">아직 쓴 글이 없습니다. 왼쪽에서 첫 글을 써 보세요.</div>';
+}
+function resetBlog(){ editBlog = null; $('#blogForm').reset(); $('#bBody').innerHTML = ''; $('#bfTitle').textContent = '새 글 쓰기'; $('#bSave').textContent = '저장'; $('#bCancel').hidden = true; }
+const bSaveSel = () => { const s = getSelection(); if (s.rangeCount && $('#bBody').contains(s.anchorNode)) bSel = s.getRangeAt(0).cloneRange(); };
+$('#bBody').addEventListener('keyup', bSaveSel); $('#bBody').addEventListener('mouseup', bSaveSel); $('#bBody').addEventListener('blur', bSaveSel);
+$('#bBody').addEventListener('paste', e => { e.preventDefault(); const t = (e.clipboardData || window.clipboardData).getData('text/plain'); document.execCommand('insertText', false, t); });
+function bRestore(){ $('#bBody').focus(); if (bSel) { const s = getSelection(); s.removeAllRanges(); s.addRange(bSel); } }
+$('#edBar').addEventListener('mousedown', e => { if (e.target.closest('button')) e.preventDefault(); });
+$('#edBar').addEventListener('click', e => {
+  const b = e.target.closest('[data-c]'); if (!b) return; const c = b.dataset.c; bRestore();
+  const x = (cmd, v) => document.execCommand(cmd, false, v);
+  if (c === 'h2' || c === 'h3' || c === 'p') x('formatBlock', c);
+  else if (c === 'bold') x('bold'); else if (c === 'ul') x('insertUnorderedList'); else if (c === 'ol') x('insertOrderedList');
+  else if (c === 'quote') x('formatBlock', 'blockquote'); else if (c === 'hr') x('insertHorizontalRule');
+  else if (c === 'clear') { x('removeFormat'); x('formatBlock', 'p'); }
+  else if (c === 'link') { const u = prompt('연결할 주소(https://...)를 넣어 주세요.'); if (u && /^(https?:\/\/|tel:)/i.test(u.trim())) x('createLink', u.trim()); }
+  else if (c === 'img') $('#bFile').click();
+  bSaveSel();
+});
+$('#bFile').addEventListener('change', async e => {
+  const fs = [...e.target.files]; e.target.value = ''; if (!fs.length) return;
+  const btn = $('#bSave'); btn.disabled = true;
+  try {
+    for (let i = 0; i < fs.length; i++) {
+      btn.textContent = `사진 올리는 중… (${i + 1}/${fs.length})`;
+      const url = await api.upload(await shrink(fs[i]));
+      bRestore(); document.execCommand('insertHTML', false, `<figure><img src="${url}" alt=""></figure><p><br></p>`); bSaveSel();
+    }
+  } catch (er) { fail(er); } finally { btn.disabled = false; btn.textContent = editBlog ? '수정 저장' : '저장'; }
+});
+const bSlugify = t => String(t || '').trim().toLowerCase().replace(/[^0-9a-z가-힣\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+$('#blogList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = +b.closest('[data-id]').dataset.id, p = blogAll.find(x => x.id === id);
+  if (b.dataset.act === 'edit') {
+    editBlog = id; $('#bTitle').value = p.title; $('#bCat').value = p.category || '에어컨'; $('#bSlug').value = p.slug; $('#bSum').value = p.summary || ''; $('#bBody').innerHTML = p.body_html || ''; $('#bPub').checked = p.published;
+    $('#bfTitle').textContent = '글 수정'; $('#bSave').textContent = '수정 저장'; $('#bCancel').hidden = false; $('#blogForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    if (!confirm('이 글을 삭제할까요?')) return;
+    try { await api.remove('blog_posts', id); toast('삭제했습니다.'); if (editBlog === id) resetBlog(); loadBlog(); } catch (er) { fail(er); }
+  }
+});
+$('#bCancel').onclick = resetBlog;
+$('#blogForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const title = $('#bTitle').value.trim(), html = $('#bBody').innerHTML.trim();
+  if (!title) return toast('제목을 입력해 주세요.', true);
+  if (!$('#bBody').textContent.trim() && !$('#bBody').querySelector('img')) return toast('내용을 써 주세요.', true);
+  let slug = bSlugify($('#bSlug').value) || bSlugify(title) || ('post-' + Date.now().toString(36));
+  const taken = s => blogAll.some(x => x.slug === s && x.id !== editBlog);
+  if (taken(slug)) { let n = 2; while (taken(slug + '-' + n)) n++; slug += '-' + n; }
+  const m = html.match(/<img[^>]+src="([^"]+)"/i);
+  const row = { title, slug, category: $('#bCat').value, summary: $('#bSum').value.trim() || null, body_html: html, cover_url: m ? m[1] : null, published: $('#bPub').checked, updated_at: new Date().toISOString() };
+  $('#bSave').disabled = true;
+  try { editBlog ? await api.update('blog_posts', editBlog, row) : await api.insert('blog_posts', row); toast(editBlog ? '수정했습니다.' : '글을 올렸습니다.'); resetBlog(); loadBlog(); }
+  catch (er) { fail(er); } finally { $('#bSave').disabled = false; }
 });
 
 /* ---------- 현장 갤러리 ---------- */

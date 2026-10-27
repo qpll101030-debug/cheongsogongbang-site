@@ -67,11 +67,35 @@ for (const [cat, list] of groups) {
   }
 }
 
+
+// 2-2) 블로그 (blog_posts 표가 아직 없거나 글이 없어도 빌드는 계속됨)
+const B = createRequire(import.meta.url)('./blog-render.js');
+let blogRows = [];
+try { blogRows = (await sb('blog_posts?select=*&published=eq.true&order=created_at.desc&limit=1000')).filter(r => r.slug); }
+catch (e) { console.log('블로그 건너뜀:', String(e.message).slice(0, 120)); }
+console.log(`공개된 블로그 글 ${blogRows.length}개`);
+const blogUrls = [];
+for (const r of blogRows) {
+  const meta = B.postMeta(r, ORIGIN); meta.scripts = '';
+  write(`blog/${r.slug}/index.html`, R.fill(tpl, meta, B.postHTML(r, blogRows.filter(x => x.slug !== r.slug))));
+  blogUrls.push({ loc: B.path(r.slug), mod: r.updated_at || r.created_at });
+}
+{
+  const pages = Math.max(1, Math.ceil(blogRows.length / B.PER_PAGE));
+  for (let p = 1; p <= pages; p++) {
+    const slice = blogRows.slice((p - 1) * B.PER_PAGE, p * B.PER_PAGE);
+    write(B.listPath(p).replace(/^\//, '') + 'index.html', R.fill(tpl, B.listMeta({ page: p }, ORIGIN), B.listHTML(slice, { page: p, total: blogRows.length })));
+    blogUrls.push({ loc: B.listPath(p) });
+  }
+  write('blog/feed.xml', B.feed(blogRows, ORIGIN));
+}
+
 // 3) 사이트맵, robots.txt
 const stat = ['/', '/course-regular', '/course-1on1', '/course-repair', '/service-aircon', '/course-mattress', '/academy', '/gallery', '/reviews', '/notice', '/consult', '/license'];
 const urls = [...stat.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
   ...listUrls.map(s => `<url><loc>${ORIGIN}${s}</loc></url>`),
-  ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`)];
+  ...rows.map(r => `<url><loc>${ORIGIN}${R.path(r.slug)}</loc><lastmod>${new Date(r.updated_at || r.created_at).toISOString()}</lastmod></url>`),
+  ...blogUrls.map(b => `<url><loc>${ORIGIN}${b.loc}</loc>${b.mod ? `<lastmod>${new Date(b.mod).toISOString()}</lastmod>` : ''}</url>`)];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
 write('robots.txt', `#DaumWebMasterTool:f4889392d92099d9112012bd8d746494820257eff0eb447c6c320928f47618a2:vYXLWHUThEpl8+ynMNCRJQ==\n#AI 검색·답변 서비스의 로봇도 공개 페이지를 읽을 수 있게 허용\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /_tpl\nDisallow: /ba-preview\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이트맵 ${urls.length}주소`);
@@ -79,7 +103,7 @@ console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이
 // 4) Cloudflare Pages: 사이트 파일만 dist 폴더로 복사해 업로드
 if (process.env.CF_PAGES || process.env.COPY_DIST) {
   const DIST = path.join(ROOT, 'dist');
-  const skip = new Set(['dist', '.git', 'node_modules', '.github', 'netlify.toml', 'build.mjs', '.node-version', 'README.md', 'scripts', 'functions']);
+  const skip = new Set(['dist', '.git', 'node_modules', '.github', 'netlify.toml', 'build.mjs', '.node-version', 'README.md', 'scripts', 'functions', 'sql']);
   fs.rmSync(DIST, { recursive: true, force: true });
   fs.mkdirSync(DIST, { recursive: true });
   for (const n of fs.readdirSync(ROOT)) if (!skip.has(n)) fs.cpSync(path.join(ROOT, n), path.join(DIST, n), { recursive: true });
