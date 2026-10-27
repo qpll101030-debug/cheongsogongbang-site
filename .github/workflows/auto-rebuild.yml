@@ -1,0 +1,31 @@
+name: 새 글 자동 반영
+on:
+  schedule:
+    - cron: '*/20 * * * *'   # 20분마다 새 글이 있는지 확인
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - name: 글이 바뀌었는지 확인
+        id: s
+        run: |
+          NEW=$(node scripts/content-stamp.mjs)
+          OLD=$(cat scripts/.last-content-stamp 2>/dev/null || echo none)
+          echo "new=$NEW old=$OLD"
+          if [ "$NEW" != "$OLD" ]; then echo "$NEW" > scripts/.last-content-stamp; echo "changed=1" >> "$GITHUB_OUTPUT"; fi
+      - name: 바뀌었으면 기록을 남겨 홈페이지를 다시 만들게 함
+        if: steps.s.outputs.changed == '1'
+        run: |
+          git config user.name "auto-rebuild"
+          git config user.email "auto-rebuild@users.noreply.github.com"
+          git add scripts/.last-content-stamp
+          git commit -m "새 글 반영을 위한 자동 재배포" 
+          git push origin main

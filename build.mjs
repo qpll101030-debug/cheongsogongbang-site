@@ -109,3 +109,16 @@ if (process.env.CF_PAGES || process.env.COPY_DIST) {
   for (const n of fs.readdirSync(ROOT)) if (!skip.has(n)) fs.cpSync(path.join(ROOT, n), path.join(DIST, n), { recursive: true });
   console.log('dist 복사 완료');
 }
+
+// 5) IndexNow: 새로 만든 글 주소를 네이버·빙 등에 바로 알림 (Cloudflare 빌드 때만, 실패해도 배포는 계속)
+if (process.env.CF_PAGES) {
+  const KEY = '8da3117aa0ca175123bb8824d700d069';
+  const urlList = [...new Set([`${ORIGIN}/blog/`, ...blogUrls.map(b => ORIGIN + b.loc), ...rows.map(r => ORIGIN + R.path(r.slug)), `${ORIGIN}/cases/`])].slice(0, 9000);
+  const body = JSON.stringify({ host: new URL(ORIGIN).host, key: KEY, keyLocation: `${ORIGIN}/${KEY}.txt`, urlList });
+  for (const ep of ['https://api.indexnow.org/indexnow', 'https://searchadvisor.naver.com/indexnow']) {
+    try {
+      const r = await fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json; charset=utf-8' }, body, signal: AbortSignal.timeout(15000) });
+      console.log('IndexNow', ep, r.status);
+    } catch (e) { console.log('IndexNow 건너뜀', ep, String(e.message).slice(0, 80)); }
+  }
+}
