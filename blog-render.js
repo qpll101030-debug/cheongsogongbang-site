@@ -95,8 +95,11 @@ function postMeta(r, origin) {
 const listMeta = (o, origin) => ({ title: `청소공방 블로그${o.page > 1 ? ' ' + o.page + '페이지' : ''} | ${SITE}`, desc: '에어컨·매트리스·소파 청소 노하우와 교육·창업 이야기를 청소공방이 직접 정리해 올립니다.', canonical: origin + listPath(o.page || 1), image: '', ld: '' });
 
 function feed(rows, origin) {
-  const items = rows.slice(0, 30).map(r => `<item><title>${esc(r.title)}</title><link>${origin}${path(r.slug)}</link><guid>${origin}${path(r.slug)}</guid><pubDate>${new Date(r.created_at).toUTCString()}</pubDate><description>${esc(plain(r.summary || r.body_html, 200))}</description></item>`).join('');
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>청소공방 블로그</title><link>${origin}/blog/</link><description>에어컨·매트리스·소파 청소 노하우와 교육·창업 이야기</description><language>ko</language>${items}</channel></rss>\n`;
+  const abs = x => /^https?:\/\//i.test(x) ? x : origin + (x[0] === '/' ? '' : '/') + x;
+  const body = h => clean(h).replace(/(<img[^>]+src=")([^"]+)"/gi, (m, a, u) => a + esc(abs(u)) + '"').replace(/(<a[^>]+href=")(\/[^"]*)"/gi, (m, a, u) => a + esc(origin + u) + '"').replace(/]]>/g, ']]&gt;');
+  const items = rows.slice(0, 30).map(r => `<item><title>${esc(r.title)}</title><link>${origin}${path(r.slug)}</link><guid isPermaLink="true">${origin}${path(r.slug)}</guid><pubDate>${new Date(r.created_at).toUTCString()}</pubDate>${r.category ? `<category>${esc(r.category)}</category>` : ''}<description>${esc(plain(r.summary || r.body_html, 200))}</description><content:encoded><![CDATA[${body(r.body_html)}]]></content:encoded></item>`).join('');
+  const last = rows.length ? new Date(rows[0].updated_at || rows[0].created_at).toUTCString() : new Date().toUTCString();
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>청소공방 블로그</title><link>${origin}/blog/</link><atom:link href="${origin}/blog/feed.xml" rel="self" type="application/rss+xml"/><description>에어컨·매트리스·소파 청소 노하우와 교육·창업 이야기</description><language>ko</language><lastBuildDate>${last}</lastBuildDate>${items}</channel></rss>\n`;
 }
 
 module.exports = { clean, path, listPath, card, listHTML, postHTML, postMeta, listMeta, feed, PER_PAGE, CSS };
