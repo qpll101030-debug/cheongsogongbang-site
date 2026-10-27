@@ -1,7 +1,7 @@
 name: 새 글 자동 반영
 on:
   schedule:
-    - cron: '*/20 * * * *'   # 20분마다 새 글이 있는지 확인
+    - cron: '0 21 * * *'   # 매일 한국시간 아침 6시에 새 글이 있는지 확인
   workflow_dispatch: {}
 permissions:
   contents: write
