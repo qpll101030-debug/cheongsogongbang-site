@@ -46,7 +46,7 @@ window.SITE_CFG = {
   }
 
   // 화면 조각 (메인·상세 페이지 공용)
-  const newsLi = p => `<li><span><span class="c">[${esc(p.cat)}]</span><a href="notice.html#p${p.id}" style="text-decoration:none;color:inherit">${esc(p.title)}</a></span><time>${esc(p.date)}</time></li>`;
+  const newsLi = p => `<li><span><span class="c">[${esc(p.cat)}]</span><a href="notice#p${p.id}" style="text-decoration:none;color:inherit">${esc(p.title)}</a></span><time>${esc(p.date)}</time></li>`;
   const reviewCard = r => `<article class="pr">${(r.photos || []).length ? `<div class="rv-ph-wrap"><div class="rv-ph">${r.photos.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="후기 사진" loading="lazy"></a>`).join('')}</div>${r.photos.length > 1 ? `<div class="rv-dots" aria-hidden="true">${r.photos.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</div>` : ''}</div>` : ''}<div class="stars" style="color:#f5b301;letter-spacing:2px">${'★'.repeat(r.stars)}${'<span style="color:#d5dce6">★</span>'.repeat(5 - r.stars)}</div><p class="rv-tx">${esc(r.body)}</p><button type="button" class="rv-more" hidden aria-expanded="false">더보기</button><b style="font-size:14px;color:var(--ink)">${esc(r.name)} · ${esc(r.course)}</b></article>`;
 
   window.DB = { on, get, add, send, esc, newsLi, reviewCard };
