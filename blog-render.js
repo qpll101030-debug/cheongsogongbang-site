@@ -72,7 +72,7 @@ function postHTML(r, related) {
 <div class="cx-meta"><time datetime="${esc(new Date(r.created_at).toISOString())}" itemprop="datePublished">${esc(C.fmtDate(r.created_at))}</time><span>청소공방</span></div></header>
 <div class="bl-body" itemprop="articleBody">${clean(r.body_html)}</div>
 <section class="cx-cta"><h2>청소·교육 상담이 필요하신가요?</h2><p>사진만 보내 주시면 상태를 보고 안내해 드립니다.</p>
-<div class="acts"><a class="btn btn-mint" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡 문의</a><a class="btn btn-line" href="/consult.html">교육 상담 신청</a><a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
+<div class="acts"><a class="btn btn-mint" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡 문의</a><a class="btn btn-line" href="/consult">교육 상담 신청</a><a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
 ${rel.length ? `<section class="cx-rel"><h2>다른 글</h2><div class="cx-grid">${rel.map(card).join('')}</div></section>` : ''}
 </article>`;
 }

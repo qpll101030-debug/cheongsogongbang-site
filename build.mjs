@@ -100,6 +100,19 @@ write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="htt
 write('robots.txt', `#DaumWebMasterTool:f4889392d92099d9112012bd8d746494820257eff0eb447c6c320928f47618a2:vYXLWHUThEpl8+ynMNCRJQ==\n#AI 검색·답변 서비스의 로봇도 공개 페이지를 읽을 수 있게 허용\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: ChatGPT-User\nAllow: /\n\nUser-agent: ClaudeBot\nAllow: /\n\nUser-agent: Claude-SearchBot\nAllow: /\n\nUser-agent: PerplexityBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nUser-agent: Applebot-Extended\nAllow: /\n\nUser-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /_tpl\nDisallow: /ba-preview\n\nSitemap: ${ORIGIN}/sitemap.xml\n`);
 console.log(`완료: 글 ${rows.length}개, 목록 ${listUrls.length}쪽, 사이트맵 ${urls.length}주소`);
 
+// 3.5) 승인된 후기를 reviews.html에 미리 넣기 (로봇이 자바스크립트 없이도 후기를 읽도록). 실패해도 배포는 계속
+try {
+  const win = { SITE_CFG: {} };
+  new Function('window', fs.readFileSync(path.join(ROOT, 'data.js'), 'utf8'))(win);
+  const rv = await sb('public_reviews?select=*&order=created_at.desc');
+  const f = path.join(ROOT, 'reviews.html');
+  const h = fs.readFileSync(f, 'utf8');
+  if (rv.length && h.includes('<!--RV-->')) {
+    fs.writeFileSync(f, h.replace(/<!--RV-->[\s\S]*?<!--\/RV-->/, () => `<!--RV--><div class="rv-grid">${rv.map(win.DB.reviewCard).join('')}</div><!--/RV-->`));
+    console.log(`후기 ${rv.length}개 미리 넣음`);
+  }
+} catch (e) { console.log('후기 미리 넣기 건너뜀', String(e.message).slice(0, 120)); }
+
 // 4) Cloudflare Pages: 사이트 파일만 dist 폴더로 복사해 업로드
 if (process.env.CF_PAGES || process.env.COPY_DIST) {
   const DIST = path.join(ROOT, 'dist');

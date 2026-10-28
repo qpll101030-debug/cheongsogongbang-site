@@ -156,7 +156,7 @@ ${r.caution ? `<section class="cx-sec"><h2>관리 시 주의사항</h2><div clas
 ${faq.length ? `<section class="cx-sec cx-faq"><h2>자주 묻는 질문</h2>${faq.map(f => `<details><summary>Q. ${esc(f.q)}</summary><p>A. ${esc(f.a)}</p></details>`).join('')}</section>` : ''}
 ${url(r.blog_url) ? `<p style="margin-top:28px"><a class="btn btn-line" href="${url(r.blog_url)}" target="_blank" rel="noopener">네이버 블로그 작업 기록·추가 사진 보기</a></p>` : ''}
 <section class="cx-cta"><h2>${r.category === '교육' ? '직접 배워서 시작해 보세요' : '비슷한 고민이 있으신가요?'}</h2><p>${r.category === '교육' ? '최대 4인 소수정예, 현장 장비 전부로 직접 실습합니다.' : '사진만 보내 주시면 상태를 보고 안내해 드립니다.'}</p>
-<div class="acts">${r.category === '교육' ? `<a class="btn btn-mint" href="/consult.html">교육 상담 신청</a><a class="btn btn-line" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡</a>` : `<a class="btn btn-mint" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡으로 청소 예약</a>`}<a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
+<div class="acts">${r.category === '교육' ? `<a class="btn btn-mint" href="/consult">교육 상담 신청</a><a class="btn btn-line" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡</a>` : `<a class="btn btn-mint" href="${TALK}" target="_blank" rel="noopener">네이버 톡톡으로 청소 예약</a>`}<a class="btn btn-line" href="tel:${TEL.replace(/-/g, '')}">${TEL}</a></div></section>
 ${rel.length ? `<section class="cx-rel"><h2>관련 사례</h2><div class="cx-grid">${rel.map(card).join('')}</div></section>` : ''}
 </article>`;
   }
@@ -212,7 +212,7 @@ ${pg}
   }
   function listMeta(o, origin) {
     const name = o.cat ? o.cat + ' 사례' : '청소공방 사례';
-    return { title: `${name}${o.page > 1 ? ' ' + o.page + '페이지' : ''} | ${SITE}`, desc: '청소공방의 에어컨·매트리스·소파 청소 작업 사례와 교육 현장 기록. 작업 전·후 사진을 직접 비교해 보세요.', canonical: origin + listPath(o.cat || '', o.page || 1), image: '', ld: '' };
+    return { title: `${name}${o.page > 1 ? ' ' + o.page + '페이지' : ''} | ${SITE}`, desc: ({'매트리스·소파':'구리 청소공방의 매트리스·소파 청소 작업 사례. 원단과 오염 상태에 맞춘 작업 전·후 사진을 직접 비교해 보세요.','에어컨':'구리 청소공방의 에어컨 분해 세척 작업 사례. 벽걸이·스탠드·시스템 에어컨의 작업 전·후 사진을 확인해 보세요.','교육':'청소공방 아카데미의 에어컨·매트리스·소파 청소 교육 현장 기록과 수강 사례를 확인해 보세요.'}[o.cat] || '청소공방의 에어컨·매트리스·소파 청소 작업 사례와 교육 현장 기록. 작업 전·후 사진을 직접 비교해 보세요.'), canonical: origin + listPath(o.cat || '', o.page || 1), image: '', ld: '' };
   }
 
   function viewScript(slug) {

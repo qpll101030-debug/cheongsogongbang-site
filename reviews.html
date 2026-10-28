@@ -507,7 +507,7 @@ footer{background:#081a33;color:rgba(255,255,255,.62);font-size:13.5px;padding-b
 
 <section class="d-sec" style="padding-top:40px"><div class="wrap">
   <div class="chips2" id="rf" role="group" aria-label="과정"></div>
-  <div id="rvList"></div>
+  <div id="rvList"><!--RV--><!--/RV--></div>
 </div></section>
 <section class="d-sec alt" id="write"><div class="wrap rv-write">
   <div>
@@ -593,7 +593,7 @@ function renderRv(){
 }
 $('#rf').innerHTML = rcats.map(c=>`<button type="button" aria-pressed="${c===rcur}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
 $('#rf').addEventListener('click',e=>{const b=e.target.closest('[data-c]'); if(!b) return; rcur=b.dataset.c; document.querySelectorAll('#rf button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c===rcur)); renderRv();});
-renderRv();
+if(!$('#rvList').children.length) renderRv();
 if (DB.on) DB.get('public_reviews?select=*&order=created_at.desc').then(l=>{ REVIEWS=l; renderRv(); }).catch(console.error);
 $('#rc').innerHTML = COURSES.filter(c=>c.status==='open').map(c=>`<option>${esc(c.title)}</option>`).join('');
 let star=5;
