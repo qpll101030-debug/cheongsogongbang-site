@@ -727,7 +727,7 @@ let GALLERY = [
   // 퀵메뉴 상담 팝업
 
   // 상담 폼
-  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
+  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>무료 에어컨청소 체험교육</option>';
   const ph = $('#ph');
   ph.addEventListener('input', () => { const d = ph.value.replace(/\D/g,'').slice(0,11); ph.value = d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`; });
   $('#form').addEventListener('submit', e => {

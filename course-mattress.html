@@ -595,7 +595,7 @@ const THIS = "매트리스·소파 청소교육";
   $('#mnavIn').innerHTML = `<a href="academy#courses">교육과정</a><div class="sub">${COURSES.map(c=>`<a href="${c.url}">${esc(c.title)}</a>`).join('')}</div><a href="cases/">사례</a><div class="sub"><a href="cases/">작업·교육 사례</a><a href="gallery">현장 갤러리</a></div><a href="reviews">수료 후기</a><a href="notice">공지·일정</a><a href="consult#clean">케어서비스</a><a href="consult">상담 신청</a>`;
   $('#ftCourses').innerHTML = COURSES.map(c => `<li><a href="${c.url}">${esc(c.title)}</a></li>`).join('');
   $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('#mnav').hidden = !o; $('#menuBtn').setAttribute('aria-expanded', o); });
-  $('#course').innerHTML = COURSES.map(c => `<option ${c.title===THIS?'selected':''}>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
+  $('#course').innerHTML = COURSES.map(c => `<option ${c.title===THIS?'selected':''}>${esc(c.title)}${c.status==='soon'?' (오픈 알림)':''}</option>`).join('') + '<option>무료 에어컨청소 체험교육</option>';
   const ph = $('#ph');
   ph.addEventListener('input', () => { const d = ph.value.replace(/\D/g,'').slice(0,11); ph.value = d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`; });
   $('#form').addEventListener('submit', e => {

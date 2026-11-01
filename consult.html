@@ -673,7 +673,7 @@ $('#menuBtn').addEventListener('click', () => { const o = $('#mnav').hidden; $('
 $('#mnav').addEventListener('click', e => { if (e.target.tagName==='A') { $('#mnav').hidden = true; } });
 
 
-$('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
+$('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}</option>`).join('') + '<option>무료 에어컨청소 체험교육</option>';
 const modeOf = () => (document.querySelector('input[name="mode"]:checked')||{}).value || 'edu';
 function setMode(m){
   document.querySelector(`input[name="mode"][value="${m}"]`).checked = true;

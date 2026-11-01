@@ -598,7 +598,7 @@ const COURSES = [{"cat": "매트리스·소파", "title": "매트리스·소파 
   function mode(clean){ $('#mClean').setAttribute('aria-pressed', clean); $('#mEdu').setAttribute('aria-pressed', !clean); $('#pClean').hidden = !clean; $('#pEdu').hidden = clean; }
   $('#mClean').addEventListener('click', () => mode(true));
   $('#mEdu').addEventListener('click', () => mode(false));
-  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}</option>`).join('') + '<option>아직 잘 모르겠어요</option>';
+  $('#course').innerHTML = COURSES.map(c => `<option>${esc(c.title)}</option>`).join('') + '<option>무료 에어컨청소 체험교육</option>';
   const ph = $('#ph');
   ph.addEventListener('input', () => { const d = ph.value.replace(/\D/g,'').slice(0,11); ph.value = d.length<4?d:d.length<8?`${d.slice(0,3)}-${d.slice(3)}`:`${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}`; });
   $('#pEdu').addEventListener('submit', e => {
