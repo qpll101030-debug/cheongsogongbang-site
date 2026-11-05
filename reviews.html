@@ -595,7 +595,7 @@ $('#rf').innerHTML = rcats.map(c=>`<button type="button" aria-pressed="${c===rcu
 $('#rf').addEventListener('click',e=>{const b=e.target.closest('[data-c]'); if(!b) return; rcur=b.dataset.c; document.querySelectorAll('#rf button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c===rcur)); renderRv();});
 if(!$('#rvList').children.length) renderRv();
 if (DB.on) DB.get('public_reviews?select=*&order=created_at.desc').then(l=>{ REVIEWS=l; renderRv(); }).catch(console.error);
-$('#rc').innerHTML = COURSES.filter(c=>c.status==='open').map(c=>`<option>${esc(c.title)}</option>`).join('');
+$('#rc').innerHTML = COURSES.filter(c=>c.status==='open').map(c=>`<option>${esc(c.title)}</option>`).join('') + '<option>무료 에어컨청소 체험교육</option>';
 let star=5;
 function renderStars(){ $('#stars').innerHTML=[1,2,3,4,5].map(n=>`<button type="button" aria-label="${n}점" aria-pressed="${n<=star}" data-s="${n}">★</button>`).join(''); }
 $('#stars').addEventListener('click',e=>{const b=e.target.closest('[data-s]'); if(!b) return; star=+b.dataset.s; renderStars();});
