@@ -24,7 +24,8 @@ export async function onRequest(context) {
   let setCookie = '';
   let tracking = false;
   try {
-    const isPage = request.method === 'GET' && (request.headers.get('Accept') || '').includes('text/html');
+    const isAsset = /\.(?!html$)[a-z0-9]{2,5}$/i.test(url.pathname);
+    const isPage = request.method === 'GET' && !isAsset;
     if (isPage && env.DB && !url.pathname.startsWith('/api/')) {
       const hasAd = NAVER_PARAMS.some((k) => url.searchParams.has(k));
       const vid = getCookie(request, COOKIE);
