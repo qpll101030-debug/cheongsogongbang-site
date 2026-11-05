@@ -1,6 +1,7 @@
 // 1) www.cleanateliers.com → cleanateliers.com 영구 이동(301)
 // 2) 네이버 파워링크 광고 방문(자동 추적 파라미터 n_* 가 붙은 방문)만 D1에 기록
 //    오류가 나도 사이트는 항상 그대로 열리게 합니다.
+import { ensureTable } from './_lib/adtable.js';
 const NAVER_PARAMS = ['n_media', 'n_query', 'n_rank', 'n_ad_group', 'n_ad', 'n_keyword_id', 'n_keyword', 'n_campaign_type', 'n_contract'];
 const COOKIE = 'cg_vid';
 
@@ -33,7 +34,7 @@ export async function onRequest(context) {
         const now = Date.now();
         const p = (k) => (url.searchParams.get(k) || '').slice(0, 200);
         context.waitUntil(
-          env.DB.prepare(
+          ensureTable(env.DB).then(() => env.DB.prepare(
             'INSERT INTO ad_visits (id, ts, ip, country, region, city, ua, device, keyword, rank, media, landing, pages, dwell_sec, last_ts) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,1,NULL,?)'
           ).bind(
             id, now,
@@ -43,7 +44,7 @@ export async function onRequest(context) {
             /Mobi|Android|iPhone/i.test(request.headers.get('User-Agent') || '') ? 'mobile' : 'pc',
             p('n_keyword') || p('n_query'), p('n_rank'), p('n_media'),
             (url.pathname + url.search).slice(0, 500), now
-          ).run().catch(() => {})
+          ).run()).catch(() => {})
         );
         setCookie = `${COOKIE}=${id}; Path=/; Max-Age=1800; SameSite=Lax; Secure`;
         tracking = true;

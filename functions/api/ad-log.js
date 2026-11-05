@@ -1,5 +1,6 @@
 // 날짜별 광고 방문 기록 + 의심 패턴 분석. 비밀키(AD_LOG_KEY)가 있어야만 열립니다.
 // 사용: /api/ad-log?date=2026-11-05  (헤더 Authorization: Bearer 비밀키 권장, ?key= 도 가능)
+import { ensureTable } from '../_lib/adtable.js';
 const j = (o, s = 200) => new Response(JSON.stringify(o, null, 1), { status: s, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' } });
 const same = (a, b) => { if (a.length !== b.length) return false; let r = 0; for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i); return r === 0; };
 const kstHour = (ts) => new Date(ts + 9 * 3600e3).getUTCHours();
@@ -12,6 +13,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.AD_LOG_KEY || !same(key, env.AD_LOG_KEY)) return j({ error: 'unauthorized' }, 401);
   if (!env.DB) return j({ error: 'D1 binding(DB) missing' }, 500);
 
+  await ensureTable(env.DB);
   const date = url.searchParams.get('date') || kstStr(Date.now()).slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return j({ error: 'date=YYYY-MM-DD' }, 400);
   const start = Date.parse(date + 'T00:00:00+09:00'), end = start + 86400e3;
