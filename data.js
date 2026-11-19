@@ -35,6 +35,7 @@ window.SITE_CFG = {
     const label = btn.textContent; btn.disabled = true; btn.textContent = '보내는 중…';
     try {
       await add(table, row);
+      if (table === 'inquiries') { try { navigator.sendBeacon('/api/lead-trace', JSON.stringify({ name: row.name, phone: row.phone, source: row.source || row.course || '', page: location.pathname, ref: document.referrer })); } catch (_) {} }
       msg.textContent = ok; msg.classList.add('ok'); msg.hidden = false;
       form && form.reset();
       return true;

@@ -21,7 +21,7 @@ export async function onRequest(context) {
     }
   } catch (e) { return context.next(); }
 
-  let setCookie = '';
+  let setCookie = '', setCookie2 = '';
   let tracking = false;
   try {
     const isAsset = /\.(?!html$)[a-z0-9]{2,5}$/i.test(url.pathname);
@@ -48,6 +48,7 @@ export async function onRequest(context) {
           ).run()).catch(() => {})
         );
         setCookie = `${COOKIE}=${id}; Path=/; Max-Age=1800; SameSite=Lax; Secure`;
+        setCookie2 = `cg_ad=${id}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`; // 상담 신청 때 어떤 광고 방문이었는지 잇기 위한 30일 표식
         tracking = true;
       } else if (vid) {
         context.waitUntil(
@@ -63,6 +64,7 @@ export async function onRequest(context) {
     if (!tracking || !(res.headers.get('Content-Type') || '').includes('text/html')) return res;
     const out = new Response(res.body, res);
     if (setCookie) out.headers.append('Set-Cookie', setCookie);
+    if (setCookie2) out.headers.append('Set-Cookie', setCookie2);
     return new HTMLRewriter()
       .on('body', { element(el) { el.append('<script src="/ad-track.js" defer></script>', { html: true }); } })
       .transform(out);

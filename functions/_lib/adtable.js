@@ -8,3 +8,13 @@ export function ensureTable(db) {
   ]).catch((e) => { ready = null; throw e; });
   return ready;
 }
+
+// 상담 신청과 접속 경로를 잇는 표 (이름·번호 뒷4자리·IP·광고 방문 번호만 저장)
+let leadReady = null;
+export function ensureLeadTable(db) {
+  if (!leadReady) leadReady = db.batch([
+    db.prepare("CREATE TABLE IF NOT EXISTS lead_trace (id TEXT PRIMARY KEY, ts INTEGER NOT NULL, name TEXT, phone4 TEXT, source TEXT, page TEXT, referrer TEXT, ip TEXT, region TEXT, device TEXT, ua TEXT, vid TEXT)"),
+    db.prepare("CREATE INDEX IF NOT EXISTS idx_lead_trace_ts ON lead_trace(ts)"),
+  ]).catch((e) => { leadReady = null; throw e; });
+  return leadReady;
+}
